@@ -40,7 +40,7 @@
 - [x] **Task 3.1: Implement `ProjectsCubit` & `ProjectsState`**
   - Location: `lib/features/projects/presentation/bloc/`
   - Manage loading projects, filtering by tag/category, and selecting project details
-- [ ] **Task 3.2: Implement `VideoPlayerCubit` & `VideoPlayerState`**
+- [x] **Task 3.2: Implement `VideoPlayerCubit` & `VideoPlayerState`**
   - Location: `lib/features/projects/presentation/bloc/`
   - Manage lifecycle of `VideoPlayerController`, initialization, play/pause, and disposal
 - [ ] **Task 3.3: Implement `ContactCubit` & `ContactState`**
