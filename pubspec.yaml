@@ -38,12 +38,20 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/translations/
-    - assets/images/
-    - assets/images/projects/
-    - assets/icons/tech/
-    - assets/pdf/
-    - assets/videos/projects/
+  - assets/translations/
+  - assets/images/
+  - assets/images/projects/
+  - assets/images/projects/logo_maker/
+  - assets/icons/tech/
+  - assets/pdf/
+  - assets/videos/projects/
+#  assets:
+#    - assets/translations/
+#    - assets/images/
+#    - assets/images/projects/
+#    - assets/icons/tech/
+#    - assets/pdf/
+#    - assets/videos/projects/
 
   fonts:
     - family: SpaceGrotesk

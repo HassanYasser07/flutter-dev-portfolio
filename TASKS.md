@@ -66,6 +66,12 @@
 ---
 
 ## 📌 Phase 5: UI & Presentation Layer Integration
+- [x] **Task 5.x: Connect ProjectsCubit to Projects UI**
+  - Bind `ProjectsCubit` to `projects_page.dart` and `projects_section.dart`
+  - Handle loading, loaded, and error UI states
+  - Bind `ProjectModel` fields (thumbAsset, titleKey, descriptionKey, tags)
+  - Connect tag filtering chips to `ProjectsCubit.filterByTag()`
+  - Connect project card navigation to `AppRoutes.projectDetail` by ID
 - [ ] **Task 5.1: Enhance Hero & About Sections**
   - Wire `hero_section.dart` with `AnimatedTextKit` and Lottie ambient animation
   - Connect "View CV" and "Download CV" buttons in Hero/About to `CvView` dialog/route and `PdfDownloadHelper`

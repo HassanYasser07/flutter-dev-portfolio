@@ -45,7 +45,7 @@
 - ✅ `data/`: `models/skill_model.dart`, `models/experience_model.dart`, `portfolio_data.dart` complete.
 
 #### 💼 `projects/`
-- ✅ `presentation/views/projects_page.dart`, `project_detail_page.dart`
+- ✅ `presentation/views/projects_page.dart` (Connected to `ProjectsCubit` & `ProjectModel`), `project_detail_page.dart`
 - ❌ `presentation/widgets/`: Missing `project_gallery.dart`, `project_video_player.dart`
 - ✅ `presentation/bloc/`: `projects_cubit.dart`, `projects_state.dart`, `video_player_cubit.dart`, `video_player_state.dart` complete.
 - ✅ `data/`: `models/project_model.dart`, `projects_repository.dart` complete.

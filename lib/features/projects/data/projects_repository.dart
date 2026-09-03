@@ -10,10 +10,10 @@ class ProjectsRepository {
       titleKey: 'projects.items.logofy.title',
       descriptionKey: 'projects.items.logofy.description',
       tags: ['Flutter', 'Dart', 'BLoC', 'AI'],
-      thumbAsset: 'assets/images/projects/logofy/thumb.png',
+      thumbAsset: 'assets/images/projects/logo_maker/logo.png',
       screenshotAssets: [
-        'assets/images/projects/logofy/screenshot_1.png',
-        'assets/images/projects/logofy/screenshot_2.png',
+        'assets/images/projects/logo_maker/logo.png',
+        'assets/images/projects/logo_maker/logo.png',
       ],
       videoAsset: 'assets/videos/projects/logofy/demo.mp4',
       githubUrl: 'https://github.com/HassanYasser07',
@@ -25,9 +25,9 @@ class ProjectsRepository {
       titleKey: 'projects.items.tutoring.title',
       descriptionKey: 'projects.items.tutoring.description',
       tags: ['Flutter Web', 'easy_localization', 'BLoC'],
-      thumbAsset: 'assets/images/projects/tutoring/thumb.png',
+      thumbAsset:  'assets/images/projects/logo_maker/logo.png',
       screenshotAssets: [
-        'assets/images/projects/tutoring/screenshot_1.png',
+        'assets/images/projects/logo_maker/logo.png',
       ],
       videoAsset: null,
       githubUrl:
