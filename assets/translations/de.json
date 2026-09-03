@@ -58,12 +58,40 @@
     "empty": "Projektstudien erscheinen hier.",
     "detailTitle": "Projekt",
     "galleryTitle": "Galerie",
-    "notFound": "Dieses Projekt wurde nicht gefunden."
+    "notFound": "Dieses Projekt wurde nicht gefunden.",
+    "items": {
+      "logofy": {
+        "title": "Logofy - KI-Logo-Generator",
+        "description": "Eine Flutter-Mobile-App zur Erstellung, Anpassung und zum Export professioneller Markenlogos."
+      },
+      "tutoring": {
+        "title": "Intelligentes Nachhilfesystem",
+        "description": "Eine interaktive Bildungsplattform mit Flutter Web mit intelligenten Lernempfehlungen."
+      },
+      "portfolio": {
+        "title": "Portfolio Web-Anwendung",
+        "description": "Ein persönliches Portfolio mit Flutter Web, BLoC-Zustandsverwaltung, i18n in 4 Sprachen und Dunkelmodus."
+      }
+    }
   },
   "experience": {
     "eyebrow": "Weg",
     "title": "Werdegang",
-    "body": "Rollen, Teams und die Jahre dazwischen — als Zeitleiste."
+    "body": "Rollen, Teams und die Jahre dazwischen — als Zeitleiste.",
+    "items": {
+      "logofy": {
+        "company": "Logofy Technologies",
+        "role": "Senior Flutter Entwickler",
+        "duration": "2024 — Heute",
+        "description": "Entwicklung mobiler Anwendungsfunktionen, Leistungsoptimierung und plattformübergreifender Asset-Export."
+      },
+      "edutech": {
+        "company": "EduTech Solutions",
+        "role": "Flutter Web-Ingenieur",
+        "duration": "2023 — 2024",
+        "description": "Entwicklung responsiver Web-Dashboards, easy_localization i18n-Integration und BLoC-Zustandsverwaltung."
+      }
+    }
   },
   "contact": {
     "eyebrow": "Hallo",

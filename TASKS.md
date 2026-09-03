@@ -24,11 +24,11 @@
 ---
 
 ## 📌 Phase 2: Data Layer & Models Implementation
-- [ ] **Task 2.1: Implement Data Models**
-  - Create `lib/features/projects/data/models/project_model.dart` (fields: `id`, `title`, `descriptionKey`, `tags`, `thumbAsset`, `screenshotAssets`, `videoAsset`, `githubUrl`, `liveUrl`, extends `Equatable`)
+- [x] **Task 2.1: Implement Data Models**
+  - Create `lib/features/projects/data/models/project_model.dart` (fields: `id`, `titleKey`, `descriptionKey`, `tags`, `thumbAsset`, `screenshotAssets`, `videoAsset`, `githubUrl`, `liveUrl`, extends `Equatable`)
   - Create `lib/features/home/data/models/skill_model.dart` (fields: `name`, `iconPath`, `category`, extends `Equatable`)
   - Create `lib/features/home/data/models/experience_model.dart` (fields: `companyKey`, `roleKey`, `durationKey`, `descriptionKey`, `technologies`, extends `Equatable`)
-- [ ] **Task 2.2: Implement Repositories & Static Content**
+- [x] **Task 2.2: Implement Repositories & Static Content**
   - Create `lib/features/home/data/portfolio_data.dart` (static instances of skills and experience data)
   - Create `lib/features/projects/data/projects_repository.dart` (static data fetching & retrieval by ID)
   - Create `lib/features/contact/data/contact_repository.dart` (form submission handling & external links)
@@ -37,7 +37,7 @@
 ---
 
 ## 📌 Phase 3: State Management (BLoC / Cubit)
-- [ ] **Task 3.1: Implement `ProjectsCubit` & `ProjectsState`**
+- [x] **Task 3.1: Implement `ProjectsCubit` & `ProjectsState`**
   - Location: `lib/features/projects/presentation/bloc/`
   - Manage loading projects, filtering by tag/category, and selecting project details
 - [ ] **Task 3.2: Implement `VideoPlayerCubit` & `VideoPlayerState`**

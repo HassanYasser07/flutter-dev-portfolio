@@ -16,7 +16,7 @@
 | **Localization (i18n)** | 🟡 Partial | 80% | `easy_localization` set up for AR, EN, FR, DE. Base keys generated (`locale_keys.g.dart`) |
 | **Home Feature (Presentation UI)** | 🟡 Partial | 75% | Section UI skeletons created (Hero, About, Skills, Projects, Experience, Contact, Footer, NavBar) |
 | **Dependencies & Packages** | ✅ Complete | 100% | All packages added to `pubspec.yaml` (`lottie`, `animated_text_kit`, `video_player`, `chewie`, `photo_view`, `pdfx`) |
-| **Data Layer & Models** | ❌ Pending | 0% | Need `ProjectModel`, `SkillModel`, `ExperienceModel`, `PortfolioData`, Repositories |
+| **Data Layer & Models** | ✅ Complete | 100% | `ProjectModel`, `SkillModel`, `ExperienceModel`, `PortfolioData`, `ProjectsRepository`, `ContactRepository`, `CvConstants` |
 | **Feature State Management (BLoC/Cubit)**| 🟡 Partial | 45% | `ThemeCubit`, `ScrollCubit`, & `CvCubit` ready; `ProjectsCubit`, `VideoPlayerCubit`, `ContactCubit` pending |
 | **Media Handling (Gallery, Video, PDF)**  | 🟡 Partial | 50% | PDF download & new-tab viewer complete. PhotoView & Chewie player pending |
 | **Assets & Content Population** | 🟡 Partial | 40% | Local fonts installed, real `cv.pdf` added. Images, videos, and SVG tech icons pending |
@@ -42,18 +42,18 @@
 - ✅ `presentation/views/home_view.dart`
 - ✅ `presentation/bloc/scroll_cubit.dart` & `scroll_state.dart`
 - ✅ `presentation/widgets/`: `hero_section.dart`, `about_section.dart`, `skills_section.dart`, `projects_section.dart`, `experience_section.dart`, `contact_section.dart`, `nav_bar.dart`, `footer_widget.dart`, `shell_section.dart`
-- ❌ `data/`: Missing `models/skill_model.dart`, `models/experience_model.dart`, `portfolio_data.dart`.
+- ✅ `data/`: `models/skill_model.dart`, `models/experience_model.dart`, `portfolio_data.dart` complete.
 
 #### 💼 `projects/`
 - ✅ `presentation/views/projects_page.dart`, `project_detail_page.dart`
 - ❌ `presentation/widgets/`: Missing `project_gallery.dart`, `project_video_player.dart`
 - ❌ `presentation/bloc/`: Missing `projects_cubit.dart`, `projects_state.dart`, `video_player_cubit.dart`
-- ❌ `data/`: Missing `models/project_model.dart`, `projects_repository.dart`
+- ✅ `data/`: `models/project_model.dart`, `projects_repository.dart` complete.
 
 #### 📬 `contact/`
 - ✅ `presentation/views/contact_page.dart`
 - ❌ `presentation/bloc/`: Missing `contact_cubit.dart`, `contact_state.dart`
-- ❌ `data/`: Missing `contact_repository.dart`
+- ✅ `data/`: `contact_repository.dart` complete.
 
 #### 📄 `cv/`
 - ✅ `presentation/views/cv_view.dart`

@@ -58,12 +58,40 @@
     "empty": "Les études de projet apparaîtront ici.",
     "detailTitle": "Projet",
     "galleryTitle": "Galerie",
-    "notFound": "Ce projet est introuvable."
+    "notFound": "Ce projet est introuvable.",
+    "items": {
+      "logofy": {
+        "title": "Logofy - Générateur de logos IA",
+        "description": "Une application mobile Flutter permettant de générer, personnaliser et exporter des logos de marque professionnels."
+      },
+      "tutoring": {
+        "title": "Système de tutorat intelligent",
+        "description": "Une plateforme éducative interactive construite avec Flutter Web offrant des recommandations personnalisées."
+      },
+      "portfolio": {
+        "title": "Application Web Portfolio",
+        "description": "Un portfolio personnel construit avec Flutter Web, une architecture réactive, BLoC, et le mode sombre."
+      }
+    }
   },
   "experience": {
     "eyebrow": "Parcours",
     "title": "Expérience",
-    "body": "Rôles, équipes et les années entre eux — présentés en frise."
+    "body": "Rôles, équipes et les années entre eux — présentés en frise.",
+    "items": {
+      "logofy": {
+        "company": "Logofy Technologies",
+        "role": "Développeur Flutter Senior",
+        "duration": "2024 — Présent",
+        "description": "Développement des fonctionnalités mobiles, optimisation des performances d'affichage et gestion des exportations d'actifs."
+      },
+      "edutech": {
+        "company": "EduTech Solutions",
+        "role": "Ingénieur Flutter Web",
+        "duration": "2023 — 2024",
+        "description": "Conception de tableaux de bord web réactifs, intégration d'easy_localization i18n et gestion d'état BLoC."
+      }
+    }
   },
   "contact": {
     "eyebrow": "Bonjour",

@@ -58,12 +58,40 @@
     "empty": "Project case studies will appear here.",
     "detailTitle": "Project",
     "galleryTitle": "Gallery",
-    "notFound": "This project could not be found."
+    "notFound": "This project could not be found.",
+    "items": {
+      "logofy": {
+        "title": "Logofy - AI Logo Generator",
+        "description": "A Flutter mobile app allowing users to generate, customize, and export professional brand logos with real-time editing and asset export."
+      },
+      "tutoring": {
+        "title": "Intelligent Tutoring System",
+        "description": "An interactive educational platform built with Flutter Web featuring intelligent learning path recommendations and quiz analytics."
+      },
+      "portfolio": {
+        "title": "Portfolio Web Application",
+        "description": "A personal portfolio built with Flutter Web, featuring responsive architecture, BLoC state management, 4-language i18n, and dark mode."
+      }
+    }
   },
   "experience": {
     "eyebrow": "Path",
     "title": "Experience",
-    "body": "Roles, teams, and the years between them — laid out as a timeline."
+    "body": "Roles, teams, and the years between them — laid out as a timeline.",
+    "items": {
+      "logofy": {
+        "company": "Logofy Technologies",
+        "role": "Senior Flutter Developer",
+        "duration": "2024 — Present",
+        "description": "Engineered mobile application features, optimized rendering performance, and integrated cross-platform asset exports."
+      },
+      "edutech": {
+        "company": "EduTech Solutions",
+        "role": "Flutter Web Engineer",
+        "duration": "2023 — 2024",
+        "description": "Architected responsive web dashboards, implemented easy_localization i18n, and designed BLoC state management flows."
+      }
+    }
   },
   "contact": {
     "eyebrow": "Hello",
