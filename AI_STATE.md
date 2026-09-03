@@ -17,7 +17,7 @@
 | **Home Feature (Presentation UI)** | 🟡 Partial | 75% | Section UI skeletons created (Hero, About, Skills, Projects, Experience, Contact, Footer, NavBar) |
 | **Dependencies & Packages** | ✅ Complete | 100% | All packages added to `pubspec.yaml` (`lottie`, `animated_text_kit`, `video_player`, `chewie`, `photo_view`, `pdfx`) |
 | **Data Layer & Models** | ✅ Complete | 100% | `ProjectModel`, `SkillModel`, `ExperienceModel`, `PortfolioData`, `ProjectsRepository`, `ContactRepository`, `CvConstants` |
-| **Feature State Management (BLoC/Cubit)**| 🟡 Partial | 80% | `ThemeCubit`, `ScrollCubit`, `CvCubit`, `ProjectsCubit`, & `VideoPlayerCubit` ready; `ContactCubit` pending |
+| **Feature State Management (BLoC/Cubit)**| ✅ Complete | 100% | `ThemeCubit`, `ScrollCubit`, `CvCubit`, `ProjectsCubit`, `VideoPlayerCubit`, & `ContactCubit` complete |
 | **Media Handling (Gallery, Video, PDF)**  | 🟡 Partial | 50% | PDF download & new-tab viewer complete. PhotoView & Chewie player pending |
 | **Assets & Content Population** | 🟡 Partial | 40% | Local fonts installed, real `cv.pdf` added. Images, videos, and SVG tech icons pending |
 | **Accessibility & Optimization** | 🟡 Partial | 40% | Core `ResponsiveWidget` & breakpoints ready. Focus trap & semantics audit pending |
@@ -52,7 +52,7 @@
 
 #### 📬 `contact/`
 - ✅ `presentation/views/contact_page.dart`
-- ❌ `presentation/bloc/`: Missing `contact_cubit.dart`, `contact_state.dart`
+- ✅ `presentation/bloc/`: `contact_cubit.dart`, `contact_state.dart` complete.
 - ✅ `data/`: `contact_repository.dart` complete.
 
 #### 📄 `cv/`

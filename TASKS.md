@@ -43,7 +43,7 @@
 - [x] **Task 3.2: Implement `VideoPlayerCubit` & `VideoPlayerState`**
   - Location: `lib/features/projects/presentation/bloc/`
   - Manage lifecycle of `VideoPlayerController`, initialization, play/pause, and disposal
-- [ ] **Task 3.3: Implement `ContactCubit` & `ContactState`**
+- [x] **Task 3.3: Implement `ContactCubit` & `ContactState`**
   - Location: `lib/features/contact/presentation/bloc/`
   - Manage contact form input, validation, loading, success, and error states
 - [x] **Task 3.4: Implement `CvCubit` & `CvState`**
