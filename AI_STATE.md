@@ -18,7 +18,7 @@
 | **Dependencies & Packages** | ✅ Complete | 100% | All packages added to `pubspec.yaml` (`lottie`, `animated_text_kit`, `video_player`, `chewie`, `photo_view`, `pdfx`) |
 | **Data Layer & Models** | ✅ Complete | 100% | `ProjectModel`, `SkillModel`, `ExperienceModel`, `PortfolioData`, `ProjectsRepository`, `ContactRepository`, `CvConstants` |
 | **Feature State Management (BLoC/Cubit)**| ✅ Complete | 100% | `ThemeCubit`, `ScrollCubit`, `CvCubit`, `ProjectsCubit`, `VideoPlayerCubit`, & `ContactCubit` complete |
-| **Media Handling (Gallery, Video, PDF)**  | 🟡 Partial | 50% | PDF download & new-tab viewer complete. PhotoView & Chewie player pending |
+| **Media Handling (Gallery, Video, PDF)**  | 🟡 Partial | 75% | PDF download, new-tab viewer, & PhotoView image gallery complete. Chewie video player pending |
 | **Assets & Content Population** | 🟡 Partial | 40% | Local fonts installed, real `cv.pdf` added. Images, videos, and SVG tech icons pending |
 | **Accessibility & Optimization** | 🟡 Partial | 40% | Core `ResponsiveWidget` & breakpoints ready. Focus trap & semantics audit pending |
 
@@ -46,7 +46,7 @@
 
 #### 💼 `projects/`
 - ✅ `presentation/views/projects_page.dart` (Connected to `ProjectsCubit` & `ProjectModel`), `project_detail_page.dart`
-- ❌ `presentation/widgets/`: Missing `project_gallery.dart`, `project_video_player.dart`
+- 🟡 `presentation/widgets/`: `project_gallery.dart` complete (`PhotoViewGallery` with zoom/pan & keyboard navigation). Missing `project_video_player.dart`.
 - ✅ `presentation/bloc/`: `projects_cubit.dart`, `projects_state.dart`, `video_player_cubit.dart`, `video_player_state.dart` complete.
 - ✅ `data/`: `models/project_model.dart`, `projects_repository.dart` complete.
 

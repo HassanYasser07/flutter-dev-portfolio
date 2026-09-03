@@ -25,7 +25,7 @@ class ProjectsRepository {
       titleKey: 'projects.items.tutoring.title',
       descriptionKey: 'projects.items.tutoring.description',
       tags: ['Flutter Web', 'easy_localization', 'BLoC'],
-      thumbAsset:  'assets/images/projects/logo_maker/logo.png',
+      thumbAsset: 'assets/images/projects/logo_maker/logo.png',
       screenshotAssets: [
         'assets/images/projects/logo_maker/logo.png',
       ],

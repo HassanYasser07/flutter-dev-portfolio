@@ -56,7 +56,7 @@
 - [x] **Task 4.1: Build CV Action Buttons & New Tab PDF Helper**
   - Create `lib/features/cv/presentation/views/cv_view.dart` & `cv_viewer.dart`
   - Implement two distinct action buttons: "Download CV" (direct download) and "View CV" (opens PDF in a new browser tab `_blank`)
-- [ ] **Task 4.2: Build Project Image Gallery Widget**
+- [x] **Task 4.2: Build Project Image Gallery Widget**
   - Create `lib/features/projects/presentation/widgets/project_gallery.dart`
   - Integrate `photo_view` / `PhotoViewGallery`, keyboard navigation (arrow keys), and index counter
 - [ ] **Task 4.3: Build Project Video Player Widget**
