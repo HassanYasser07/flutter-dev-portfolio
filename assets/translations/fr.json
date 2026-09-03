@@ -1,0 +1,92 @@
+{
+  "app": {
+    "title": "Nour Al-Rashid",
+    "name": "Nour Al-Rashid",
+    "role": "Ingénieure Flutter"
+  },
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "skills": "Compétences",
+    "projects": "Travaux",
+    "experience": "Parcours",
+    "contact": "Contact",
+    "cv": "CV",
+    "menu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "skipToContent": "Aller au contenu",
+    "brand": "Nour Al-Rashid"
+  },
+  "theme": {
+    "toggle": "Changer de thème",
+    "toLight": "Passer au thème clair",
+    "toDark": "Passer au thème sombre"
+  },
+  "locale": {
+    "label": "Langue",
+    "en": "Anglais",
+    "ar": "Arabe",
+    "fr": "Français",
+    "de": "Allemand"
+  },
+  "hero": {
+    "kicker": "Flutter · Interfaces produit",
+    "name": "Nour Al-Rashid",
+    "title": "Des interfaces qui semblent inévitables.",
+    "subtitle": "Je conçois et livre des produits Flutter — mouvement précis, typographie calme, et des mises en page solides du téléphone au grand écran.",
+    "ctaProjects": "Voir les travaux",
+    "ctaContact": "Écrire",
+    "ctaCv": "Voir le CV",
+    "monogram": "NA",
+    "availability": "Ouverte à des collaborations choisies"
+  },
+  "about": {
+    "eyebrow": "Profil",
+    "title": "À propos",
+    "body": "Ingénieure Flutter tournée produit. Cette section accueillera la biographie, le portrait et les faits qui encadrent le travail."
+  },
+  "skills": {
+    "eyebrow": "Stack",
+    "title": "Compétences",
+    "body": "Une grille des outils que j'utilise — Flutter, Dart, design systems, et le métier autour."
+  },
+  "projects": {
+    "eyebrow": "Sélection",
+    "title": "Travaux",
+    "body": "Quelques produits récents. Cartes, galeries et études de cas prendront place ici.",
+    "viewAll": "Tous les projets",
+    "empty": "Les études de projet apparaîtront ici.",
+    "detailTitle": "Projet",
+    "galleryTitle": "Galerie",
+    "notFound": "Ce projet est introuvable."
+  },
+  "experience": {
+    "eyebrow": "Parcours",
+    "title": "Expérience",
+    "body": "Rôles, équipes et les années entre eux — présentés en frise."
+  },
+  "contact": {
+    "eyebrow": "Bonjour",
+    "title": "Contact",
+    "body": "Un mot suffit. L'e-mail, les réseaux et un formulaire vivront sur cette page.",
+    "pageTitle": "Écrire"
+  },
+  "cv": {
+    "title": "Curriculum vitæ",
+    "body": "Consulter le CV dans le navigateur ou télécharger le PDF.",
+    "view": "Voir le CV",
+    "download": "Télécharger le CV"
+  },
+  "footer": {
+    "copyright": "© 2026 Nour Al-Rashid",
+    "backToTop": "Haut de page",
+    "availability": "Disponible pour des collaborations choisies"
+  },
+  "common": {
+    "back": "Retour",
+    "close": "Fermer",
+    "open": "Ouvrir",
+    "comingSoon": "Cette section fait partie de la structure — le contenu arrive ensuite.",
+    "placeholder": "À venir"
+  }
+}

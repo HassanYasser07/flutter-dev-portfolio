@@ -1,0 +1,92 @@
+{
+  "app": {
+    "title": "Nour Al-Rashid",
+    "name": "Nour Al-Rashid",
+    "role": "Flutter Engineer"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "skills": "Skills",
+    "projects": "Work",
+    "experience": "Experience",
+    "contact": "Contact",
+    "cv": "CV",
+    "menu": "Open menu",
+    "closeMenu": "Close menu",
+    "skipToContent": "Skip to content",
+    "brand": "Nour Al-Rashid"
+  },
+  "theme": {
+    "toggle": "Toggle color theme",
+    "toLight": "Switch to light theme",
+    "toDark": "Switch to dark theme"
+  },
+  "locale": {
+    "label": "Language",
+    "en": "English",
+    "ar": "Arabic",
+    "fr": "French",
+    "de": "German"
+  },
+  "hero": {
+    "kicker": "Flutter · Product interfaces",
+    "name": "Nour Al-Rashid",
+    "title": "Interfaces that feel inevitable.",
+    "subtitle": "I design and ship Flutter products — precise motion, quiet type, and layouts that hold up from a phone to a wide display.",
+    "ctaProjects": "View work",
+    "ctaContact": "Get in touch",
+    "ctaCv": "View CV",
+    "monogram": "NA",
+    "availability": "Open for selected collaborations"
+  },
+  "about": {
+    "eyebrow": "Profile",
+    "title": "About",
+    "body": "A product-minded Flutter engineer. This section will hold biography, portrait, and the facts that frame the work."
+  },
+  "skills": {
+    "eyebrow": "Stack",
+    "title": "Skills",
+    "body": "A grid of the tools I reach for — Flutter, Dart, design systems, and the craft around them."
+  },
+  "projects": {
+    "eyebrow": "Selected",
+    "title": "Work",
+    "body": "A few recent products. Cards, galleries, and case studies live here.",
+    "viewAll": "All projects",
+    "empty": "Project case studies will appear here.",
+    "detailTitle": "Project",
+    "galleryTitle": "Gallery",
+    "notFound": "This project could not be found."
+  },
+  "experience": {
+    "eyebrow": "Path",
+    "title": "Experience",
+    "body": "Roles, teams, and the years between them — laid out as a timeline."
+  },
+  "contact": {
+    "eyebrow": "Hello",
+    "title": "Contact",
+    "body": "A short note goes a long way. Email, socials, and a form will live on this page.",
+    "pageTitle": "Get in touch"
+  },
+  "cv": {
+    "title": "Curriculum vitae",
+    "body": "View the CV in the browser or download the PDF.",
+    "view": "View CV",
+    "download": "Download CV"
+  },
+  "footer": {
+    "copyright": "© 2026 Nour Al-Rashid",
+    "backToTop": "Back to top",
+    "availability": "Available for selected collaborations"
+  },
+  "common": {
+    "back": "Back",
+    "close": "Close",
+    "open": "Open",
+    "comingSoon": "This section is part of the shell — content arrives next.",
+    "placeholder": "Coming next"
+  }
+}

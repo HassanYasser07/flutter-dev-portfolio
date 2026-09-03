@@ -1,0 +1,92 @@
+{
+  "app": {
+    "title": "Nour Al-Rashid",
+    "name": "Nour Al-Rashid",
+    "role": "Flutter-Ingenieurin"
+  },
+  "nav": {
+    "home": "Start",
+    "about": "Über mich",
+    "skills": "Fähigkeiten",
+    "projects": "Arbeit",
+    "experience": "Werdegang",
+    "contact": "Kontakt",
+    "cv": "CV",
+    "menu": "Menü öffnen",
+    "closeMenu": "Menü schließen",
+    "skipToContent": "Zum Inhalt springen",
+    "brand": "Nour Al-Rashid"
+  },
+  "theme": {
+    "toggle": "Farbschema wechseln",
+    "toLight": "Zum hellen Schema wechseln",
+    "toDark": "Zum dunklen Schema wechseln"
+  },
+  "locale": {
+    "label": "Sprache",
+    "en": "Englisch",
+    "ar": "Arabisch",
+    "fr": "Französisch",
+    "de": "Deutsch"
+  },
+  "hero": {
+    "kicker": "Flutter · Produktoberflächen",
+    "name": "Nour Al-Rashid",
+    "title": "Oberflächen, die unvermeidlich wirken.",
+    "subtitle": "Ich gestalte und liefere Flutter-Produkte — präzise Bewegung, ruhige Typografie und Layouts, die vom Telefon bis zum großen Display tragen.",
+    "ctaProjects": "Arbeit ansehen",
+    "ctaContact": "Kontakt",
+    "ctaCv": "CV ansehen",
+    "monogram": "NA",
+    "availability": "Offen für ausgewählte Zusammenarbeit"
+  },
+  "about": {
+    "eyebrow": "Profil",
+    "title": "Über mich",
+    "body": "Eine produktorientierte Flutter-Ingenieurin. Hier entstehen Biografie, Porträt und die Fakten um die Arbeit."
+  },
+  "skills": {
+    "eyebrow": "Stack",
+    "title": "Fähigkeiten",
+    "body": "Ein Raster der Werkzeuge — Flutter, Dart, Designsysteme und das Handwerk darum."
+  },
+  "projects": {
+    "eyebrow": "Auswahl",
+    "title": "Arbeit",
+    "body": "Einige aktuelle Produkte. Karten, Galerien und Fallstudien gehören hierher.",
+    "viewAll": "Alle Projekte",
+    "empty": "Projektstudien erscheinen hier.",
+    "detailTitle": "Projekt",
+    "galleryTitle": "Galerie",
+    "notFound": "Dieses Projekt wurde nicht gefunden."
+  },
+  "experience": {
+    "eyebrow": "Weg",
+    "title": "Werdegang",
+    "body": "Rollen, Teams und die Jahre dazwischen — als Zeitleiste."
+  },
+  "contact": {
+    "eyebrow": "Hallo",
+    "title": "Kontakt",
+    "body": "Eine kurze Nachricht reicht. E-Mail, Profile und ein Formular leben auf dieser Seite.",
+    "pageTitle": "Kontakt"
+  },
+  "cv": {
+    "title": "Lebenslauf",
+    "body": "Den Lebenslauf im Browser lesen oder als PDF laden.",
+    "view": "CV ansehen",
+    "download": "CV herunterladen"
+  },
+  "footer": {
+    "copyright": "© 2026 Nour Al-Rashid",
+    "backToTop": "Nach oben",
+    "availability": "Verfügbar für ausgewählte Zusammenarbeit"
+  },
+  "common": {
+    "back": "Zurück",
+    "close": "Schließen",
+    "open": "Öffnen",
+    "comingSoon": "Dieser Abschnitt gehört zur Hülle — Inhalte folgen als Nächstes.",
+    "placeholder": "Folgt"
+  }
+}
