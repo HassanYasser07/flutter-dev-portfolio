@@ -13,6 +13,7 @@ import '../../../../core/widgets/app_section.dart';
 import '../../../home/presentation/widgets/footer_widget.dart';
 import '../../data/projects_repository.dart';
 import '../widgets/project_gallery.dart';
+import '../widgets/project_video_player.dart';
 
 class ProjectDetailPage extends StatelessWidget {
   const ProjectDetailPage({
@@ -106,6 +107,24 @@ class ProjectDetailPage extends StatelessWidget {
                       height: bp == AppBreakpoint.mobile ? 320 : 480,
                     ),
                     const SizedBox(height: AppSizes.s24),
+
+                    // Video Player Section (Rendered lazily only when videoAsset exists)
+                    if (project.videoAsset != null &&
+                        project.videoAsset!.isNotEmpty) ...[
+                      Text(
+                        'Demo Video',
+                        style: AppFonts.heading(bp).copyWith(
+                          color: scheme.onSurface,
+                        ),
+                      ),
+                      const SizedBox(height: AppSizes.s16),
+                      ProjectVideoPlayer(
+                        videoAsset: project.videoAsset!,
+                        posterAsset: project.thumbAsset,
+                        height: bp == AppBreakpoint.mobile ? 240 : 420,
+                      ),
+                      const SizedBox(height: AppSizes.s24),
+                    ],
 
                     // Actions / External Links
                     Row(

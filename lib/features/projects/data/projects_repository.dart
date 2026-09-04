@@ -15,7 +15,7 @@ class ProjectsRepository {
         'assets/images/projects/logo_maker/logo.png',
         'assets/images/projects/logo_maker/logo.png',
       ],
-      videoAsset: 'assets/videos/projects/logofy/demo.mp4',
+      videoAsset: 'assets/videos/projects/1218.mp4',
       githubUrl: 'https://github.com/HassanYasser07',
       liveUrl:
           'https://play.google.com/store/apps/details?id=com.logofy.logogenerator.app',

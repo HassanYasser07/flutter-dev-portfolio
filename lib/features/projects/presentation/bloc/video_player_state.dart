@@ -1,39 +1,38 @@
+import 'package:chewie/chewie.dart';
 import 'package:equatable/equatable.dart';
 import 'package:video_player/video_player.dart';
 
-enum VideoPlayerStatus { initial, loading, ready, playing, paused, error }
+enum VideoPlayerStatus { initial, loading, ready, error }
 
 class VideoPlayerState extends Equatable {
   const VideoPlayerState({
     this.status = VideoPlayerStatus.initial,
-    this.controller,
-    this.isPlaying = false,
-    this.position = Duration.zero,
-    this.duration = Duration.zero,
+    this.videoPlayerController,
+    this.chewieController,
     this.errorMessage,
   });
 
   final VideoPlayerStatus status;
-  final VideoPlayerController? controller;
-  final bool isPlaying;
-  final Duration position;
-  final Duration duration;
+  final VideoPlayerController? videoPlayerController;
+  final ChewieController? chewieController;
   final String? errorMessage;
+
+  /// Backward compatibility getter
+  VideoPlayerController? get controller => videoPlayerController;
 
   VideoPlayerState copyWith({
     VideoPlayerStatus? status,
-    VideoPlayerController? Function()? controller,
-    bool? isPlaying,
-    Duration? position,
-    Duration? duration,
+    VideoPlayerController? Function()? videoPlayerController,
+    ChewieController? Function()? chewieController,
     String? errorMessage,
   }) {
     return VideoPlayerState(
       status: status ?? this.status,
-      controller: controller != null ? controller() : this.controller,
-      isPlaying: isPlaying ?? this.isPlaying,
-      position: position ?? this.position,
-      duration: duration ?? this.duration,
+      videoPlayerController: videoPlayerController != null
+          ? videoPlayerController()
+          : this.videoPlayerController,
+      chewieController:
+          chewieController != null ? chewieController() : this.chewieController,
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }
@@ -41,9 +40,8 @@ class VideoPlayerState extends Equatable {
   @override
   List<Object?> get props => [
         status,
-        isPlaying,
-        position,
-        duration,
+        videoPlayerController,
+        chewieController,
         errorMessage,
       ];
 }

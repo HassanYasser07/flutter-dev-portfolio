@@ -59,9 +59,9 @@
 - [x] **Task 4.2: Build Project Image Gallery Widget**
   - Create `lib/features/projects/presentation/widgets/project_gallery.dart`
   - Integrate `photo_view` / `PhotoViewGallery`, keyboard navigation (arrow keys), and index counter
-- [ ] **Task 4.3: Build Project Video Player Widget**
+- [x] **Task 4.3: Build Project Video Player Widget**
   - Create `lib/features/projects/presentation/widgets/project_video_player.dart`
-  - Integrate `Chewie` wrapper, poster thumbnail, controls, and strict `autoplay: false` gate
+  - Integrate poster thumbnail, lazy user-initiated playback, video controls, and strict `autoplay: false` gate
 
 ---
 
