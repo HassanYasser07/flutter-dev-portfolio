@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +10,8 @@ import '../../../../core/constants/locale_keys.g.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/utils/responsive.dart';
 import '../../../../core/widgets/app_button.dart';
+import '../../../cv/presentation/bloc/cv_cubit.dart';
+import '../../../cv/presentation/bloc/cv_state.dart';
 import '../bloc/scroll_cubit.dart';
 import '../bloc/scroll_state.dart';
 
@@ -79,15 +82,25 @@ class _HeroCopy extends StatelessWidget {
           LocaleKeys.hero_kicker.tr().toUpperCase(),
           style: AppFonts.label(bp).copyWith(color: scheme.secondary),
         ),
-        const SizedBox(height: AppSizes.s16),
+        const SizedBox(height: AppSizes.s12),
         Semantics(
           header: true,
           child: Text(
-            LocaleKeys.hero_title.tr(),
+            LocaleKeys.hero_name.tr(),
             style: AppFonts.displayHero(bp).copyWith(color: scheme.onSurface),
           ),
         ),
-        const SizedBox(height: AppSizes.s24),
+        const SizedBox(height: AppSizes.s8),
+        _HeroAnimatedRole(bp: bp),
+        const SizedBox(height: AppSizes.s16),
+        Text(
+          LocaleKeys.hero_title.tr(),
+          style: AppFonts.heading(bp).copyWith(
+            color: scheme.onSurface,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        const SizedBox(height: AppSizes.s16),
         ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 560),
           child: Text(
@@ -96,60 +109,152 @@ class _HeroCopy extends StatelessWidget {
           ),
         ),
         const SizedBox(height: AppSizes.s16),
-        Text(
-          LocaleKeys.hero_availability.tr(),
-          style: AppFonts.bodySmall(bp).copyWith(color: scheme.secondary),
-        ),
-        const SizedBox(height: AppSizes.s32),
-        Wrap(
-          spacing: AppSizes.s12,
-          runSpacing: AppSizes.s12,
+        Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(
-              width: compact ? double.infinity : null,
-              child: AppButton(
-                label: LocaleKeys.hero_ctaProjects.tr(),
-                expanded: compact,
-                onPressed: () {
-                  final anchors = HomeAnchorScope.maybeOf(context);
-                  if (anchors != null) {
-                    context.read<ScrollCubit>().setActive(HomeSection.projects);
-                    anchors.scrollTo(HomeSection.projects);
-                  } else {
-                    context.goNamed(AppRoutes.projects);
-                  }
-                },
+            Container(
+              width: 8,
+              height: 8,
+              decoration: BoxDecoration(
+                color: scheme.primary,
+                shape: BoxShape.circle,
               ),
             ),
-            SizedBox(
-              width: compact ? double.infinity : null,
-              child: AppButton(
-                label: LocaleKeys.hero_ctaContact.tr(),
-                variant: AppButtonVariant.secondary,
-                expanded: compact,
-                onPressed: () {
-                  final anchors = HomeAnchorScope.maybeOf(context);
-                  if (anchors != null) {
-                    context.read<ScrollCubit>().setActive(HomeSection.contact);
-                    anchors.scrollTo(HomeSection.contact);
-                  } else {
-                    context.goNamed(AppRoutes.contact);
-                  }
-                },
-              ),
-            ),
-            SizedBox(
-              width: compact ? double.infinity : null,
-              child: AppButton(
-                label: LocaleKeys.hero_ctaCv.tr(),
-                variant: AppButtonVariant.ghost,
-                expanded: compact,
-                onPressed: () => context.goNamed(AppRoutes.cv),
-              ),
+            const SizedBox(width: AppSizes.s8),
+            Text(
+              LocaleKeys.hero_availability.tr(),
+              style: AppFonts.bodySmall(bp).copyWith(color: scheme.secondary),
             ),
           ],
         ),
+        const SizedBox(height: AppSizes.s32),
+        _HeroActions(compact: compact),
       ],
+    );
+  }
+}
+
+class _HeroAnimatedRole extends StatelessWidget {
+  const _HeroAnimatedRole({required this.bp});
+
+  final AppBreakpoint bp;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final textStyle = AppFonts.label(bp).copyWith(
+      color: scheme.secondary,
+      fontWeight: FontWeight.w600,
+    );
+
+    final roles = [
+      LocaleKeys.app_role.tr(),
+      LocaleKeys.experience_items_logofy_role.tr(),
+      LocaleKeys.experience_items_edutech_role.tr(),
+    ];
+
+    if (!shouldAnimate(context)) {
+      return Text(
+        roles.first,
+        style: textStyle,
+      );
+    }
+
+    return SizedBox(
+      height: 32,
+      child: AnimatedTextKit(
+        key: ValueKey('hero-animated-roles-${context.locale.languageCode}'),
+        repeatForever: true,
+        pause: const Duration(milliseconds: 1500),
+        displayFullTextOnTap: true,
+        animatedTexts: roles.map((role) {
+          return TypewriterAnimatedText(
+            role,
+            textStyle: textStyle,
+            speed: const Duration(milliseconds: 80),
+          );
+        }).toList(),
+      ),
+    );
+  }
+}
+
+class _HeroActions extends StatelessWidget {
+  const _HeroActions({required this.compact});
+
+  final bool compact;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<CvCubit, CvState>(
+      listener: (context, state) {
+        if (state.status == CvStatus.error && state.message != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.message!)),
+          );
+        }
+      },
+      child: Wrap(
+        spacing: AppSizes.s12,
+        runSpacing: AppSizes.s12,
+        children: [
+          SizedBox(
+            width: compact ? double.infinity : null,
+            child: AppButton(
+              label: LocaleKeys.hero_ctaProjects.tr(),
+              expanded: compact,
+              onPressed: () {
+                final anchors = HomeAnchorScope.maybeOf(context);
+                if (anchors != null) {
+                  context.read<ScrollCubit>().setActive(HomeSection.projects);
+                  anchors.scrollTo(HomeSection.projects);
+                } else {
+                  context.goNamed(AppRoutes.projects);
+                }
+              },
+            ),
+          ),
+          SizedBox(
+            width: compact ? double.infinity : null,
+            child: AppButton(
+              label: LocaleKeys.hero_ctaContact.tr(),
+              variant: AppButtonVariant.secondary,
+              expanded: compact,
+              onPressed: () {
+                final anchors = HomeAnchorScope.maybeOf(context);
+                if (anchors != null) {
+                  context.read<ScrollCubit>().setActive(HomeSection.contact);
+                  anchors.scrollTo(HomeSection.contact);
+                } else {
+                  context.goNamed(AppRoutes.contact);
+                }
+              },
+            ),
+          ),
+          SizedBox(
+            width: compact ? double.infinity : null,
+            child: AppButton(
+              label: LocaleKeys.cv_view.tr(),
+              variant: AppButtonVariant.ghost,
+              icon: Icons.open_in_new,
+              tooltip: LocaleKeys.cv_view.tr(),
+              expanded: compact,
+              onPressed: () => context.read<CvCubit>().openCvInNewTab(),
+            ),
+          ),
+          SizedBox(
+            width: compact ? double.infinity : null,
+            child: AppButton(
+              label: LocaleKeys.cv_download.tr(),
+              variant: AppButtonVariant.ghost,
+              icon: Icons.download,
+              tooltip: LocaleKeys.cv_download.tr(),
+              expanded: compact,
+              onPressed: () => context.read<CvCubit>().downloadCv(),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

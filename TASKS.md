@@ -72,7 +72,7 @@
   - Bind `ProjectModel` fields (thumbAsset, titleKey, descriptionKey, tags)
   - Connect tag filtering chips to `ProjectsCubit.filterByTag()`
   - Connect project card navigation to `AppRoutes.projectDetail` by ID
-- [ ] **Task 5.1: Enhance Hero & About Sections**
+- [x] **Task 5.1: Enhance Hero & About Sections**
   - Wire `hero_section.dart` with `AnimatedTextKit` and Lottie ambient animation
   - Connect "View CV" and "Download CV" buttons in Hero/About to `CvView` dialog/route and `PdfDownloadHelper`
 - [ ] **Task 5.2: Enhance Skills & Experience Sections**
