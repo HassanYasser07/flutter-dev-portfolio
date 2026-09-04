@@ -1,16 +1,38 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/constants/app_fonts.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/locale_keys.g.dart';
 import '../../../../core/utils/responsive.dart';
 import '../../../../core/widgets/app_icon_button.dart';
+import '../../../contact/data/contact_repository.dart';
 
+/// Clean portfolio footer with branding, social links, copyright, and smooth back-to-top button.
 class FooterWidget extends StatelessWidget {
-  const FooterWidget({super.key, this.onBackToTop});
+  const FooterWidget({
+    super.key,
+    this.onBackToTop,
+    this.repository = const ContactRepository(),
+  });
 
   final VoidCallback? onBackToTop;
+  final ContactRepository repository;
+
+  Future<void> _launchUrlString(String urlString,
+      {bool isEmail = false}) async {
+    final uri =
+        isEmail ? Uri.parse('mailto:$urlString') : Uri.tryParse(urlString);
+    if (uri != null && await canLaunchUrl(uri)) {
+      await launchUrl(
+        uri,
+        mode: isEmail
+            ? LaunchMode.platformDefault
+            : LaunchMode.externalApplication,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,19 +45,52 @@ class FooterWidget extends StatelessWidget {
             bp == AppBreakpoint.mobile || bp == AppBreakpoint.tablet;
         final hPad = horizontalPaddingOf(constraints);
 
-        final copyright = Text(
-          LocaleKeys.footer_copyright.tr(),
-          style:
-              AppFonts.bodySmall(bp).copyWith(color: scheme.onSurfaceVariant),
-          textAlign: compact ? TextAlign.center : TextAlign.start,
+        final brandInfo = Column(
+          crossAxisAlignment:
+              compact ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+          children: [
+            Text(
+              LocaleKeys.app_name.tr(),
+              style: AppFonts.button(bp).copyWith(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(height: AppSizes.s4),
+            Text(
+              LocaleKeys.footer_copyright.tr(),
+              style: AppFonts.bodySmall(bp).copyWith(
+                color: scheme.onSurfaceVariant,
+              ),
+            ),
+          ],
         );
-        final availability = Text(
-          LocaleKeys.footer_availability.tr(),
-          style:
-              AppFonts.bodySmall(bp).copyWith(color: scheme.onSurfaceVariant),
-          textAlign: compact ? TextAlign.center : TextAlign.end,
+
+        final socialLinks = Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AppIconButton(
+              icon: Icons.email_outlined,
+              tooltip: LocaleKeys.contact_email.tr(),
+              onPressed: () =>
+                  _launchUrlString(repository.email, isEmail: true),
+            ),
+            const SizedBox(width: AppSizes.s8),
+            AppIconButton(
+              icon: Icons.code,
+              tooltip: LocaleKeys.contact_github.tr(),
+              onPressed: () => _launchUrlString(repository.githubUrl),
+            ),
+            const SizedBox(width: AppSizes.s8),
+            AppIconButton(
+              icon: Icons.work_outline,
+              tooltip: LocaleKeys.contact_linkedin.tr(),
+              onPressed: () => _launchUrlString(repository.linkedinUrl),
+            ),
+          ],
         );
-        final back = onBackToTop == null
+
+        final backToTopBtn = onBackToTop == null
             ? const SizedBox.shrink()
             : AppIconButton(
                 icon: Icons.arrow_upward,
@@ -57,19 +112,19 @@ class FooterWidget extends StatelessWidget {
                 child: compact
                     ? Column(
                         children: [
-                          copyright,
-                          const SizedBox(height: AppSizes.s8),
-                          availability,
+                          brandInfo,
                           const SizedBox(height: AppSizes.s16),
-                          back,
+                          socialLinks,
+                          const SizedBox(height: AppSizes.s16),
+                          backToTopBtn,
                         ],
                       )
                     : Row(
                         children: [
-                          Expanded(child: copyright),
-                          back,
-                          const SizedBox(width: AppSizes.s16),
-                          Expanded(child: availability),
+                          Expanded(child: brandInfo),
+                          socialLinks,
+                          const SizedBox(width: AppSizes.s24),
+                          backToTopBtn,
                         ],
                       ),
               ),

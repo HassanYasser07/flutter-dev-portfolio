@@ -106,8 +106,24 @@
   "contact": {
     "eyebrow": "Hallo",
     "title": "Kontakt",
-    "body": "Eine kurze Nachricht reicht. E-Mail, Profile und ein Formular leben auf dieser Seite.",
-    "pageTitle": "Kontakt"
+    "body": "Haben Sie ein Projekt im Sinn oder möchten Sie zusammenarbeiten? Nehmen Sie gerne per E-Mail, Profilen oder Formular Kontakt auf.",
+    "pageTitle": "Kontakt",
+    "name": "Name",
+    "nameHint": "Ihr Name",
+    "email": "E-Mail",
+    "emailHint": "name@example.com",
+    "message": "Nachricht",
+    "messageHint": "Erzählen Sie mir von Ihrem Projekt oder Anliegen...",
+    "send": "Nachricht senden",
+    "sending": "Wird gesendet…",
+    "success": "Ihre Nachricht wurde erfolgreich gesendet!",
+    "error": "Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut.",
+    "validationRequired": "Bitte füllen Sie alle Pflichtfelder aus.",
+    "directContact": "Direkter Kontakt",
+    "socials": "Soziale Netzwerke",
+    "phone": "Telefon / WhatsApp",
+    "github": "GitHub",
+    "linkedin": "LinkedIn"
   },
   "cv": {
     "title": "Lebenslauf",

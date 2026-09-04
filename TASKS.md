@@ -81,7 +81,7 @@
 - [x] **Task 5.3: Enhance Projects Section & Detail Pages**
   - Update `projects_section.dart` (Home grid shows thumbnails only; no video preloading)
   - Connect `projects_page.dart` and `project_detail_page.dart` to `ProjectsCubit`, gallery modal, and video player
-- [ ] **Task 5.4: Enhance Contact Section & Footer**
+- [x] **Task 5.4: Enhance Contact Section & Footer**
   - Connect `contact_section.dart` form inputs to `ContactCubit` with proper accessibility labels
   - Verify `footer_widget.dart` copyright text and back-to-top smooth scroll logic
 

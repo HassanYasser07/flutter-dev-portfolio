@@ -106,8 +106,24 @@
   "contact": {
     "eyebrow": "Hello",
     "title": "Contact",
-    "body": "A short note goes a long way. Email, socials, and a form will live on this page.",
-    "pageTitle": "Get in touch"
+    "body": "Have a project in mind or want to collaborate? Feel free to reach out via email, social links, or the message form.",
+    "pageTitle": "Get in touch",
+    "name": "Name",
+    "nameHint": "Your name",
+    "email": "Email",
+    "emailHint": "name@example.com",
+    "message": "Message",
+    "messageHint": "Tell me about your project or inquiry...",
+    "send": "Send Message",
+    "sending": "Sending…",
+    "success": "Your message has been sent successfully!",
+    "error": "Failed to send message. Please try again.",
+    "validationRequired": "Please fill in all required fields.",
+    "directContact": "Direct Contact",
+    "socials": "Social Profiles",
+    "phone": "Phone / WhatsApp",
+    "github": "GitHub",
+    "linkedin": "LinkedIn"
   },
   "cv": {
     "title": "Curriculum vitae",

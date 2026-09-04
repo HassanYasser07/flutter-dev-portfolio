@@ -106,8 +106,24 @@
   "contact": {
     "eyebrow": "Bonjour",
     "title": "Contact",
-    "body": "Un mot suffit. L'e-mail, les réseaux et un formulaire vivront sur cette page.",
-    "pageTitle": "Écrire"
+    "body": "Vous avez un projet en tête ou souhaitez collaborer ? N'hésitez pas à me contacter par e-mail, réseaux ou via le formulaire.",
+    "pageTitle": "Écrire",
+    "name": "Nom",
+    "nameHint": "Votre nom",
+    "email": "E-mail",
+    "emailHint": "name@example.com",
+    "message": "Message",
+    "messageHint": "Parlez-moi de votre projet ou demande...",
+    "send": "Envoyer le message",
+    "sending": "Envoi…",
+    "success": "Votre message a été envoyé avec succès !",
+    "error": "Échec de l'envoi du message. Veuillez réessayer.",
+    "validationRequired": "Veuillez remplir tous les champs requis.",
+    "directContact": "Contact direct",
+    "socials": "Réseaux sociaux",
+    "phone": "Téléphone / WhatsApp",
+    "github": "GitHub",
+    "linkedin": "LinkedIn"
   },
   "cv": {
     "title": "Curriculum vitæ",

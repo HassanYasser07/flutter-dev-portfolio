@@ -2,7 +2,9 @@
 class ContactRepository {
   const ContactRepository();
 
-  String get email => 'hassan.yasser@example.com';
+  String get email => 'hassanyasser1313@gmail.com';
+  String get phone => '01127246674';
+  String get whatsappUrl => 'https://wa.me/201127246674';
   String get githubUrl => 'https://github.com/HassanYasser07';
   String get linkedinUrl =>
       'https://www.linkedin.com/in/hassan-yasser-227545249/';
