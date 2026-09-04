@@ -1,8 +1,8 @@
 {
   "app": {
-    "title": "Nour Al-Rashid",
-    "name": "Nour Al-Rashid",
-    "role": "Flutter Engineer"
+    "title": "Hassan Yasser",
+    "name": "Hassan Yasser",
+    "role": "Software Engineer"
   },
   "nav": {
     "home": "Home",
@@ -15,7 +15,7 @@
     "menu": "Open menu",
     "closeMenu": "Close menu",
     "skipToContent": "Skip to content",
-    "brand": "Nour Al-Rashid"
+    "brand": "Hassan Yasser"
   },
   "theme": {
     "toggle": "Toggle color theme",
@@ -30,15 +30,15 @@
     "de": "German"
   },
   "hero": {
-    "kicker": "Flutter · Product interfaces",
-    "name": "Nour Al-Rashid",
-    "title": "Interfaces that feel inevitable.",
-    "subtitle": "I design and ship Flutter products — precise motion, quiet type, and layouts that hold up from a phone to a wide display.",
+    "kicker": "FLUTTER · MOBILE & WEB & DESKTOP",
+    "name": "Hassan Yasser",
+    "title": "Building mobile experiences with Flutter.",
+    "subtitle": " I build production-ready Flutter applications with clean architecture,\nresponsive interfaces, and a strong focus on user experience..",
     "ctaProjects": "View work",
     "ctaContact": "Get in touch",
     "ctaCv": "View CV",
-    "monogram": "NA",
-    "availability": "Open for selected collaborations"
+    "monogram": "HY",
+    "availability": "Open to opportunities"
   },
   "about": {
     "eyebrow": "Profile",
@@ -106,7 +106,7 @@
     "download": "Download CV"
   },
   "footer": {
-    "copyright": "© 2026 Nour Al-Rashid",
+    "copyright": "© 2026 Hassan Yasser",
     "backToTop": "Back to top",
     "availability": "Available for selected collaborations"
   },

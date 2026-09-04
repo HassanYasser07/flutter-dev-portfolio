@@ -2,6 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_fonts.dart';
@@ -93,13 +94,7 @@ class _HeroCopy extends StatelessWidget {
         const SizedBox(height: AppSizes.s8),
         _HeroAnimatedRole(bp: bp),
         const SizedBox(height: AppSizes.s16),
-        Text(
-          LocaleKeys.hero_title.tr(),
-          style: AppFonts.heading(bp).copyWith(
-            color: scheme.onSurface,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
+        _HeroTitleWithAnimatedFlutter(bp: bp),
         const SizedBox(height: AppSizes.s16),
         ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 560),
@@ -312,6 +307,86 @@ class _HeroMonogram extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _HeroTitleWithAnimatedFlutter extends StatelessWidget {
+  const _HeroTitleWithAnimatedFlutter({required this.bp});
+
+  final AppBreakpoint bp;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final baseStyle = AppFonts.heading(bp).copyWith(
+      color: scheme.onSurface,
+      fontWeight: FontWeight.w600,
+      height: 1.25,
+    );
+
+    final fullTitle = LocaleKeys.hero_title.tr();
+    const flutterWord = 'Flutter';
+
+    if (!fullTitle.contains(flutterWord)) {
+      return Semantics(
+        header: true,
+        child: Text(fullTitle, style: baseStyle),
+      );
+    }
+
+    final parts = fullTitle.split(flutterWord);
+    final prefix = parts[0];
+    final suffix = parts.length > 1 ? parts[1] : '';
+
+    final flutterTextStyle = AppFonts.heading(bp).copyWith(
+      fontWeight: FontWeight.w800,
+      letterSpacing: 0.5,
+    );
+
+    Widget flutterWidget = ShaderMask(
+      shaderCallback: (bounds) => const LinearGradient(
+        colors: [
+          Color(0xFF00D2FF),
+          Color(0xFF3B82F6),
+          Color(0xFF8B5CF6),
+        ],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ).createShader(bounds),
+      child: Text(
+        flutterWord,
+        style: flutterTextStyle.copyWith(color: Colors.white),
+      ),
+    );
+
+    if (shouldAnimate(context)) {
+      flutterWidget = flutterWidget
+          .animate(onPlay: (controller) => controller.repeat(reverse: true))
+          .shimmer(
+            duration: 2500.ms,
+            color: Colors.white.withValues(alpha: 0.6),
+          )
+          .scale(
+            duration: 2000.ms,
+            begin: const Offset(1.0, 1.0),
+            end: const Offset(1.04, 1.04),
+            curve: Curves.easeInOut,
+          );
+    }
+
+    return Semantics(
+      header: true,
+      label: fullTitle,
+      child: Wrap(
+        crossAxisAlignment: WrapCrossAlignment.center,
+        alignment: WrapAlignment.start,
+        children: [
+          if (prefix.isNotEmpty) Text(prefix, style: baseStyle),
+          flutterWidget,
+          if (suffix.isNotEmpty) Text(suffix, style: baseStyle),
+        ],
       ),
     );
   }

@@ -1,8 +1,8 @@
 {
   "app": {
-    "title": "Nour Al-Rashid",
-    "name": "Nour Al-Rashid",
-    "role": "Ingénieure Flutter"
+    "title": "Hassan Yasser",
+    "name": "Hassan Yasser",
+    "role": "Ingénieur Logiciel"
   },
   "nav": {
     "home": "Accueil",
@@ -15,7 +15,7 @@
     "menu": "Ouvrir le menu",
     "closeMenu": "Fermer le menu",
     "skipToContent": "Aller au contenu",
-    "brand": "Nour Al-Rashid"
+    "brand": "Hassan Yasser"
   },
   "theme": {
     "toggle": "Changer de thème",
@@ -30,20 +30,20 @@
     "de": "Allemand"
   },
   "hero": {
-    "kicker": "Flutter · Interfaces produit",
-    "name": "Nour Al-Rashid",
-    "title": "Des interfaces qui semblent inévitables.",
-    "subtitle": "Je conçois et livre des produits Flutter — mouvement précis, typographie calme, et des mises en page solides du téléphone au grand écran.",
+    "kicker": "FLUTTER · MOBILE & WEB & DESKTOP",
+    "name": "Hassan Yasser",
+    "title": "Conception d'expériences mobiles avec Flutter.",
+    "subtitle": "Je conçois des applications Flutter prêtes pour la production avec une architecture propre, des interfaces réactives et une grande attention à l'expérience utilisateur.",
     "ctaProjects": "Voir les travaux",
     "ctaContact": "Écrire",
     "ctaCv": "Voir le CV",
-    "monogram": "NA",
-    "availability": "Ouverte à des collaborations choisies"
+    "monogram": "HY",
+    "availability": "Ouvert aux opportunités"
   },
   "about": {
     "eyebrow": "Profil",
     "title": "À propos",
-    "body": "Ingénieure Flutter tournée produit. Cette section accueillera la biographie, le portrait et les faits qui encadrent le travail."
+    "body": "Ingénieur Flutter axé produit. Cette section présente la biographie et les informations clés encadrant le travail."
   },
   "skills": {
     "eyebrow": "Stack",
@@ -106,9 +106,9 @@
     "download": "Télécharger le CV"
   },
   "footer": {
-    "copyright": "© 2026 Nour Al-Rashid",
+    "copyright": "© 2026 Hassan Yasser",
     "backToTop": "Haut de page",
-    "availability": "Disponible pour des collaborations choisies"
+    "availability": "Ouvert aux opportunités"
   },
   "common": {
     "back": "Retour",

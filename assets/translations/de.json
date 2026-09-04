@@ -1,8 +1,8 @@
 {
   "app": {
-    "title": "Nour Al-Rashid",
-    "name": "Nour Al-Rashid",
-    "role": "Flutter-Ingenieurin"
+    "title": "Hassan Yasser",
+    "name": "Hassan Yasser",
+    "role": "Software-Ingenieur"
   },
   "nav": {
     "home": "Start",
@@ -15,7 +15,7 @@
     "menu": "Menü öffnen",
     "closeMenu": "Menü schließen",
     "skipToContent": "Zum Inhalt springen",
-    "brand": "Nour Al-Rashid"
+    "brand": "Hassan Yasser"
   },
   "theme": {
     "toggle": "Farbschema wechseln",
@@ -30,20 +30,20 @@
     "de": "Deutsch"
   },
   "hero": {
-    "kicker": "Flutter · Produktoberflächen",
-    "name": "Nour Al-Rashid",
-    "title": "Oberflächen, die unvermeidlich wirken.",
-    "subtitle": "Ich gestalte und liefere Flutter-Produkte — präzise Bewegung, ruhige Typografie und Layouts, die vom Telefon bis zum großen Display tragen.",
+    "kicker": "FLUTTER · MOBILE & WEB & DESKTOP",
+    "name": "Hassan Yasser",
+    "title": "Entwicklung mobiler Erlebnisse mit Flutter.",
+    "subtitle": "Ich entwickle produktionsbereite Flutter-Anwendungen mit sauberer Architektur, responsiven Benutzeroberflächen und starkem Fokus auf Benutzererfahrung.",
     "ctaProjects": "Arbeit ansehen",
     "ctaContact": "Kontakt",
     "ctaCv": "CV ansehen",
-    "monogram": "NA",
-    "availability": "Offen für ausgewählte Zusammenarbeit"
+    "monogram": "HY",
+    "availability": "Offen für Möglichkeiten"
   },
   "about": {
     "eyebrow": "Profil",
     "title": "Über mich",
-    "body": "Eine produktorientierte Flutter-Ingenieurin. Hier entstehen Biografie, Porträt und die Fakten um die Arbeit."
+    "body": "Ein produktorientierter Flutter-Ingenieur. Dieser Bereich enthält Biografie und wichtige Informationen."
   },
   "skills": {
     "eyebrow": "Stack",
@@ -106,9 +106,9 @@
     "download": "CV herunterladen"
   },
   "footer": {
-    "copyright": "© 2026 Nour Al-Rashid",
+    "copyright": "© 2026 Hassan Yasser",
     "backToTop": "Nach oben",
-    "availability": "Verfügbar für ausgewählte Zusammenarbeit"
+    "availability": "Offen für Möglichkeiten"
   },
   "common": {
     "back": "Zurück",

@@ -127,6 +127,57 @@ class AppContainerInner extends StatelessWidget {
   }
 }
 
+class _HyMonogramBadge extends StatelessWidget {
+  const _HyMonogramBadge({this.size = 36.0});
+
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [
+            Color(0xFF00D2FF),
+            Color(0xFF3B82F6),
+            Color(0xFF8B5CF6),
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(size * 0.3),
+        boxShadow: [
+          BoxShadow(
+            color: scheme.primary.withValues(alpha: 0.35),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.3),
+          width: 1.5,
+        ),
+      ),
+      child: Center(
+        child: Text(
+          'HY',
+          style: TextStyle(
+            fontFamily: AppFonts.displayFamily,
+            fontWeight: FontWeight.w800,
+            fontSize: size * 0.44,
+            letterSpacing: -0.5,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class _BrandMark extends StatelessWidget {
   const _BrandMark({this.onPressed});
 
@@ -139,14 +190,33 @@ class _BrandMark extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final bp = breakpointOf(constraints);
-        return TextButton(
-          onPressed: () {
+        final compact = bp == AppBreakpoint.mobile;
+
+        return InkWell(
+          onTap: () {
             onPressed?.call();
             context.goNamed(AppRoutes.home);
           },
-          child: Text(
-            LocaleKeys.nav_brand.tr(),
-            style: AppFonts.title(bp).copyWith(color: scheme.onSurface),
+          borderRadius: BorderRadius.circular(AppSizes.radiusMd),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSizes.s8,
+              vertical: AppSizes.s4,
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _HyMonogramBadge(size: compact ? 32.0 : 38.0),
+                const SizedBox(width: AppSizes.s12),
+                Text(
+                  LocaleKeys.nav_brand.tr(),
+                  style: AppFonts.title(bp).copyWith(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },
@@ -274,11 +344,14 @@ class NavDrawer extends StatelessWidget {
             children: [
               Row(
                 children: [
+                  const _HyMonogramBadge(size: 32),
+                  const SizedBox(width: AppSizes.s12),
                   Expanded(
                     child: Text(
                       LocaleKeys.nav_brand.tr(),
                       style: AppFonts.title(AppBreakpoint.mobile).copyWith(
                         color: scheme.onSurface,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
