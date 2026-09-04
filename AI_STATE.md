@@ -98,10 +98,10 @@
 ---
 
 ## 🎯 Current AI Priority & Focus
-1. Task 5.1 completed: Hero & About section integration with `AnimatedTextKit` and existing `CvCubit` actions.
-2. Lottie status: Deferred to Task 6.1 as no Lottie asset file exists in `assets/`.
-3. Existing CV implementation integrated without reimplementation.
-4. Next focus: Task 5.2 (Skills & Experience sections).
+1. Task 5.1 completed: Hero & About section integration.
+2. Task 5.2 completed: Skills & Experience UI integration connected to `SkillModel`, `ExperienceModel`, and `PortfolioData`.
+3. SVG Icons: SvgPicture with graceful Material icon fallbacks integrated; real SVG asset setup pending Task 6.1.
+4. Next focus: Task 5.3 (Projects section & Detail Pages).
 
 **Lazy Loading preserved:** No changes to initialization flow or video widget structure.
 **Verification:** `dart analyze` — zero warnings. `dart format` — clean.

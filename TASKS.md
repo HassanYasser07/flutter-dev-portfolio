@@ -75,7 +75,7 @@
 - [x] **Task 5.1: Enhance Hero & About Sections**
   - Wire `hero_section.dart` with `AnimatedTextKit` and Lottie ambient animation
   - Connect "View CV" and "Download CV" buttons in Hero/About to `CvView` dialog/route and `PdfDownloadHelper`
-- [ ] **Task 5.2: Enhance Skills & Experience Sections**
+- [x] **Task 5.2: Enhance Skills & Experience Sections**
   - Update `skills_section.dart` to load `SkillModel` grid with `flutter_svg` tech icons
   - Update `experience_section.dart` to render responsive timeline using `ExperienceModel`
 - [ ] **Task 5.3: Enhance Projects Section & Detail Pages**
