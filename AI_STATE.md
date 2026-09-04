@@ -110,6 +110,10 @@
 - Responsive layout: desktop displays side-by-side flex layout (contact info on left, form on right); mobile & tablet stack vertically without horizontal overflow.
 - Tier 2 entry animations via `flutter_animate` (`fadeIn` + `slideY`), gated by `shouldAnimate(context)`.
 - 12 new translation keys added across all 4 locale JSON files (`en.json`, `ar.json`, `fr.json`, `de.json`); `locale_keys.g.dart` regenerated.
-- `dart analyze` — zero warnings. `dart format` — clean.
+- `dart analyze` - zero warnings. `dart format` - clean.
 
-
+**Real EmailJS Integration complete:**
+- Replaced mock submission with real HTTP POST request to EmailJS REST API.
+- Integrated `dio` package for network requests.
+- Added `EmailJsConfig` to store client-side keys (Service ID, Template ID, Public Key).
+- Preserved existing BLoC/Cubit architecture, validation, loading, success, and error states.
