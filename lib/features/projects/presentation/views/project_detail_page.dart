@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/constants/app_fonts.dart';
 import '../../../../core/constants/app_sizes.dart';
@@ -112,7 +113,7 @@ class ProjectDetailPage extends StatelessWidget {
                     if (project.videoAsset != null &&
                         project.videoAsset!.isNotEmpty) ...[
                       Text(
-                        'Demo Video',
+                        LocaleKeys.projects_demoVideo.tr(),
                         style: AppFonts.heading(bp).copyWith(
                           color: scheme.onSurface,
                         ),
@@ -127,19 +128,40 @@ class ProjectDetailPage extends StatelessWidget {
                     ],
 
                     // Actions / External Links
-                    Row(
+                    Wrap(
+                      spacing: AppSizes.s12,
+                      runSpacing: AppSizes.s8,
                       children: [
-                        if (project.githubUrl != null) ...[
+                        if (project.githubUrl != null)
                           AppButton(
-                            label: 'GitHub',
+                            label: LocaleKeys.projects_githubLabel.tr(),
                             variant: AppButtonVariant.secondary,
                             icon: Icons.code,
-                            onPressed: () {
-                              // Action handled via URL helper or launchUrl in later task
+                            onPressed: () async {
+                              final uri = Uri.tryParse(project.githubUrl!);
+                              if (uri != null && await canLaunchUrl(uri)) {
+                                await launchUrl(
+                                  uri,
+                                  mode: LaunchMode.externalApplication,
+                                );
+                              }
                             },
                           ),
-                          const SizedBox(width: AppSizes.s12),
-                        ],
+                        if (project.liveUrl != null)
+                          AppButton(
+                            label: LocaleKeys.projects_liveLabel.tr(),
+                            variant: AppButtonVariant.ghost,
+                            icon: Icons.open_in_new,
+                            onPressed: () async {
+                              final uri = Uri.tryParse(project.liveUrl!);
+                              if (uri != null && await canLaunchUrl(uri)) {
+                                await launchUrl(
+                                  uri,
+                                  mode: LaunchMode.externalApplication,
+                                );
+                              }
+                            },
+                          ),
                         if (project.screenshotAssets.isNotEmpty)
                           AppButton(
                             label: LocaleKeys.projects_galleryTitle.tr(),

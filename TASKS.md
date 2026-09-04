@@ -78,7 +78,7 @@
 - [x] **Task 5.2: Enhance Skills & Experience Sections**
   - Update `skills_section.dart` to load `SkillModel` grid with `flutter_svg` tech icons
   - Update `experience_section.dart` to render responsive timeline using `ExperienceModel`
-- [ ] **Task 5.3: Enhance Projects Section & Detail Pages**
+- [x] **Task 5.3: Enhance Projects Section & Detail Pages**
   - Update `projects_section.dart` (Home grid shows thumbnails only; no video preloading)
   - Connect `projects_page.dart` and `project_detail_page.dart` to `ProjectsCubit`, gallery modal, and video player
 - [ ] **Task 5.4: Enhance Contact Section & Footer**

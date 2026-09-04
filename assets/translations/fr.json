@@ -59,6 +59,16 @@
     "detailTitle": "Projet",
     "galleryTitle": "Galerie",
     "notFound": "Ce projet est introuvable.",
+    "demoVideo": "Vidéo de démo",
+    "githubLabel": "GitHub",
+    "liveLabel": "Démo en ligne",
+    "screenshotOf": "Capture {current} sur {total}",
+    "noScreenshots": "Aucune capture disponible pour ce projet.",
+    "imageNotFound": "Fichier image introuvable.",
+    "playDemo": "Lancer la vidéo de démo",
+    "loadingVideo": "Chargement de la vidéo…",
+    "videoError": "Impossible de charger la vidéo.",
+    "retry": "Réessayer",
     "items": {
       "logofy": {
         "title": "Logofy - Générateur de logos IA",

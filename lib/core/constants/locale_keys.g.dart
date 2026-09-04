@@ -55,6 +55,16 @@ abstract class LocaleKeys {
   static const projects_detailTitle = 'projects.detailTitle';
   static const projects_galleryTitle = 'projects.galleryTitle';
   static const projects_notFound = 'projects.notFound';
+  static const projects_demoVideo = 'projects.demoVideo';
+  static const projects_githubLabel = 'projects.githubLabel';
+  static const projects_liveLabel = 'projects.liveLabel';
+  static const projects_screenshotOf = 'projects.screenshotOf';
+  static const projects_noScreenshots = 'projects.noScreenshots';
+  static const projects_imageNotFound = 'projects.imageNotFound';
+  static const projects_playDemo = 'projects.playDemo';
+  static const projects_loadingVideo = 'projects.loadingVideo';
+  static const projects_videoError = 'projects.videoError';
+  static const projects_retry = 'projects.retry';
   static const projects_items_logofy_title = 'projects.items.logofy.title';
   static const projects_items_logofy_description =
       'projects.items.logofy.description';

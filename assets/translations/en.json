@@ -59,6 +59,16 @@
     "detailTitle": "Project",
     "galleryTitle": "Gallery",
     "notFound": "This project could not be found.",
+    "demoVideo": "Demo Video",
+    "githubLabel": "GitHub",
+    "liveLabel": "Live Demo",
+    "screenshotOf": "Screenshot {current} of {total}",
+    "noScreenshots": "No screenshots available for this project.",
+    "imageNotFound": "Image asset not found.",
+    "playDemo": "Play Demo Video",
+    "loadingVideo": "Loading video…",
+    "videoError": "Unable to load video.",
+    "retry": "Retry",
     "items": {
       "logofy": {
         "title": "Logofy - AI Logo Generator",
@@ -80,15 +90,15 @@
     "body": "Roles, teams, and the years between them — laid out as a timeline.",
     "items": {
       "logofy": {
-        "company": "Logofy Technologies",
-        "role": "Senior Flutter Developer",
-        "duration": "2024 — Present",
-        "description": "Engineered mobile application features, optimized rendering performance, and integrated cross-platform asset exports."
+        "company": "El Abdaa Company",
+        "role": "Junior Flutter Developer",
+        "duration": "nov 2024 — jul 2025",
+        "description": "Developed and maintained cross-platform mobile applications using Flutter, implemented new features, integrated REST APIs, and optimized application performance and user experience."
       },
       "edutech": {
-        "company": "EduTech Solutions",
-        "role": "Flutter Web Engineer",
-        "duration": "2023 — 2024",
+        "company": "Freelance",
+        "role": "Flutter Developer",
+        "duration": " aug 2025 — Jul 2026",
         "description": "Architected responsive web dashboards, implemented easy_localization i18n, and designed BLoC state management flows."
       }
     }

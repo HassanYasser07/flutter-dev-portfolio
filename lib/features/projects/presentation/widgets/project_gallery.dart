@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:photo_view/photo_view.dart';
@@ -5,6 +6,7 @@ import 'package:photo_view/photo_view_gallery.dart';
 
 import '../../../../core/constants/app_fonts.dart';
 import '../../../../core/constants/app_sizes.dart';
+import '../../../../core/constants/locale_keys.g.dart';
 import '../../../../core/utils/responsive.dart';
 
 /// Interactive Image Gallery widget supporting pinch/mouse zoom, panning,
@@ -95,7 +97,7 @@ class _ProjectGalleryWidgetState extends State<ProjectGalleryWidget> {
               ),
               const SizedBox(height: AppSizes.s12),
               Text(
-                'No screenshots available for this project',
+                LocaleKeys.projects_noScreenshots.tr(),
                 style: AppFonts.bodySmall(bp).copyWith(
                   color: scheme.onSurfaceVariant,
                 ),
@@ -139,7 +141,12 @@ class _ProjectGalleryWidgetState extends State<ProjectGalleryWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Screenshot ${_currentIndex + 1} of ${widget.screenshots.length}',
+                  LocaleKeys.projects_screenshotOf.tr(
+                    namedArgs: {
+                      'current': '${_currentIndex + 1}',
+                      'total': '${widget.screenshots.length}',
+                    },
+                  ),
                   style: theme.textTheme.labelMedium,
                 ),
                 if (hasMultiple)
@@ -199,7 +206,7 @@ class _ProjectGalleryWidgetState extends State<ProjectGalleryWidget> {
                                 ),
                                 const SizedBox(height: AppSizes.s8),
                                 Text(
-                                  'Image asset not found',
+                                  LocaleKeys.projects_imageNotFound.tr(),
                                   style: AppFonts.label(bp).copyWith(
                                     color: scheme.onSurfaceVariant,
                                   ),

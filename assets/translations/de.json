@@ -59,6 +59,16 @@
     "detailTitle": "Projekt",
     "galleryTitle": "Galerie",
     "notFound": "Dieses Projekt wurde nicht gefunden.",
+    "demoVideo": "Demo-Video",
+    "githubLabel": "GitHub",
+    "liveLabel": "Live-Demo",
+    "screenshotOf": "Bildschirmfoto {current} von {total}",
+    "noScreenshots": "Keine Bildschirmfotos für dieses Projekt verfügbar.",
+    "imageNotFound": "Bilddatei nicht gefunden.",
+    "playDemo": "Demo-Video abspielen",
+    "loadingVideo": "Video wird geladen…",
+    "videoError": "Video konnte nicht geladen werden.",
+    "retry": "Erneut versuchen",
     "items": {
       "logofy": {
         "title": "Logofy - KI-Logo-Generator",
