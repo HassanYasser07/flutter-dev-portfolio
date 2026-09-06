@@ -43,7 +43,15 @@
   "about": {
     "eyebrow": "Profile",
     "title": "About",
-    "body": "A product-minded Flutter engineer. This section will hold biography, portrait, and the facts that frame the work."
+    "me": "ABOUT ME 🚀",
+    "whoIAm": "Who I am",
+    "body": "**Passionate Flutter Developer specializing in building high-performance, scalable, and cross-platform applications for mobile, web, and desktop using Clean Architecture and modern state management. I create user-centric digital experiences with clean code, intuitive design, and a strong focus on performance and quality.",
+    "techStack": "TECH STACK",
+    "whatImGoodAt": "What I'm good at 💻",
+    "specialty": "SPECIALTY",
+    "specialtyValue": "Flutter Developer",
+    "education": "EDUCATION",
+    "educationValue": "🎓 Computer Science & AI graduate"
   },
   "skills": {
     "eyebrow": "Stack",

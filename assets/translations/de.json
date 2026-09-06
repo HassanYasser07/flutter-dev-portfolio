@@ -43,7 +43,15 @@
   "about": {
     "eyebrow": "Profil",
     "title": "Über mich",
-    "body": "Ein produktorientierter Flutter-Ingenieur. Dieser Bereich enthält Biografie und wichtige Informationen."
+    "me": "ÜBER MICH 🚀",
+    "whoIAm": "Wer ich bin",
+    "body": "Leidenschaftlicher Flutter-Entwickler mit Erfahrung in der Erstellung hochleistungsfähiger, plattformübergreifender Mobil- und Webanwendungen mit sauberer Architektur und moderner Zustandsverwaltung.",
+    "techStack": "TECH STACK",
+    "whatImGoodAt": "Was ich gut kann 💻",
+    "specialty": "SPEZIALISIERUNG",
+    "specialtyValue": "Flutter-Entwickler",
+    "education": "AUSBILDUNG",
+    "educationValue": "🎓 AIET, Technische Informatik"
   },
   "skills": {
     "eyebrow": "Stack",

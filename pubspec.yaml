@@ -43,7 +43,8 @@ flutter:
   - assets/images/
   - assets/images/projects/
   - assets/images/projects/logo_maker/
-  - assets/icons/tech/
+  - assets/icons/
+  - assets/icons/
   - assets/pdf/
   - assets/videos/projects/
 #  assets:

@@ -41,7 +41,15 @@ abstract class LocaleKeys {
   static const hero = 'hero';
   static const about_eyebrow = 'about.eyebrow';
   static const about_title = 'about.title';
+  static const about_me = 'about.me';
+  static const about_whoIAm = 'about.whoIAm';
   static const about_body = 'about.body';
+  static const about_techStack = 'about.techStack';
+  static const about_whatImGoodAt = 'about.whatImGoodAt';
+  static const about_specialty = 'about.specialty';
+  static const about_specialtyValue = 'about.specialtyValue';
+  static const about_education = 'about.education';
+  static const about_educationValue = 'about.educationValue';
   static const about = 'about';
   static const skills_eyebrow = 'skills.eyebrow';
   static const skills_title = 'skills.title';
