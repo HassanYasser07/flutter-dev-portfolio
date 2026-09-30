@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/constants/app_fonts.dart';
 import '../../../../core/constants/app_sizes.dart';
@@ -8,43 +9,61 @@ import '../../../../core/utils/responsive.dart';
 import '../../../../core/widgets/app_card.dart';
 import '../../../../core/widgets/app_section.dart';
 import '../../data/models/experience_model.dart';
-import '../../data/portfolio_data.dart';
+import '../bloc/experience_cubit.dart';
+import '../bloc/experience_state.dart';
 
 class ExperienceSection extends StatelessWidget {
-  const ExperienceSection({
-    super.key,
-    this.experiences = PortfolioData.experiences,
-  });
-
-  final List<ExperienceModel> experiences;
+  const ExperienceSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return AppSection(
-      id: 'experience',
-      eyebrow: LocaleKeys.experience_eyebrow.tr(),
-      title: LocaleKeys.experience_title.tr(),
-      subtitle: LocaleKeys.experience_body.tr(),
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          final bp = breakpointOf(constraints);
-
-          return ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: experiences.length,
-            separatorBuilder: (context, index) =>
-                const SizedBox(height: AppSizes.s24),
-            itemBuilder: (context, index) {
-              final isLast = index == experiences.length - 1;
-              return _ExperienceTimelineItem(
-                experience: experiences[index],
-                bp: bp,
-                isLast: isLast,
+    return BlocProvider(
+      create: (_) => ExperienceCubit()..loadExperiences(),
+      child: AppSection(
+        id: 'experience',
+        eyebrow: LocaleKeys.experience_eyebrow.tr(),
+        title: LocaleKeys.experience_title.tr(),
+        subtitle: LocaleKeys.experience_body.tr(),
+        child: BlocBuilder<ExperienceCubit, ExperienceState>(
+          builder: (context, state) {
+            if (state.status == ExperienceStatus.loading ||
+                state.status == ExperienceStatus.initial) {
+              return const SizedBox(
+                height: 200,
+                child: Center(child: CircularProgressIndicator()),
               );
-            },
-          );
-        },
+            }
+
+            if (state.status == ExperienceStatus.error ||
+                state.experiences.isEmpty) {
+              return const SizedBox.shrink();
+            }
+
+            final experiences = state.experiences;
+
+            return LayoutBuilder(
+              builder: (context, constraints) {
+                final bp = breakpointOf(constraints);
+
+                return ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: experiences.length,
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: AppSizes.s24),
+                  itemBuilder: (context, index) {
+                    final isLast = index == experiences.length - 1;
+                    return _ExperienceTimelineItem(
+                      experience: experiences[index],
+                      bp: bp,
+                      isLast: isLast,
+                    );
+                  },
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }
@@ -126,58 +145,61 @@ class _ExperienceTimelineItem extends StatelessWidget {
                           color: scheme.onSurface,
                         ),
                       ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: AppSizes.s12,
-                          vertical: AppSizes.s4,
-                        ),
-                        decoration: BoxDecoration(
-                          color: scheme.primary.withValues(alpha: 0.1),
-                          borderRadius:
-                              BorderRadius.circular(AppSizes.radiusPill),
-                          border: Border.all(
-                            color: scheme.primary.withValues(alpha: 0.2),
+                      if (experience.durationKey.isNotEmpty)
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: AppSizes.s12,
+                            vertical: AppSizes.s4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: scheme.primary.withValues(alpha: 0.1),
+                            borderRadius:
+                                BorderRadius.circular(AppSizes.radiusPill),
+                            border: Border.all(
+                              color: scheme.primary.withValues(alpha: 0.2),
+                            ),
+                          ),
+                          child: Text(
+                            experience.durationKey.tr(),
+                            style: AppFonts.label(bp).copyWith(
+                              color: scheme.primary,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
-                        child: Text(
-                          experience.durationKey.tr(),
-                          style: AppFonts.label(bp).copyWith(
-                            color: scheme.primary,
+                    ],
+                  ),
+                  if (experience.companyKey.isNotEmpty) ...[
+                    const SizedBox(height: AppSizes.s8),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.business,
+                          size: 16,
+                          color: scheme.secondary,
+                        ),
+                        const SizedBox(width: AppSizes.s8),
+                        Text(
+                          experience.companyKey.tr(),
+                          style: AppFonts.body(bp).copyWith(
+                            color: scheme.secondary,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: AppSizes.s8),
-                  // Company
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.business,
-                        size: 16,
-                        color: scheme.secondary,
-                      ),
-                      const SizedBox(width: AppSizes.s8),
-                      Text(
-                        experience.companyKey.tr(),
-                        style: AppFonts.body(bp).copyWith(
-                          color: scheme.secondary,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: AppSizes.s16),
-                  // Description
-                  Text(
-                    experience.descriptionKey.tr(),
-                    style: AppFonts.body(bp).copyWith(
-                      color: scheme.onSurfaceVariant,
-                      height: 1.6,
+                      ],
                     ),
-                  ),
+                  ],
+                  if (experience.descriptionKey.isNotEmpty) ...[
+                    const SizedBox(height: AppSizes.s16),
+                    Text(
+                      experience.descriptionKey.tr(),
+                      style: AppFonts.body(bp).copyWith(
+                        color: scheme.onSurfaceVariant,
+                        height: 1.6,
+                      ),
+                    ),
+                  ],
                   if (experience.technologies.isNotEmpty) ...[
                     const SizedBox(height: AppSizes.s24),
                     // Tech Tags

@@ -98,13 +98,17 @@ class _SkillCategoryCardState extends State<_SkillCategoryCard> {
 
   IconData _getCategoryIcon(String category) {
     final lower = category.toLowerCase();
-    if (lower.contains('mobile') || lower.contains('web')) return Icons.devices_outlined;
+    if (lower.contains('mobile') || lower.contains('web'))
+      return Icons.devices_outlined;
     if (lower.contains('language')) return Icons.code_outlined;
     if (lower.contains('state')) return Icons.account_tree_outlined;
-    if (lower.contains('backend') || lower.contains('api')) return Icons.api_outlined;
-    if (lower.contains('tool') || lower.contains('git')) return Icons.handyman_outlined;
+    if (lower.contains('backend') || lower.contains('api'))
+      return Icons.api_outlined;
+    if (lower.contains('tool') || lower.contains('git'))
+      return Icons.handyman_outlined;
     if (lower.contains('design')) return Icons.palette_outlined;
-    if (lower.contains('devops') || lower.contains('ci')) return Icons.integration_instructions_outlined;
+    if (lower.contains('devops') || lower.contains('ci'))
+      return Icons.integration_instructions_outlined;
     if (lower.contains('storage')) return Icons.storage_outlined;
     if (lower.contains('architecture')) return Icons.architecture_outlined;
     return Icons.widgets_outlined;
@@ -259,4 +263,3 @@ class _SkillCategoryCardState extends State<_SkillCategoryCard> {
     );
   }
 }
-

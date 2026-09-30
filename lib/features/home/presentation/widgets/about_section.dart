@@ -202,7 +202,10 @@ class _AboutSkillsWidget extends StatelessWidget {
       (name: 'Dart', path: 'assets/icons/icons8-dart-48.png'),
       (name: 'Android Studio', path: 'assets/icons/android-studio.png'),
       (name: 'Postman', path: 'assets/icons/Postman_.png'),
-      (name: 'Firebase', path: 'assets/icons/icons8-google-firebase-console-48.png'),
+      (
+        name: 'Firebase',
+        path: 'assets/icons/icons8-google-firebase-console-48.png'
+      ),
       (name: 'Supabase', path: 'assets/icons/supabase-logo-icon.png'),
       (name: 'GitHub', path: 'assets/icons/icone-github-violet.png'),
       (name: 'Figma', path: 'assets/icons/icons8-figma-48.png'),
