@@ -1,23 +1,23 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
-/// Data model representing a technical skill or tool.
+/// Data model representing a technical skill category and its tools.
 @immutable
 class SkillModel extends Equatable {
   const SkillModel({
-    required this.name,
-    required this.iconPath,
     required this.category,
+    required this.skills,
+    this.iconPath = '',
   });
 
-  final String name;
-  final String iconPath;
   final String category;
+  final List<String> skills;
+  final String iconPath;
 
   @override
   List<Object?> get props => [
-        name,
-        iconPath,
         category,
+        skills,
+        iconPath,
       ];
 }

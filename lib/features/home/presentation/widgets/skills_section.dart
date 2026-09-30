@@ -1,12 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/constants/app_fonts.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/locale_keys.g.dart';
 import '../../../../core/utils/responsive.dart';
-import '../../../../core/widgets/app_card.dart';
 import '../../../../core/widgets/app_section.dart';
 import '../../data/models/skill_model.dart';
 import '../../data/portfolio_data.dart';
@@ -21,6 +19,7 @@ class SkillsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return AppSection(
       id: 'skills',
       eyebrow: LocaleKeys.skills_eyebrow.tr(),
@@ -30,13 +29,13 @@ class SkillsSection extends StatelessWidget {
         builder: (context, constraints) {
           final bp = breakpointOf(constraints);
           final crossAxisCount = switch (bp) {
-            AppBreakpoint.mobile => 2,
-            AppBreakpoint.tablet => 3,
-            AppBreakpoint.laptop || AppBreakpoint.desktop => 4,
+            AppBreakpoint.mobile => 1,
+            AppBreakpoint.tablet => 2,
+            AppBreakpoint.laptop || AppBreakpoint.desktop => 3,
           };
 
           final spacing =
-              bp == AppBreakpoint.mobile ? AppSizes.s12 : AppSizes.s16;
+              bp == AppBreakpoint.mobile ? AppSizes.s12 : AppSizes.s24;
 
           return GridView.builder(
             shrinkWrap: true,
@@ -46,11 +45,15 @@ class SkillsSection extends StatelessWidget {
               crossAxisCount: crossAxisCount,
               mainAxisSpacing: spacing,
               crossAxisSpacing: spacing,
-              childAspectRatio: bp == AppBreakpoint.mobile ? 1.35 : 1.55,
+              mainAxisExtent: bp == AppBreakpoint.mobile ? 200 : 220,
             ),
             itemBuilder: (context, index) {
-              final skill = skills[index];
-              return _SkillCard(skill: skill, bp: bp);
+              final categoryModel = skills[index];
+              return _SkillCategoryCard(
+                category: categoryModel.category,
+                skills: categoryModel.skills,
+                bp: bp,
+              );
             },
           );
         },
@@ -59,132 +62,185 @@ class SkillsSection extends StatelessWidget {
   }
 }
 
-class _SkillCard extends StatelessWidget {
-  const _SkillCard({
-    required this.skill,
+class _SkillCategoryCard extends StatefulWidget {
+  const _SkillCategoryCard({
+    required this.category,
+    required this.skills,
     required this.bp,
   });
 
-  final SkillModel skill;
+  final String category;
+  final List<String> skills;
   final AppBreakpoint bp;
+
+  @override
+  State<_SkillCategoryCard> createState() => _SkillCategoryCardState();
+}
+
+class _SkillCategoryCardState extends State<_SkillCategoryCard> {
+  bool _isHovered = false;
+
+  IconData _getCategoryIcon(String category) {
+    final lower = category.toLowerCase();
+    if (lower.contains('mobile') || lower.contains('web')) return Icons.devices_outlined;
+    if (lower.contains('language')) return Icons.code_outlined;
+    if (lower.contains('state')) return Icons.account_tree_outlined;
+    if (lower.contains('backend') || lower.contains('api')) return Icons.api_outlined;
+    if (lower.contains('tool') || lower.contains('git')) return Icons.handyman_outlined;
+    if (lower.contains('design')) return Icons.palette_outlined;
+    if (lower.contains('devops') || lower.contains('ci')) return Icons.integration_instructions_outlined;
+    if (lower.contains('storage')) return Icons.storage_outlined;
+    if (lower.contains('architecture')) return Icons.architecture_outlined;
+    return Icons.widgets_outlined;
+  }
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    final compact = bp == AppBreakpoint.mobile;
+    final compact = widget.bp == AppBreakpoint.mobile;
 
-    return AppCard(
-      padding: EdgeInsets.all(compact ? AppSizes.s12 : AppSizes.s16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            children: [
-              Container(
-                width: compact ? 36 : 40,
-                height: compact ? 36 : 40,
-                decoration: BoxDecoration(
-                  color: scheme.primary.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(AppSizes.radiusMd),
-                  border:
-                      Border.all(color: scheme.primary.withValues(alpha: 0.2)),
-                ),
-                child: Center(
-                  child: _SkillIcon(
-                    iconPath: skill.iconPath,
-                    name: skill.name,
-                    compact: compact,
-                  ),
-                ),
-              ),
-              const Spacer(),
-              Flexible(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppSizes.s8,
-                    vertical: AppSizes.s4,
-                  ),
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 250),
+        curve: Curves.easeOutCubic,
+        transform: Matrix4.translationValues(0, _isHovered ? -5 : 0, 0),
+        decoration: BoxDecoration(
+          color: _isHovered
+              ? scheme.surfaceContainerHighest.withValues(alpha: 0.8)
+              : scheme.surfaceContainerHighest.withValues(alpha: 0.4),
+          borderRadius: BorderRadius.circular(AppSizes.radiusLg),
+          border: Border.all(
+            color: _isHovered
+                ? scheme.primary.withValues(alpha: 0.5)
+                : scheme.outline.withValues(alpha: 0.2),
+            width: 1,
+          ),
+          boxShadow: _isHovered
+              ? [
+                  BoxShadow(
+                    color: scheme.primary.withValues(alpha: 0.15),
+                    blurRadius: 15,
+                    offset: const Offset(0, 5),
+                  )
+                ]
+              : [],
+        ),
+        padding: EdgeInsets.all(compact ? AppSizes.s16 : AppSizes.s24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 250),
+                  curve: Curves.easeOutCubic,
+                  width: compact ? 36 : 42,
+                  height: compact ? 36 : 42,
                   decoration: BoxDecoration(
-                    color: scheme.surfaceContainerHighest,
-                    borderRadius: BorderRadius.circular(AppSizes.radiusPill),
-                    border: Border.all(color: scheme.outline),
+                    color: scheme.surface.withValues(alpha: 0.8),
+                    borderRadius: BorderRadius.circular(AppSizes.radiusMd),
+                    border: Border.all(
+                      color: _isHovered
+                          ? scheme.primary.withValues(alpha: 0.3)
+                          : scheme.outline.withValues(alpha: 0.2),
+                    ),
+                    boxShadow: _isHovered
+                        ? [
+                            BoxShadow(
+                              color: scheme.primary.withValues(alpha: 0.2),
+                              blurRadius: 8,
+                            )
+                          ]
+                        : [],
                   ),
+                  child: Center(
+                    child: AnimatedScale(
+                      scale: _isHovered ? 1.1 : 1.0,
+                      duration: const Duration(milliseconds: 250),
+                      curve: Curves.easeOutCubic,
+                      child: Icon(
+                        _getCategoryIcon(widget.category),
+                        color: scheme.primary,
+                        size: compact ? 18 : 22,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: AppSizes.s12),
+                Expanded(
                   child: Text(
-                    skill.category,
-                    style: AppFonts.label(bp).copyWith(
-                      fontSize: compact ? 9 : 10,
-                      color: scheme.onSurfaceVariant,
+                    widget.category,
+                    style: AppFonts.heading(widget.bp).copyWith(
+                      fontSize: compact ? 15 : 17,
+                      fontWeight: FontWeight.bold,
+                      color: scheme.onSurface,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: AppSizes.s12),
-          Text(
-            skill.name,
-            style: AppFonts.heading(bp).copyWith(
-              fontSize: compact ? 15 : 17,
-              fontWeight: FontWeight.bold,
-              color: scheme.onSurface,
+              ],
             ),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ],
+            const SizedBox(height: AppSizes.s12),
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 250),
+              curve: Curves.easeOutCubic,
+              height: 2,
+              width: _isHovered ? 60 : 24,
+              decoration: BoxDecoration(
+                color: _isHovered
+                    ? scheme.primary
+                    : scheme.primary.withValues(alpha: 0.5),
+                borderRadius: BorderRadius.circular(2),
+                boxShadow: _isHovered
+                    ? [
+                        BoxShadow(
+                          color: scheme.primary.withValues(alpha: 0.5),
+                          blurRadius: 4,
+                        )
+                      ]
+                    : [],
+              ),
+            ),
+            const SizedBox(height: AppSizes.s16),
+            Expanded(
+              child: SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                child: Wrap(
+                  spacing: AppSizes.s8,
+                  runSpacing: AppSizes.s8,
+                  children: widget.skills.map((skill) {
+                    return Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSizes.s12,
+                        vertical: AppSizes.s8,
+                      ),
+                      decoration: BoxDecoration(
+                        color: scheme.surface.withValues(alpha: 0.3),
+                        borderRadius: BorderRadius.circular(AppSizes.radiusSm),
+                        border: Border.all(
+                          color: scheme.outline.withValues(alpha: 0.15),
+                        ),
+                      ),
+                      child: Text(
+                        skill,
+                        style: AppFonts.body(widget.bp).copyWith(
+                          fontSize: compact ? 11 : 12,
+                          color: scheme.onSurfaceVariant,
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
-class _SkillIcon extends StatelessWidget {
-  const _SkillIcon({
-    required this.iconPath,
-    required this.name,
-    required this.compact,
-  });
-
-  final String iconPath;
-  final String name;
-  final bool compact;
-
-  IconData _fallbackIcon(String name) {
-    return switch (name.toLowerCase()) {
-      'flutter' => Icons.flutter_dash,
-      'dart' => Icons.code,
-      'bloc / cubit' => Icons.account_tree_outlined,
-      'firebase' => Icons.local_fire_department_outlined,
-      'rest api' => Icons.api_outlined,
-      'git & github' => Icons.source_outlined,
-      'figma' => Icons.palette_outlined,
-      'ci / cd' => Icons.integration_instructions_outlined,
-      _ => Icons.terminal_outlined,
-    };
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    final size = compact ? 20.0 : 22.0;
-
-    return SvgPicture.asset(
-      iconPath,
-      width: size,
-      height: size,
-      colorFilter: ColorFilter.mode(scheme.primary, BlendMode.srcIn),
-      placeholderBuilder: (_) => Icon(
-        _fallbackIcon(name),
-        size: size,
-        color: scheme.primary,
-      ),
-      errorBuilder: (_, __, ___) => Icon(
-        _fallbackIcon(name),
-        size: size,
-        color: scheme.primary,
-      ),
-    );
-  }
-}

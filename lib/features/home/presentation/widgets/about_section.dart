@@ -161,7 +161,7 @@ class AboutSection extends StatelessWidget {
             style: AppFonts.label(AppBreakpoint.desktop).copyWith(
               fontSize: 14,
               fontWeight: FontWeight.bold,
-              color: scheme.primary,
+              color: scheme.secondary,
               letterSpacing: 1.1,
             ),
           ),

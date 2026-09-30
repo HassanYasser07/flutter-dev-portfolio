@@ -8,44 +8,36 @@ class PortfolioData {
   /// List of technical skills with SVG icon asset paths and categories.
   static const List<SkillModel> skills = [
     SkillModel(
-      name: 'Flutter',
-      iconPath: 'assets/icons/tech/flutter.svg',
-      category: 'Mobile & Web',
+      category: 'Mobile',
+      skills: ['Flutter', 'Dart', 'Android', 'iOS'],
     ),
     SkillModel(
-      name: 'Dart',
-      iconPath: 'assets/icons/tech/dart.svg',
-      category: 'Language',
+      category: 'Web & Desktop',
+      skills: ['Flutter Web', 'Flutter Desktop'],
     ),
     SkillModel(
-      name: 'BLoC / Cubit',
-      iconPath: 'assets/icons/tech/bloc.svg',
       category: 'State Management',
+      skills: ['BLoC / Cubit', 'ٌRiverpod'],
     ),
     SkillModel(
-      name: 'Firebase',
-      iconPath: 'assets/icons/tech/firebase.svg',
-      category: 'Backend',
+      category: 'Architecture',
+      skills: ['  Clean Architecture', 'MVVM', 'Solid' ,'Repository Pattern'],
     ),
     SkillModel(
-      name: 'REST API',
-      iconPath: 'assets/icons/tech/api.svg',
-      category: 'Networking',
+      category: 'Backend & APIs',
+      skills: ['Rest APIs' , 'Firebase' ,'Firebase FCM', 'Dio' ,'Retrofit' ,'JSON Serialization'],
     ),
     SkillModel(
-      name: 'Git & GitHub',
-      iconPath: 'assets/icons/tech/git.svg',
       category: 'Tools',
+      skills: ['Git', 'GitHub', 'Postman'],
     ),
     SkillModel(
-      name: 'Figma',
-      iconPath: 'assets/icons/tech/figma.svg',
       category: 'Design',
+      skills: ['Figma'],
     ),
     SkillModel(
-      name: 'CI / CD',
-      iconPath: 'assets/icons/tech/cicd.svg',
       category: 'DevOps',
+      skills: ['CI / CD', 'Codemagic'],
     ),
   ];
 
