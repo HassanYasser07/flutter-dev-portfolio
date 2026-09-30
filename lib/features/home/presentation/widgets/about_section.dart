@@ -9,135 +9,195 @@ import '../../../../core/utils/responsive.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/app_section.dart';
 import '../../../cv/presentation/bloc/cv_cubit.dart';
+import '../../data/models/about_model.dart';
+import '../bloc/about_cubit.dart';
+import '../bloc/about_state.dart';
 
 class AboutSection extends StatelessWidget {
   const AboutSection({super.key});
 
   @override
   Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => AboutCubit()..loadAbout(),
+      child: AppSection(
+        id: 'about',
+        child: BlocBuilder<AboutCubit, AboutState>(
+          builder: (context, state) {
+            if (state.status == AboutStatus.loading ||
+                state.status == AboutStatus.initial) {
+              return const SizedBox(
+                height: 200,
+                child: Center(child: CircularProgressIndicator()),
+              );
+            }
+
+            final about = state.about;
+
+            return _AboutContent(about: about);
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _AboutContent extends StatelessWidget {
+  const _AboutContent({this.about});
+
+  final AboutModel? about;
+
+  String _trText(String rawKeyOrText) {
+    if (rawKeyOrText.trim().isEmpty) return '';
+    return rawKeyOrText.tr();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
 
-    return AppSection(
-      id: 'about',
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          final bp = breakpointOf(constraints);
-          final isDesktop = constraints.maxWidth > 1000;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final bp = breakpointOf(constraints);
+        final isDesktop = constraints.maxWidth > 1000;
 
-          final leftItem = _buildAboutItem(
-            context: context,
-            maxWidth: isDesktop ? 490 : double.infinity,
-            title: LocaleKeys.about_me.tr(),
-            subTitle: LocaleKeys.about_whoIAm.tr(),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  LocaleKeys.about_body.tr(),
-                  style: AppFonts.body(bp).copyWith(
-                    fontSize: 16,
-                    color: scheme.onSurfaceVariant,
-                    height: 1.6,
+        final titleText = (about != null && about!.title.isNotEmpty)
+            ? _trText(about!.title)
+            : LocaleKeys.about_whoIAm.tr();
+
+        final bodyText = (about != null && about!.description.isNotEmpty)
+            ? _trText(about!.description)
+            : LocaleKeys.about_body.tr();
+
+        final hasImage =
+            about?.imageUrl != null && about!.imageUrl!.trim().isNotEmpty;
+
+        final leftItem = _buildAboutItem(
+          context: context,
+          maxWidth: isDesktop ? 490 : double.infinity,
+          title: LocaleKeys.about_me.tr(),
+          subTitle: titleText,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (hasImage) ...[
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(AppSizes.radiusLg),
+                  child: Image.network(
+                    about!.imageUrl!,
+                    height: 200,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) => const SizedBox.shrink(),
                   ),
                 ),
-                const SizedBox(height: AppSizes.s24),
-                Wrap(
-                  spacing: AppSizes.s12,
-                  runSpacing: AppSizes.s12,
-                  children: [
-                    AppButton(
-                      label: LocaleKeys.cv_view.tr(),
-                      variant: AppButtonVariant.secondary,
-                      icon: Icons.open_in_new,
-                      tooltip: LocaleKeys.cv_view.tr(),
-                      onPressed: () => context.read<CvCubit>().openCvInNewTab(),
-                    ),
-                    AppButton(
-                      label: LocaleKeys.cv_download.tr(),
-                      variant: AppButtonVariant.ghost,
-                      icon: Icons.download,
-                      tooltip: LocaleKeys.cv_download.tr(),
-                      onPressed: () => context.read<CvCubit>().downloadCv(),
-                    ),
-                  ],
+                const SizedBox(height: AppSizes.s16),
+              ],
+              Text(
+                bodyText,
+                style: AppFonts.body(bp).copyWith(
+                  fontSize: 16,
+                  color: scheme.onSurfaceVariant,
+                  height: 1.6,
                 ),
-              ],
-            ),
-          );
+              ),
+              const SizedBox(height: AppSizes.s24),
+              Wrap(
+                spacing: AppSizes.s12,
+                runSpacing: AppSizes.s12,
+                children: [
+                  AppButton(
+                    label: LocaleKeys.cv_view.tr(),
+                    variant: AppButtonVariant.secondary,
+                    icon: Icons.open_in_new,
+                    tooltip: LocaleKeys.cv_view.tr(),
+                    onPressed: () => context.read<CvCubit>().openCvInNewTab(),
+                  ),
+                  AppButton(
+                    label: LocaleKeys.cv_download.tr(),
+                    variant: AppButtonVariant.ghost,
+                    icon: Icons.download,
+                    tooltip: LocaleKeys.cv_download.tr(),
+                    onPressed: () => context.read<CvCubit>().downloadCv(),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
 
-          final rightItem = _buildAboutItem(
-            context: context,
-            maxWidth: isDesktop ? 500 : double.infinity,
-            title: LocaleKeys.about_techStack.tr(),
-            subTitle: LocaleKeys.about_whatImGoodAt.tr(),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: AppSizes.s12),
-                const _AboutSkillsWidget(),
-                const SizedBox(height: AppSizes.s24),
-                LayoutBuilder(
-                  builder: (context, subConstraints) {
-                    final isRow = subConstraints.maxWidth >= 480;
-                    final specialtyWidget = _buildAboutItem(
-                      context: context,
-                      title: LocaleKeys.about_specialty.tr(),
-                      subTitle: LocaleKeys.about_specialtyValue.tr(),
+        final rightItem = _buildAboutItem(
+          context: context,
+          maxWidth: isDesktop ? 500 : double.infinity,
+          title: LocaleKeys.about_techStack.tr(),
+          subTitle: LocaleKeys.about_whatImGoodAt.tr(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: AppSizes.s12),
+              const _AboutSkillsWidget(),
+              const SizedBox(height: AppSizes.s24),
+              LayoutBuilder(
+                builder: (context, subConstraints) {
+                  final isRow = subConstraints.maxWidth >= 480;
+                  final specialtyWidget = _buildAboutItem(
+                    context: context,
+                    title: LocaleKeys.about_specialty.tr(),
+                    subTitle: LocaleKeys.about_specialtyValue.tr(),
+                  );
+                  final educationWidget = _buildAboutItem(
+                    context: context,
+                    title: LocaleKeys.about_education.tr(),
+                    subTitle: LocaleKeys.about_educationValue.tr(),
+                  );
+
+                  if (isRow) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(child: specialtyWidget),
+                        const SizedBox(width: AppSizes.s16),
+                        Expanded(child: educationWidget),
+                      ],
                     );
-                    final educationWidget = _buildAboutItem(
-                      context: context,
-                      title: LocaleKeys.about_education.tr(),
-                      subTitle: LocaleKeys.about_educationValue.tr(),
+                  } else {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        specialtyWidget,
+                        const SizedBox(height: AppSizes.s16),
+                        educationWidget,
+                      ],
                     );
+                  }
+                },
+              ),
+            ],
+          ),
+        );
 
-                    if (isRow) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(child: specialtyWidget),
-                          const SizedBox(width: AppSizes.s16),
-                          Expanded(child: educationWidget),
-                        ],
-                      );
-                    } else {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          specialtyWidget,
-                          const SizedBox(height: AppSizes.s16),
-                          educationWidget,
-                        ],
-                      );
-                    }
-                  },
-                ),
-              ],
-            ),
+        if (isDesktop) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(child: leftItem),
+              const SizedBox(width: AppSizes.s48),
+              Expanded(child: rightItem),
+            ],
           );
-
-          if (isDesktop) {
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(child: leftItem),
-                const SizedBox(width: AppSizes.s48),
-                Expanded(child: rightItem),
-              ],
-            );
-          } else {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                leftItem,
-                const SizedBox(height: AppSizes.s48),
-                rightItem,
-              ],
-            );
-          }
-        },
-      ),
+        } else {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              leftItem,
+              const SizedBox(height: AppSizes.s48),
+              rightItem,
+            ],
+          );
+        }
+      },
     );
   }
 
