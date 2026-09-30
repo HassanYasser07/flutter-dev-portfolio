@@ -28,6 +28,7 @@ dependencies:
   photo_view: ^0.15.0
   pdfx: 2.9.2
   dio: ^5.11.1
+  supabase_flutter: ^2.15.2
 
 dev_dependencies:
   flutter_test:

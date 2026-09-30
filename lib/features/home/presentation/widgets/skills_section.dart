@@ -1,62 +1,78 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/constants/app_fonts.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/locale_keys.g.dart';
 import '../../../../core/utils/responsive.dart';
 import '../../../../core/widgets/app_section.dart';
-import '../../data/models/skill_model.dart';
-import '../../data/portfolio_data.dart';
+import '../bloc/skills_cubit.dart';
+import '../bloc/skills_state.dart';
 
 class SkillsSection extends StatelessWidget {
-  const SkillsSection({
-    super.key,
-    this.skills = PortfolioData.skills,
-  });
-
-  final List<SkillModel> skills;
+  const SkillsSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-
-    return AppSection(
-      id: 'skills',
-      eyebrow: LocaleKeys.skills_eyebrow.tr(),
-      title: LocaleKeys.skills_title.tr(),
-      subtitle: LocaleKeys.skills_body.tr(),
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          final bp = breakpointOf(constraints);
-          final crossAxisCount = switch (bp) {
-            AppBreakpoint.mobile => 1,
-            AppBreakpoint.tablet => 2,
-            AppBreakpoint.laptop || AppBreakpoint.desktop => 3,
-          };
-
-          final spacing =
-              bp == AppBreakpoint.mobile ? AppSizes.s12 : AppSizes.s24;
-
-          return GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: skills.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: crossAxisCount,
-              mainAxisSpacing: spacing,
-              crossAxisSpacing: spacing,
-              mainAxisExtent: bp == AppBreakpoint.mobile ? 200 : 220,
-            ),
-            itemBuilder: (context, index) {
-              final categoryModel = skills[index];
-              return _SkillCategoryCard(
-                category: categoryModel.category,
-                skills: categoryModel.skills,
-                bp: bp,
+    return BlocProvider(
+      create: (_) => SkillsCubit()..loadSkills(),
+      child: AppSection(
+        id: 'skills',
+        eyebrow: LocaleKeys.skills_eyebrow.tr(),
+        title: LocaleKeys.skills_title.tr(),
+        subtitle: LocaleKeys.skills_body.tr(),
+        child: BlocBuilder<SkillsCubit, SkillsState>(
+          builder: (context, state) {
+            if (state.status == SkillsStatus.loading ||
+                state.status == SkillsStatus.initial) {
+              return const SizedBox(
+                height: 200,
+                child: Center(child: CircularProgressIndicator()),
               );
-            },
-          );
-        },
+            }
+
+            if (state.status == SkillsStatus.error || state.skills.isEmpty) {
+              return const SizedBox.shrink();
+            }
+
+            final skills = state.skills;
+
+            return LayoutBuilder(
+              builder: (context, constraints) {
+                final bp = breakpointOf(constraints);
+                final crossAxisCount = switch (bp) {
+                  AppBreakpoint.mobile => 1,
+                  AppBreakpoint.tablet => 2,
+                  AppBreakpoint.laptop || AppBreakpoint.desktop => 3,
+                };
+
+                final spacing =
+                    bp == AppBreakpoint.mobile ? AppSizes.s12 : AppSizes.s24;
+
+                return GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: skills.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: crossAxisCount,
+                    mainAxisSpacing: spacing,
+                    crossAxisSpacing: spacing,
+                    mainAxisExtent: bp == AppBreakpoint.mobile ? 200 : 220,
+                  ),
+                  itemBuilder: (context, index) {
+                    final categoryModel = skills[index];
+                    return _SkillCategoryCard(
+                      category: categoryModel.category,
+                      skills: categoryModel.skills,
+                      bp: bp,
+                    );
+                  },
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }
