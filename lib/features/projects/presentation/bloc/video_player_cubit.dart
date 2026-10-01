@@ -33,7 +33,8 @@ class VideoPlayerCubit extends Cubit<VideoPlayerState> {
     ));
 
     try {
-      _videoPlayerController = VideoPlayerController.asset(videoAsset);
+      _videoPlayerController =
+          VideoPlayerController.networkUrl(Uri.parse(videoAsset));
       await _videoPlayerController!.initialize();
 
       if (isClosed) {

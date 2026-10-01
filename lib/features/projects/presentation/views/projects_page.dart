@@ -140,7 +140,7 @@ class ProjectsPage extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 final project = state.filteredProjects[index];
                                 return AppCard(
-                                  semanticLabel: project.titleKey.tr(),
+                                  semanticLabel: project.title,
                                   onPressed: () => context.goNamed(
                                     AppRoutes.projectDetail,
                                     pathParameters: {'id': project.id},
@@ -155,33 +155,27 @@ class ProjectsPage extends StatelessWidget {
                                             AppSizes.radiusSm),
                                         child: AspectRatio(
                                           aspectRatio: 16 / 9,
-                                          child: Image.asset(
-                                            project.thumbAsset,
-                                            fit: BoxFit.cover,
-                                            errorBuilder:
-                                                (context, error, stackTrace) {
-                                              return Container(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .surfaceContainerHighest,
-                                                child: Center(
-                                                  child: Icon(
-                                                    Icons.work_outline,
-                                                    size: 36,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .onSurfaceVariant,
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                          ),
+                                          child: project.thumbnailUrl != null &&
+                                                  project
+                                                      .thumbnailUrl!.isNotEmpty
+                                              ? Image.network(
+                                                  project.thumbnailUrl!,
+                                                  fit: BoxFit.cover,
+                                                  errorBuilder: (context, error,
+                                                      stackTrace) {
+                                                    return _ThumbnailFallback(
+                                                        semanticLabel:
+                                                            project.title);
+                                                  },
+                                                )
+                                              : _ThumbnailFallback(
+                                                  semanticLabel: project.title),
                                         ),
                                       ),
                                       const SizedBox(height: AppSizes.s16),
                                       // Title
                                       Text(
-                                        project.titleKey.tr(),
+                                        project.title,
                                         style: AppFonts.title(bp).copyWith(
                                           color: Theme.of(context)
                                               .colorScheme
@@ -194,7 +188,7 @@ class ProjectsPage extends StatelessWidget {
                                       // Description
                                       Expanded(
                                         child: Text(
-                                          project.descriptionKey.tr(),
+                                          project.description,
                                           style:
                                               AppFonts.bodySmall(bp).copyWith(
                                             color: Theme.of(context)
@@ -296,6 +290,31 @@ class _TagFilterBar extends StatelessWidget {
           onSelected: (_) => onTagSelected(tag),
         );
       }).toList(),
+    );
+  }
+}
+
+/// Fallback widget shown when a project thumbnail URL is null or fails to load.
+class _ThumbnailFallback extends StatelessWidget {
+  const _ThumbnailFallback({required this.semanticLabel});
+
+  final String semanticLabel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      label: semanticLabel,
+      child: Container(
+        color: Theme.of(context).colorScheme.surfaceContainerHighest,
+        child: Center(
+          child: Icon(
+            Icons.work_outline,
+            size: 36,
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+            semanticLabel: semanticLabel,
+          ),
+        ),
+      ),
     );
   }
 }

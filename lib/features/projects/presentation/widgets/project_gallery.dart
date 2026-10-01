@@ -185,13 +185,13 @@ class _ProjectGalleryWidgetState extends State<ProjectGalleryWidget> {
                 PhotoViewGallery.builder(
                   scrollPhysics: const BouncingScrollPhysics(),
                   builder: (BuildContext context, int index) {
-                    final assetPath = widget.screenshots[index];
+                    final imageUrl = widget.screenshots[index];
                     return PhotoViewGalleryPageOptions(
-                      imageProvider: AssetImage(assetPath),
+                      imageProvider: NetworkImage(imageUrl),
                       initialScale: PhotoViewComputedScale.contained,
                       minScale: PhotoViewComputedScale.contained * 0.8,
                       maxScale: PhotoViewComputedScale.covered * 2.5,
-                      heroAttributes: PhotoViewHeroAttributes(tag: assetPath),
+                      heroAttributes: PhotoViewHeroAttributes(tag: imageUrl),
                       errorBuilder: (context, error, stackTrace) {
                         return Container(
                           color: scheme.surfaceContainerHighest,

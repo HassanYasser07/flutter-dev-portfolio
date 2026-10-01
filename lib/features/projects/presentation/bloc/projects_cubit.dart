@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/projects_repository.dart';
 import 'projects_state.dart';
 
-/// Cubit managing projects state, loading, filtering, and selection.
+/// Cubit managing projects state, async loading, filtering, and selection.
 class ProjectsCubit extends Cubit<ProjectsState> {
   ProjectsCubit({
     ProjectsRepository repository = const ProjectsRepository(),
@@ -12,12 +12,12 @@ class ProjectsCubit extends Cubit<ProjectsState> {
 
   final ProjectsRepository _repository;
 
-  /// Loads all projects and available tags from [ProjectsRepository].
-  void loadProjects() {
+  /// Loads all projects asynchronously from Supabase via [ProjectsRepository].
+  Future<void> loadProjects() async {
     emit(state.copyWith(status: ProjectsStatus.loading));
     try {
-      final projects = _repository.getProjects();
-      final tags = _repository.getAllTags();
+      final projects = await _repository.getProjects();
+      final tags = _repository.getAllTags(projects);
 
       emit(state.copyWith(
         status: ProjectsStatus.loaded,
@@ -34,10 +34,10 @@ class ProjectsCubit extends Cubit<ProjectsState> {
     }
   }
 
-  /// Filters projects by tag/category.
+  /// Filters projects by [tag]/category from the already-loaded list.
   void filterByTag(String tag) {
     try {
-      final filtered = _repository.getProjectsByTag(tag);
+      final filtered = _repository.filterByTag(state.allProjects, tag);
       emit(state.copyWith(
         selectedTag: tag,
         filteredProjects: filtered,
@@ -50,24 +50,41 @@ class ProjectsCubit extends Cubit<ProjectsState> {
     }
   }
 
-  /// Selects a project by its [id]. Sets [selectedProject] to null if not found.
-  void selectProjectById(String id) {
+  /// Loads and selects a project by its [id] from Supabase.
+  ///
+  /// Emits [ProjectsStatus.loading] immediately, then [ProjectsStatus.loaded]
+  /// once the project is retrieved (or [ProjectsStatus.error] on failure).
+  Future<void> selectProjectById(String id) async {
+    emit(state.copyWith(status: ProjectsStatus.loading));
     try {
-      final project = _repository.getProjectById(id);
+      // Check in-memory cache first (avoids a round-trip if already loaded).
+      final cached = state.allProjects.where((p) => p.id == id).firstOrNull;
+      if (cached != null) {
+        emit(state.copyWith(
+          status: ProjectsStatus.loaded,
+          selectedProject: () => cached,
+        ));
+        return;
+      }
+
+      // Fall back to fetching from Supabase.
+      final project = await _repository.getProjectById(id);
       emit(state.copyWith(
+        status: project != null ? ProjectsStatus.loaded : ProjectsStatus.error,
         selectedProject: () => project,
+        errorMessage: project == null ? 'Project not found.' : null,
       ));
     } catch (e) {
       emit(state.copyWith(
+        status: ProjectsStatus.error,
         selectedProject: () => null,
+        errorMessage: e.toString(),
       ));
     }
   }
 
   /// Clears the currently selected project.
   void clearSelectedProject() {
-    emit(state.copyWith(
-      selectedProject: () => null,
-    ));
+    emit(state.copyWith(selectedProject: () => null));
   }
 }

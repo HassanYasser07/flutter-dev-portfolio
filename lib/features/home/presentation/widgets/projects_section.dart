@@ -133,9 +133,9 @@ class _ProjectCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Semantics(
-      label: project.titleKey.tr(),
+      label: project.title,
       child: AppCard(
-        semanticLabel: project.titleKey.tr(),
+        semanticLabel: project.title,
         onPressed: () => context.goNamed(
           AppRoutes.projectDetail,
           pathParameters: {'id': project.id},
@@ -148,30 +148,23 @@ class _ProjectCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(AppSizes.radiusSm),
               child: AspectRatio(
                 aspectRatio: 16 / 9,
-                child: Image.asset(
-                  project.thumbAsset,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Container(
-                      color:
-                          Theme.of(context).colorScheme.surfaceContainerHighest,
-                      child: Center(
-                        child: Icon(
-                          Icons.work_outline,
-                          size: 36,
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
-                          semanticLabel: project.titleKey.tr(),
-                        ),
-                      ),
-                    );
-                  },
-                ),
+                child: project.thumbnailUrl != null &&
+                        project.thumbnailUrl!.isNotEmpty
+                    ? Image.network(
+                        project.thumbnailUrl!,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return _ProjectCardThumbnailFallback(
+                              label: project.title);
+                        },
+                      )
+                    : _ProjectCardThumbnailFallback(label: project.title),
               ),
             ),
             const SizedBox(height: AppSizes.s16),
             // Title
             Text(
-              project.titleKey.tr(),
+              project.title,
               style: AppFonts.title(bp).copyWith(
                 color: Theme.of(context).colorScheme.onSurface,
               ),
@@ -182,7 +175,7 @@ class _ProjectCard extends StatelessWidget {
             // Description
             Expanded(
               child: Text(
-                project.descriptionKey.tr(),
+                project.description,
                 style: AppFonts.bodySmall(bp).copyWith(
                   color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
@@ -220,6 +213,31 @@ class _ProjectCard extends StatelessWidget {
               }).toList(),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Fallback widget shown inside a project card when [thumbnailUrl] is null or
+/// fails to load.
+class _ProjectCardThumbnailFallback extends StatelessWidget {
+  const _ProjectCardThumbnailFallback({required this.label});
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return ExcludeSemantics(
+      child: Container(
+        color: Theme.of(context).colorScheme.surfaceContainerHighest,
+        child: Center(
+          child: Icon(
+            Icons.work_outline,
+            size: 36,
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+            semanticLabel: label,
+          ),
         ),
       ),
     );

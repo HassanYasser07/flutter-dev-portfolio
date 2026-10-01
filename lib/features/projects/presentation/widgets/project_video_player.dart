@@ -78,7 +78,7 @@ class _ProjectVideoPlayerContent extends StatelessWidget {
             return Stack(
               fit: StackFit.expand,
               children: [
-                Image.asset(
+                Image.network(
                   posterAsset,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
@@ -128,7 +128,7 @@ class _ProjectVideoPlayerContent extends StatelessWidget {
             return Stack(
               fit: StackFit.expand,
               children: [
-                Image.asset(
+                Image.network(
                   posterAsset,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) =>
