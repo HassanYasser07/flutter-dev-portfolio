@@ -13,6 +13,7 @@ import '../../../../core/utils/responsive.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../cv/presentation/bloc/cv_cubit.dart';
 import '../../../cv/presentation/bloc/cv_state.dart';
+import '../bloc/about_cubit.dart';
 import '../bloc/scroll_cubit.dart';
 import '../bloc/scroll_state.dart';
 
@@ -181,6 +182,7 @@ class _HeroActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final about = context.watch<AboutCubit>().state.about;
     return BlocListener<CvCubit, CvState>(
       listener: (context, state) {
         if (state.status == CvStatus.error && state.message != null) {
@@ -234,7 +236,8 @@ class _HeroActions extends StatelessWidget {
               icon: Icons.open_in_new,
               tooltip: LocaleKeys.cv_view.tr(),
               expanded: compact,
-              onPressed: () => context.read<CvCubit>().openCvInNewTab(),
+              onPressed: () =>
+                  context.read<CvCubit>().openCvInNewTab(about?.cvUrl),
             ),
           ),
           SizedBox(
@@ -245,7 +248,7 @@ class _HeroActions extends StatelessWidget {
               icon: Icons.download,
               tooltip: LocaleKeys.cv_download.tr(),
               expanded: compact,
-              onPressed: () => context.read<CvCubit>().downloadCv(),
+              onPressed: () => context.read<CvCubit>().downloadCv(about?.cvUrl),
             ),
           ),
         ],

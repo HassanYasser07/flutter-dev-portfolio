@@ -7,6 +7,7 @@ import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
 import 'core/theme/theme_cubit.dart';
 import 'features/cv/presentation/bloc/cv_cubit.dart';
+import 'features/home/presentation/bloc/about_cubit.dart';
 import 'features/home/presentation/bloc/scroll_cubit.dart';
 
 class PortfolioApp extends StatelessWidget {
@@ -19,6 +20,7 @@ class PortfolioApp extends StatelessWidget {
         BlocProvider(create: (_) => ThemeCubit()),
         BlocProvider(create: (_) => ScrollCubit()),
         BlocProvider(create: (_) => CvCubit()),
+        BlocProvider(create: (_) => AboutCubit()..loadAbout()),
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeMode) {

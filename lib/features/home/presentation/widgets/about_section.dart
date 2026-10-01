@@ -18,25 +18,22 @@ class AboutSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => AboutCubit()..loadAbout(),
-      child: AppSection(
-        id: 'about',
-        child: BlocBuilder<AboutCubit, AboutState>(
-          builder: (context, state) {
-            if (state.status == AboutStatus.loading ||
-                state.status == AboutStatus.initial) {
-              return const SizedBox(
-                height: 200,
-                child: Center(child: CircularProgressIndicator()),
-              );
-            }
+    return AppSection(
+      id: 'about',
+      child: BlocBuilder<AboutCubit, AboutState>(
+        builder: (context, state) {
+          if (state.status == AboutStatus.loading ||
+              state.status == AboutStatus.initial) {
+            return const SizedBox(
+              height: 200,
+              child: Center(child: CircularProgressIndicator()),
+            );
+          }
 
-            final about = state.about;
+          final about = state.about;
 
-            return _AboutContent(about: about);
-          },
-        ),
+          return _AboutContent(about: about);
+        },
       ),
     );
   }
@@ -61,10 +58,6 @@ class _AboutContent extends StatelessWidget {
         final bp = breakpointOf(constraints);
         final isDesktop = constraints.maxWidth > 1000;
 
-        final titleText = (about != null && about!.title.isNotEmpty)
-            ? _trText(about!.title)
-            : LocaleKeys.about_whoIAm.tr();
-
         final bodyText = (about != null && about!.description.isNotEmpty)
             ? _trText(about!.description)
             : LocaleKeys.about_body.tr();
@@ -76,7 +69,7 @@ class _AboutContent extends StatelessWidget {
           context: context,
           maxWidth: isDesktop ? 490 : double.infinity,
           title: LocaleKeys.about_me.tr(),
-          subTitle: titleText,
+          subTitle: LocaleKeys.about_whoIAm.tr(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -111,14 +104,16 @@ class _AboutContent extends StatelessWidget {
                     variant: AppButtonVariant.secondary,
                     icon: Icons.open_in_new,
                     tooltip: LocaleKeys.cv_view.tr(),
-                    onPressed: () => context.read<CvCubit>().openCvInNewTab(),
+                    onPressed: () =>
+                        context.read<CvCubit>().openCvInNewTab(about?.cvUrl),
                   ),
                   AppButton(
                     label: LocaleKeys.cv_download.tr(),
                     variant: AppButtonVariant.ghost,
                     icon: Icons.download,
                     tooltip: LocaleKeys.cv_download.tr(),
-                    onPressed: () => context.read<CvCubit>().downloadCv(),
+                    onPressed: () =>
+                        context.read<CvCubit>().downloadCv(about?.cvUrl),
                   ),
                 ],
               ),

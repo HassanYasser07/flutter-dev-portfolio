@@ -1,18 +1,20 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/pdf_download_helper.dart';
-import '../../data/cv_constants.dart';
 import 'cv_state.dart';
 
 class CvCubit extends Cubit<CvState> {
   CvCubit() : super(const CvState());
 
   /// Triggers PDF download for the user's CV.
-  void downloadCv() {
+  void downloadCv([String? customUrl]) {
     try {
+      if (customUrl == null || customUrl.trim().isEmpty) {
+        throw Exception('CV URL is not available.');
+      }
       PdfDownloadHelper.downloadPdf(
-        CvConstants.cvAssetPath,
-        CvConstants.cvDownloadName,
+        customUrl.trim(),
+        'Hassan_Yasser_CV.pdf',
       );
       emit(state.copyWith(
         status: CvStatus.success,
@@ -27,10 +29,13 @@ class CvCubit extends Cubit<CvState> {
   }
 
   /// Opens the PDF CV document in a new browser window/tab.
-  void openCvInNewTab() {
+  void openCvInNewTab([String? customUrl]) {
     try {
+      if (customUrl == null || customUrl.trim().isEmpty) {
+        throw Exception('CV URL is not available.');
+      }
       PdfDownloadHelper.openInNewTab(
-        CvConstants.cvAssetPath,
+        customUrl.trim(),
       );
       emit(state.copyWith(
         status: CvStatus.success,

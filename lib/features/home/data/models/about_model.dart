@@ -9,6 +9,7 @@ class AboutModel extends Equatable {
     required this.description,
     this.id,
     this.imageUrl,
+    this.cvUrl,
     this.isActive,
   });
 
@@ -16,6 +17,7 @@ class AboutModel extends Equatable {
   final String title;
   final String description;
   final String? imageUrl;
+  final String? cvUrl;
   final bool? isActive;
 
   factory AboutModel.fromJson(Map<String, dynamic> json) {
@@ -29,16 +31,19 @@ class AboutModel extends Equatable {
         json['imageUrl'] ??
         json['image'] ??
         json['avatar_url'];
+    final cvUrlVal = json['cv_url'] ?? json['cvUrl'];
 
     return AboutModel(
       id: json['id']?.toString(),
       title: titleVal.toString(),
       description: descVal.toString(),
       imageUrl: imageVal?.toString(),
+      cvUrl: cvUrlVal?.toString(),
       isActive: json['is_active'] as bool? ?? json['isActive'] as bool?,
     );
   }
 
   @override
-  List<Object?> get props => [id, title, description, imageUrl, isActive];
+  List<Object?> get props =>
+      [id, title, description, imageUrl, cvUrl, isActive];
 }

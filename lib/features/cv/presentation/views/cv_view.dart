@@ -11,6 +11,7 @@ import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/app_card.dart';
 import '../../../../core/widgets/app_scaffold.dart';
 import '../../../../core/widgets/app_section.dart';
+import '../../../home/presentation/bloc/about_cubit.dart';
 import '../../../home/presentation/widgets/footer_widget.dart';
 import '../bloc/cv_cubit.dart';
 
@@ -19,27 +20,24 @@ class CvView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => CvCubit(),
-      child: AppScaffold(
-        body: ListView(
-          children: [
-            AppSection(
-              id: 'cv',
-              eyebrow: LocaleKeys.nav_cv.tr(),
-              title: LocaleKeys.cv_title.tr(),
-              subtitle: LocaleKeys.cv_body.tr(),
-              trailing: AppButton(
-                label: LocaleKeys.common_back.tr(),
-                variant: AppButtonVariant.ghost,
-                icon: Icons.arrow_back,
-                onPressed: () => context.goNamed(AppRoutes.home),
-              ),
-              child: const _CvActionsCard(),
+    return AppScaffold(
+      body: ListView(
+        children: [
+          AppSection(
+            id: 'cv',
+            eyebrow: LocaleKeys.nav_cv.tr(),
+            title: LocaleKeys.cv_title.tr(),
+            subtitle: LocaleKeys.cv_body.tr(),
+            trailing: AppButton(
+              label: LocaleKeys.common_back.tr(),
+              variant: AppButtonVariant.ghost,
+              icon: Icons.arrow_back,
+              onPressed: () => context.goNamed(AppRoutes.home),
             ),
-            const FooterWidget(),
-          ],
-        ),
+            child: const _CvActionsCard(),
+          ),
+          const FooterWidget(),
+        ],
       ),
     );
   }
@@ -55,6 +53,7 @@ class _CvActionsCard extends StatelessWidget {
         final bp = breakpointOf(constraints);
         final compact = bp == AppBreakpoint.mobile;
         final cubit = context.read<CvCubit>();
+        final about = context.watch<AboutCubit>().state.about;
 
         return AppCard(
           child: Padding(
@@ -71,7 +70,7 @@ class _CvActionsCard extends StatelessWidget {
                     label: LocaleKeys.cv_view.tr(),
                     icon: Icons.open_in_new,
                     expanded: compact,
-                    onPressed: () => cubit.openCvInNewTab(),
+                    onPressed: () => cubit.openCvInNewTab(about?.cvUrl),
                   ),
                 ),
                 SizedBox(
@@ -81,7 +80,7 @@ class _CvActionsCard extends StatelessWidget {
                     icon: Icons.download,
                     variant: AppButtonVariant.secondary,
                     expanded: compact,
-                    onPressed: () => cubit.downloadCv(),
+                    onPressed: () => cubit.downloadCv(about?.cvUrl),
                   ),
                 ),
               ],

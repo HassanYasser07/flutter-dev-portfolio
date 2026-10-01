@@ -45,15 +45,12 @@ flutter:
   - assets/images/projects/
   - assets/images/projects/logo_maker/
   - assets/icons/
-  - assets/icons/
-  - assets/pdf/
   - assets/videos/projects/
 #  assets:
 #    - assets/translations/
 #    - assets/images/
 #    - assets/images/projects/
 #    - assets/icons/tech/
-#    - assets/pdf/
 #    - assets/videos/projects/
 
   fonts:
