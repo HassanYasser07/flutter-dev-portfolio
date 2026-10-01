@@ -6,9 +6,13 @@ import 'core/constants/locale_keys.g.dart';
 import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
 import 'core/theme/theme_cubit.dart';
+import 'core/widgets/app_initial_loader.dart';
 import 'features/cv/presentation/bloc/cv_cubit.dart';
 import 'features/home/presentation/bloc/about_cubit.dart';
+import 'features/home/presentation/bloc/experience_cubit.dart';
 import 'features/home/presentation/bloc/scroll_cubit.dart';
+import 'features/home/presentation/bloc/skills_cubit.dart';
+import 'features/projects/presentation/bloc/projects_cubit.dart';
 
 class PortfolioApp extends StatelessWidget {
   const PortfolioApp({super.key});
@@ -21,6 +25,9 @@ class PortfolioApp extends StatelessWidget {
         BlocProvider(create: (_) => ScrollCubit()),
         BlocProvider(create: (_) => CvCubit()),
         BlocProvider(create: (_) => AboutCubit()..loadAbout()),
+        BlocProvider(create: (_) => ProjectsCubit()..loadProjects()),
+        BlocProvider(create: (_) => SkillsCubit()..loadSkills()),
+        BlocProvider(create: (_) => ExperienceCubit()..loadExperiences()),
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeMode) {
@@ -34,6 +41,11 @@ class PortfolioApp extends StatelessWidget {
             supportedLocales: context.supportedLocales,
             localizationsDelegates: context.localizationDelegates,
             routerConfig: AppRouter.router,
+            builder: (context, child) {
+              return AppInitialLoader(
+                child: child ?? const SizedBox.shrink(),
+              );
+            },
           );
         },
       ),

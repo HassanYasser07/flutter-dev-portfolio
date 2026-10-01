@@ -127,8 +127,6 @@ class AppContainerInner extends StatelessWidget {
   }
 }
 
-
-
 class _BrandMark extends StatelessWidget {
   const _BrandMark({this.onPressed});
 
@@ -141,7 +139,6 @@ class _BrandMark extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final bp = breakpointOf(constraints);
-        final compact = bp == AppBreakpoint.mobile;
 
         return InkWell(
           onTap: () {

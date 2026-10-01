@@ -29,92 +29,89 @@ class _ProjectsSectionState extends State<ProjectsSection> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => ProjectsCubit()..loadProjects(),
-      child: VisibilityDetector(
-        key: const Key('projects-section-visibility'),
-        onVisibilityChanged: (info) {
-          if (!_visible && info.visibleFraction > 0.1) {
-            if (mounted) setState(() => _visible = true);
-          }
-        },
-        child: AppSection(
-          id: 'projects',
-          eyebrow: LocaleKeys.projects_eyebrow.tr(),
-          title: LocaleKeys.projects_title.tr(),
-          subtitle: LocaleKeys.projects_body.tr(),
-          trailing: AppButton(
-            label: LocaleKeys.projects_viewAll.tr(),
-            variant: AppButtonVariant.secondary,
-            onPressed: () => context.goNamed(AppRoutes.projects),
-          ),
-          child: BlocBuilder<ProjectsCubit, ProjectsState>(
-            builder: (context, state) {
-              if (state.status == ProjectsStatus.loading ||
-                  state.status == ProjectsStatus.initial) {
-                return const SizedBox(
-                  height: 200,
-                  child: Center(child: CircularProgressIndicator()),
-                );
-              }
-
-              if (state.status == ProjectsStatus.error ||
-                  state.allProjects.isEmpty) {
-                return const SizedBox.shrink();
-              }
-
-              return LayoutBuilder(
-                builder: (context, constraints) {
-                  final bp = breakpointOf(constraints);
-                  final columns = switch (bp) {
-                    AppBreakpoint.mobile => 1,
-                    AppBreakpoint.tablet => 2,
-                    AppBreakpoint.laptop || AppBreakpoint.desktop => 3,
-                  };
-
-                  // Limit preview to top 3 projects for the home page section.
-                  // No video player — thumbnail only as per AGENT.md Media Rules.
-                  final previewProjects = state.allProjects.take(3).toList();
-                  final animate = shouldAnimate(context);
-
-                  return GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: columns,
-                      mainAxisSpacing: AppSizes.s16,
-                      crossAxisSpacing: AppSizes.s16,
-                      childAspectRatio: 0.85,
-                    ),
-                    itemCount: previewProjects.length,
-                    itemBuilder: (context, index) {
-                      final project = previewProjects[index];
-                      final card = _ProjectCard(project: project, bp: bp);
-
-                      // Tier 1 — stagger ≤8 items; 60–80ms per card
-                      if (animate && _visible) {
-                        return card
-                            .animate()
-                            .fadeIn(
-                              delay: Duration(milliseconds: 80 * index),
-                              duration: AppMotion.section,
-                              curve: AppMotion.easeOut,
-                            )
-                            .slideY(
-                              begin: 0.12,
-                              end: 0,
-                              delay: Duration(milliseconds: 80 * index),
-                              duration: AppMotion.section,
-                              curve: AppMotion.easeOut,
-                            );
-                      }
-                      return card;
-                    },
-                  );
-                },
+    return VisibilityDetector(
+      key: const Key('projects-section-visibility'),
+      onVisibilityChanged: (info) {
+        if (!_visible && info.visibleFraction > 0.1) {
+          if (mounted) setState(() => _visible = true);
+        }
+      },
+      child: AppSection(
+        id: 'projects',
+        eyebrow: LocaleKeys.projects_eyebrow.tr(),
+        title: LocaleKeys.projects_title.tr(),
+        subtitle: LocaleKeys.projects_body.tr(),
+        trailing: AppButton(
+          label: LocaleKeys.projects_viewAll.tr(),
+          variant: AppButtonVariant.secondary,
+          onPressed: () => context.goNamed(AppRoutes.projects),
+        ),
+        child: BlocBuilder<ProjectsCubit, ProjectsState>(
+          builder: (context, state) {
+            if (state.status == ProjectsStatus.loading ||
+                state.status == ProjectsStatus.initial) {
+              return const SizedBox(
+                height: 200,
+                child: Center(child: CircularProgressIndicator()),
               );
-            },
-          ),
+            }
+
+            if (state.status == ProjectsStatus.error ||
+                state.allProjects.isEmpty) {
+              return const SizedBox.shrink();
+            }
+
+            return LayoutBuilder(
+              builder: (context, constraints) {
+                final bp = breakpointOf(constraints);
+                final columns = switch (bp) {
+                  AppBreakpoint.mobile => 1,
+                  AppBreakpoint.tablet => 2,
+                  AppBreakpoint.laptop || AppBreakpoint.desktop => 3,
+                };
+
+                // Limit preview to top 3 projects for the home page section.
+                // No video player — thumbnail only as per AGENT.md Media Rules.
+                final previewProjects = state.allProjects.take(3).toList();
+                final animate = shouldAnimate(context);
+
+                return GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: columns,
+                    mainAxisSpacing: AppSizes.s16,
+                    crossAxisSpacing: AppSizes.s16,
+                    childAspectRatio: 0.85,
+                  ),
+                  itemCount: previewProjects.length,
+                  itemBuilder: (context, index) {
+                    final project = previewProjects[index];
+                    final card = _ProjectCard(project: project, bp: bp);
+
+                    // Tier 1 — stagger ≤8 items; 60–80ms per card
+                    if (animate && _visible) {
+                      return card
+                          .animate()
+                          .fadeIn(
+                            delay: Duration(milliseconds: 80 * index),
+                            duration: AppMotion.section,
+                            curve: AppMotion.easeOut,
+                          )
+                          .slideY(
+                            begin: 0.12,
+                            end: 0,
+                            delay: Duration(milliseconds: 80 * index),
+                            duration: AppMotion.section,
+                            curve: AppMotion.easeOut,
+                          );
+                    }
+                    return card;
+                  },
+                );
+              },
+            );
+          },
         ),
       ),
     );

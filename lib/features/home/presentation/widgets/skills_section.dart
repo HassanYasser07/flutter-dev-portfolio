@@ -26,90 +26,87 @@ class _SkillsSectionState extends State<SkillsSection> {
   Widget build(BuildContext context) {
     final animate = shouldAnimate(context);
 
-    return BlocProvider(
-      create: (_) => SkillsCubit()..loadSkills(),
-      child: VisibilityDetector(
-        key: const Key('skills-section-visibility'),
-        onVisibilityChanged: (info) {
-          if (!_visible && info.visibleFraction > 0.1) {
-            if (mounted) setState(() => _visible = true);
-          }
-        },
-        child: AppSection(
-          id: 'skills',
-          eyebrow: LocaleKeys.skills_eyebrow.tr(),
-          title: LocaleKeys.skills_title.tr(),
-          subtitle: LocaleKeys.skills_body.tr(),
-          child: BlocBuilder<SkillsCubit, SkillsState>(
-            builder: (context, state) {
-              if (state.status == SkillsStatus.loading ||
-                  state.status == SkillsStatus.initial) {
-                return const SizedBox(
-                  height: 200,
-                  child: Center(child: CircularProgressIndicator()),
-                );
-              }
-
-              if (state.status == SkillsStatus.error || state.skills.isEmpty) {
-                return const SizedBox.shrink();
-              }
-
-              final skills = state.skills;
-
-              return LayoutBuilder(
-                builder: (context, constraints) {
-                  final bp = breakpointOf(constraints);
-                  final crossAxisCount = switch (bp) {
-                    AppBreakpoint.mobile => 1,
-                    AppBreakpoint.tablet => 2,
-                    AppBreakpoint.laptop || AppBreakpoint.desktop => 3,
-                  };
-
-                  final spacing =
-                      bp == AppBreakpoint.mobile ? AppSizes.s12 : AppSizes.s24;
-
-                  return GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: skills.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: crossAxisCount,
-                      mainAxisSpacing: spacing,
-                      crossAxisSpacing: spacing,
-                      mainAxisExtent: bp == AppBreakpoint.mobile ? 200 : 220,
-                    ),
-                    itemBuilder: (context, index) {
-                      final categoryModel = skills[index];
-                      Widget card = _SkillCategoryCard(
-                        category: categoryModel.category,
-                        skills: categoryModel.skills,
-                        bp: bp,
-                      );
-
-                      if (animate && _visible) {
-                        card = card
-                            .animate()
-                            .fadeIn(
-                              delay: Duration(milliseconds: 90 * index),
-                              duration: AppMotion.section,
-                              curve: AppMotion.easeOut,
-                            )
-                            .slideY(
-                              begin: 0.15,
-                              end: 0,
-                              delay: Duration(milliseconds: 90 * index),
-                              duration: AppMotion.section,
-                              curve: AppMotion.easeOutCubic,
-                            );
-                      }
-
-                      return card;
-                    },
-                  );
-                },
+    return VisibilityDetector(
+      key: const Key('skills-section-visibility'),
+      onVisibilityChanged: (info) {
+        if (!_visible && info.visibleFraction > 0.1) {
+          if (mounted) setState(() => _visible = true);
+        }
+      },
+      child: AppSection(
+        id: 'skills',
+        eyebrow: LocaleKeys.skills_eyebrow.tr(),
+        title: LocaleKeys.skills_title.tr(),
+        subtitle: LocaleKeys.skills_body.tr(),
+        child: BlocBuilder<SkillsCubit, SkillsState>(
+          builder: (context, state) {
+            if (state.status == SkillsStatus.loading ||
+                state.status == SkillsStatus.initial) {
+              return const SizedBox(
+                height: 200,
+                child: Center(child: CircularProgressIndicator()),
               );
-            },
-          ),
+            }
+
+            if (state.status == SkillsStatus.error || state.skills.isEmpty) {
+              return const SizedBox.shrink();
+            }
+
+            final skills = state.skills;
+
+            return LayoutBuilder(
+              builder: (context, constraints) {
+                final bp = breakpointOf(constraints);
+                final crossAxisCount = switch (bp) {
+                  AppBreakpoint.mobile => 1,
+                  AppBreakpoint.tablet => 2,
+                  AppBreakpoint.laptop || AppBreakpoint.desktop => 3,
+                };
+
+                final spacing =
+                    bp == AppBreakpoint.mobile ? AppSizes.s12 : AppSizes.s24;
+
+                return GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: skills.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: crossAxisCount,
+                    mainAxisSpacing: spacing,
+                    crossAxisSpacing: spacing,
+                    mainAxisExtent: bp == AppBreakpoint.mobile ? 200 : 220,
+                  ),
+                  itemBuilder: (context, index) {
+                    final categoryModel = skills[index];
+                    Widget card = _SkillCategoryCard(
+                      category: categoryModel.category,
+                      skills: categoryModel.skills,
+                      bp: bp,
+                    );
+
+                    if (animate && _visible) {
+                      card = card
+                          .animate()
+                          .fadeIn(
+                            delay: Duration(milliseconds: 90 * index),
+                            duration: AppMotion.section,
+                            curve: AppMotion.easeOut,
+                          )
+                          .slideY(
+                            begin: 0.15,
+                            end: 0,
+                            delay: Duration(milliseconds: 90 * index),
+                            duration: AppMotion.section,
+                            curve: AppMotion.easeOutCubic,
+                          );
+                    }
+
+                    return card;
+                  },
+                );
+              },
+            );
+          },
         ),
       ),
     );
@@ -315,4 +312,3 @@ class _SkillCategoryCardState extends State<_SkillCategoryCard> {
     );
   }
 }
-

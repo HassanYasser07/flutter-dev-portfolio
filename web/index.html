@@ -19,6 +19,7 @@
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="A new Flutter project.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
@@ -31,8 +32,234 @@
 
   <title>portfolio</title>
   <link rel="manifest" href="manifest.json">
+
+  <!--
+    Inline critical styles for the HTML pre-loader.
+    Colors match the dark theme from app_colors.dart:
+      darkBackground:      #090A0C
+      darkPrimary (cream):  #EDEAE3
+      darkAccent (teal):    #8EC4BE
+      darkSurfaceElevated:  #1C1F27
+      darkBorder:           #2A2D36
+  -->
+  <style>
+    /* Prevent any white flash — set background immediately */
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: #090A0C;
+      overflow: hidden;
+      height: 100%;
+      width: 100%;
+    }
+
+    /* ── Pre-loader overlay ───────────────────────────────────── */
+    #pre-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #090A0C;
+      opacity: 1;
+      transition: opacity 400ms ease-in-out;
+    }
+    #pre-loader.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* ── Ambient glow blobs ───────────────────────────────────── */
+    .pre-glow {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .pre-glow--primary {
+      top: -100px;
+      left: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(237,234,227,0.18) 0%, rgba(237,234,227,0) 70%);
+      animation: pulse-primary 1.8s ease-in-out infinite alternate;
+    }
+    .pre-glow--secondary {
+      bottom: -100px;
+      right: -100px;
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(142,196,190,0.15) 0%, rgba(142,196,190,0) 70%);
+      animation: pulse-secondary 1.8s ease-in-out infinite alternate;
+    }
+    @keyframes pulse-primary {
+      0%   { width: 400px; height: 400px; opacity: 1; }
+      100% { width: 450px; height: 450px; opacity: 1; }
+    }
+    @keyframes pulse-secondary {
+      0%   { width: 450px; height: 450px; opacity: 1; }
+      100% { width: 400px; height: 400px; opacity: 1; }
+    }
+
+    /* ── Center content ───────────────────────────────────────── */
+    .pre-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 320px;
+      width: 100%;
+      padding: 0 24px;
+      box-sizing: border-box;
+      z-index: 1;
+    }
+
+    /* ── Percentage label ─────────────────────────────────────── */
+    .pre-percent {
+      font-family: 'SpaceGrotesk', system-ui, -apple-system, sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: #EDEAE3;
+      letter-spacing: -0.5px;
+      text-shadow: 0 0 12px rgba(237,234,227,0.35);
+      margin-bottom: 16px;
+      user-select: none;
+    }
+
+    /* ── Snake progress bar track ─────────────────────────────── */
+    .pre-track {
+      width: 100%;
+      height: 12px;
+      border-radius: 6px;
+      background-color: rgba(28,31,39,0.6);
+      border: 1px solid rgba(42,45,54,0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ── Snake progress bar fill ──────────────────────────────── */
+    .pre-fill {
+      height: 100%;
+      border-radius: 6px;
+      width: 0%;
+      background: linear-gradient(90deg, #EDEAE3, #8EC4BE);
+      position: relative;
+      transition: width 200ms ease-out;
+    }
+
+    /* ── Snake head glow ──────────────────────────────────────── */
+    .pre-fill::after {
+      content: '';
+      position: absolute;
+      right: -6px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: rgba(142,196,190,0.8);
+      box-shadow: 0 0 6px 2px rgba(142,196,190,0.6);
+      animation: head-pulse 1.8s ease-in-out infinite alternate;
+    }
+    @keyframes head-pulse {
+      0%   { box-shadow: 0 0 4px 1px rgba(142,196,190,0.6); width: 12px; height: 12px; }
+      100% { box-shadow: 0 0 8px 3px rgba(142,196,190,0.8); width: 15px; height: 15px; }
+    }
+
+    /* ── Snake head core bright spot ──────────────────────────── */
+    .pre-fill::before {
+      content: '';
+      position: absolute;
+      right: -3px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.7);
+      z-index: 2;
+    }
+  </style>
 </head>
 <body>
+  <!-- ════════════════════════════════════════════════════════════
+       HTML Pre-Loader — renders BEFORE Flutter engine loads.
+       Matches the exact visual design of AppInitialLoader.
+       ════════════════════════════════════════════════════════════ -->
+  <div id="pre-loader" aria-label="Loading portfolio">
+    <div class="pre-glow pre-glow--primary"></div>
+    <div class="pre-glow pre-glow--secondary"></div>
+    <div class="pre-center">
+      <div class="pre-percent" id="pre-percent">0%</div>
+      <div class="pre-track">
+        <div class="pre-fill" id="pre-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ── Pre-loader progress animation ──────────────────────────
+    // Animates from 0% towards ~28% while Flutter bootstraps.
+    // Flutter's AppInitialLoader will call removePreLoader() to
+    // take over seamlessly.
+    (function() {
+      var percentEl = document.getElementById('pre-percent');
+      var fillEl = document.getElementById('pre-fill');
+      var currentProgress = 0;
+      var targetProgress = 0;
+      var animFrameId = null;
+      var isRemoved = false;
+
+      // Slowly ramp up target during Flutter download/compile
+      var rampInterval = setInterval(function() {
+        if (isRemoved) { clearInterval(rampInterval); return; }
+        // Ease towards 28% max — never reach 100% in HTML loader
+        if (targetProgress < 28) {
+          targetProgress += (28 - targetProgress) * 0.08;
+        }
+      }, 120);
+
+      function animateProgress() {
+        if (isRemoved) return;
+        // Smooth approach towards target
+        currentProgress += (targetProgress - currentProgress) * 0.12;
+        var displayPercent = Math.min(Math.round(currentProgress), 100);
+        percentEl.textContent = displayPercent + '%';
+        fillEl.style.width = currentProgress + '%';
+        animFrameId = requestAnimationFrame(animateProgress);
+      }
+      animFrameId = requestAnimationFrame(animateProgress);
+
+      // Expose removal function for Flutter to call
+      window._preLoaderProgress = function() {
+        return Math.round(currentProgress);
+      };
+
+      window.removePreLoader = function() {
+        if (isRemoved) return;
+        isRemoved = true;
+        clearInterval(rampInterval);
+        if (animFrameId) cancelAnimationFrame(animFrameId);
+        var loader = document.getElementById('pre-loader');
+        if (loader) {
+          loader.classList.add('fade-out');
+          setTimeout(function() {
+            if (loader.parentNode) loader.parentNode.removeChild(loader);
+          }, 450);
+        }
+      };
+    })();
+  </script>
+
+  <script src='https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/build/pdf.min.mjs' type='module'></script>
+  <script type='module'>
+  var { pdfjsLib } = globalThis;
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/build/pdf.worker.mjs';
+
+  var pdfRenderOptions = {
+    cMapUrl: 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/cmaps/',
+    cMapPacked: true,
+  }
+  </script>
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>

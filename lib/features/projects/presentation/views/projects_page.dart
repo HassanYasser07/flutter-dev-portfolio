@@ -21,235 +21,225 @@ class ProjectsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => ProjectsCubit()..loadProjects(),
-      child: AppScaffold(
-        body: ListView(
-          children: [
-            AppSection(
-              id: 'projects-page',
-              eyebrow: LocaleKeys.projects_eyebrow.tr(),
-              title: LocaleKeys.projects_title.tr(),
-              subtitle: LocaleKeys.projects_body.tr(),
-              trailing: AppButton(
-                label: LocaleKeys.common_back.tr(),
-                variant: AppButtonVariant.ghost,
-                icon: Icons.arrow_back,
-                onPressed: () => context.goNamed(AppRoutes.home),
-              ),
-              child: BlocBuilder<ProjectsCubit, ProjectsState>(
-                builder: (context, state) {
-                  final cubit = context.read<ProjectsCubit>();
+    return AppScaffold(
+      body: ListView(
+        children: [
+          AppSection(
+            id: 'projects-page',
+            eyebrow: LocaleKeys.projects_eyebrow.tr(),
+            title: LocaleKeys.projects_title.tr(),
+            subtitle: LocaleKeys.projects_body.tr(),
+            trailing: AppButton(
+              label: LocaleKeys.common_back.tr(),
+              variant: AppButtonVariant.ghost,
+              icon: Icons.arrow_back,
+              onPressed: () => context.goNamed(AppRoutes.home),
+            ),
+            child: BlocBuilder<ProjectsCubit, ProjectsState>(
+              builder: (context, state) {
+                final cubit = context.read<ProjectsCubit>();
 
-                  if (state.status == ProjectsStatus.loading ||
-                      state.status == ProjectsStatus.initial) {
-                    return const SizedBox(
-                      height: 300,
-                      child: Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    );
-                  }
+                if (state.status == ProjectsStatus.loading ||
+                    state.status == ProjectsStatus.initial) {
+                  return const SizedBox(
+                    height: 300,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
 
-                  if (state.status == ProjectsStatus.error) {
-                    return SizedBox(
-                      height: 300,
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              state.errorMessage ??
-                                  LocaleKeys.projects_notFound.tr(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                    color: Theme.of(context).colorScheme.error,
-                                  ),
-                            ),
-                            const SizedBox(height: AppSizes.s16),
-                            AppButton(
-                              label: LocaleKeys.common_back.tr(),
-                              variant: AppButtonVariant.secondary,
-                              onPressed: () => cubit.loadProjects(),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  }
-
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Filter Tag Bar
-                      if (state.availableTags.isNotEmpty) ...[
-                        _TagFilterBar(
-                          tags: ['all', ...state.availableTags],
-                          selectedTag: state.selectedTag,
-                          onTagSelected: (tag) => cubit.filterByTag(tag),
-                        ),
-                        const SizedBox(height: AppSizes.s24),
-                      ],
-
-                      // Empty Projects View
-                      if (state.filteredProjects.isEmpty)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: AppSizes.s48,
+                if (state.status == ProjectsStatus.error) {
+                  return SizedBox(
+                    height: 300,
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            state.errorMessage ??
+                                LocaleKeys.projects_notFound.tr(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                  color: Theme.of(context).colorScheme.error,
+                                ),
                           ),
-                          child: Center(
-                            child: Text(
-                              LocaleKeys.projects_empty.tr(),
-                              style:
-                                  AppFonts.body(AppBreakpoint.desktop).copyWith(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSurfaceVariant,
-                              ),
+                          const SizedBox(height: AppSizes.s16),
+                          AppButton(
+                            label: LocaleKeys.common_back.tr(),
+                            variant: AppButtonVariant.secondary,
+                            onPressed: () => cubit.loadProjects(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }
+
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Filter Tag Bar
+                    if (state.availableTags.isNotEmpty) ...[
+                      _TagFilterBar(
+                        tags: ['all', ...state.availableTags],
+                        selectedTag: state.selectedTag,
+                        onTagSelected: (tag) => cubit.filterByTag(tag),
+                      ),
+                      const SizedBox(height: AppSizes.s24),
+                    ],
+
+                    // Empty Projects View
+                    if (state.filteredProjects.isEmpty)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: AppSizes.s48,
+                        ),
+                        child: Center(
+                          child: Text(
+                            LocaleKeys.projects_empty.tr(),
+                            style:
+                                AppFonts.body(AppBreakpoint.desktop).copyWith(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurfaceVariant,
                             ),
                           ),
-                        )
-                      else
-                        // Projects Grid
-                        LayoutBuilder(
-                          builder: (context, constraints) {
-                            final bp =
-                                BreakpointScope.maybeOf(context)?.breakpoint ??
-                                    breakpointOf(constraints);
-                            final columns = switch (bp) {
-                              AppBreakpoint.mobile => 1,
-                              AppBreakpoint.tablet => 2,
-                              AppBreakpoint.laptop ||
-                              AppBreakpoint.desktop =>
-                                3,
-                            };
+                        ),
+                      )
+                    else
+                      // Projects Grid
+                      LayoutBuilder(
+                        builder: (context, constraints) {
+                          final bp =
+                              BreakpointScope.maybeOf(context)?.breakpoint ??
+                                  breakpointOf(constraints);
+                          final columns = switch (bp) {
+                            AppBreakpoint.mobile => 1,
+                            AppBreakpoint.tablet => 2,
+                            AppBreakpoint.laptop || AppBreakpoint.desktop => 3,
+                          };
 
-                            return GridView.builder(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: columns,
-                                mainAxisSpacing: AppSizes.s16,
-                                crossAxisSpacing: AppSizes.s16,
-                                childAspectRatio: 0.85,
-                              ),
-                              itemCount: state.filteredProjects.length,
-                              itemBuilder: (context, index) {
-                                final project = state.filteredProjects[index];
-                                return AppCard(
-                                  semanticLabel: project.title,
-                                  onPressed: () => context.goNamed(
-                                    AppRoutes.projectDetail,
-                                    pathParameters: {'id': project.id},
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      // Thumbnail
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(
-                                            AppSizes.radiusSm),
-                                        child: AspectRatio(
-                                          aspectRatio: 16 / 9,
-                                          child: project.thumbnailUrl != null &&
-                                                  project
-                                                      .thumbnailUrl!.isNotEmpty
-                                              ? Image.network(
-                                                  project.thumbnailUrl!,
-                                                  fit: BoxFit.cover,
-                                                  errorBuilder: (context, error,
-                                                      stackTrace) {
-                                                    return _ThumbnailFallback(
-                                                        semanticLabel:
-                                                            project.title);
-                                                  },
-                                                )
-                                              : _ThumbnailFallback(
-                                                  semanticLabel: project.title),
-                                        ),
+                          return GridView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: columns,
+                              mainAxisSpacing: AppSizes.s16,
+                              crossAxisSpacing: AppSizes.s16,
+                              childAspectRatio: 0.85,
+                            ),
+                            itemCount: state.filteredProjects.length,
+                            itemBuilder: (context, index) {
+                              final project = state.filteredProjects[index];
+                              return AppCard(
+                                semanticLabel: project.title,
+                                onPressed: () => context.goNamed(
+                                  AppRoutes.projectDetail,
+                                  pathParameters: {'id': project.id},
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // Thumbnail
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(
+                                          AppSizes.radiusSm),
+                                      child: AspectRatio(
+                                        aspectRatio: 16 / 9,
+                                        child: project.thumbnailUrl != null &&
+                                                project.thumbnailUrl!.isNotEmpty
+                                            ? Image.network(
+                                                project.thumbnailUrl!,
+                                                fit: BoxFit.cover,
+                                                errorBuilder: (context, error,
+                                                    stackTrace) {
+                                                  return _ThumbnailFallback(
+                                                      semanticLabel:
+                                                          project.title);
+                                                },
+                                              )
+                                            : _ThumbnailFallback(
+                                                semanticLabel: project.title),
                                       ),
-                                      const SizedBox(height: AppSizes.s16),
-                                      // Title
-                                      Text(
-                                        project.title,
-                                        style: AppFonts.title(bp).copyWith(
+                                    ),
+                                    const SizedBox(height: AppSizes.s16),
+                                    // Title
+                                    Text(
+                                      project.title,
+                                      style: AppFonts.title(bp).copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface,
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    const SizedBox(height: AppSizes.s8),
+                                    // Description
+                                    Expanded(
+                                      child: Text(
+                                        project.description,
+                                        style: AppFonts.bodySmall(bp).copyWith(
                                           color: Theme.of(context)
                                               .colorScheme
-                                              .onSurface,
+                                              .onSurfaceVariant,
                                         ),
-                                        maxLines: 1,
+                                        maxLines: 3,
                                         overflow: TextOverflow.ellipsis,
                                       ),
-                                      const SizedBox(height: AppSizes.s8),
-                                      // Description
-                                      Expanded(
-                                        child: Text(
-                                          project.description,
-                                          style:
-                                              AppFonts.bodySmall(bp).copyWith(
+                                    ),
+                                    const SizedBox(height: AppSizes.s12),
+                                    // Tags
+                                    Wrap(
+                                      spacing: AppSizes.s8,
+                                      runSpacing: AppSizes.s8,
+                                      children: project.tags.map((tag) {
+                                        return Container(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: AppSizes.s8,
+                                            vertical: AppSizes.s4,
+                                          ),
+                                          decoration: BoxDecoration(
                                             color: Theme.of(context)
                                                 .colorScheme
-                                                .onSurfaceVariant,
-                                          ),
-                                          maxLines: 3,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                      const SizedBox(height: AppSizes.s12),
-                                      // Tags
-                                      Wrap(
-                                        spacing: AppSizes.s8,
-                                        runSpacing: AppSizes.s8,
-                                        children: project.tags.map((tag) {
-                                          return Container(
-                                            padding: const EdgeInsets.symmetric(
-                                              horizontal: AppSizes.s8,
-                                              vertical: AppSizes.s4,
-                                            ),
-                                            decoration: BoxDecoration(
+                                                .surfaceContainerHigh,
+                                            borderRadius: BorderRadius.circular(
+                                                AppSizes.radiusPill),
+                                            border: Border.all(
                                               color: Theme.of(context)
                                                   .colorScheme
-                                                  .surfaceContainerHigh,
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      AppSizes.radiusPill),
-                                              border: Border.all(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .outline,
-                                              ),
+                                                  .outline,
                                             ),
-                                            child: Text(
-                                              tag,
-                                              style:
-                                                  AppFonts.label(bp).copyWith(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .secondary,
-                                              ),
+                                          ),
+                                          child: Text(
+                                            tag,
+                                            style: AppFonts.label(bp).copyWith(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary,
                                             ),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                        ),
-                    ],
-                  );
-                },
-              ),
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      ),
+                  ],
+                );
+              },
             ),
-            const FooterWidget(),
-          ],
-        ),
+          ),
+          const FooterWidget(),
+        ],
       ),
     );
   }

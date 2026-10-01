@@ -17,53 +17,50 @@ class ExperienceSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => ExperienceCubit()..loadExperiences(),
-      child: AppSection(
-        id: 'experience',
-        eyebrow: LocaleKeys.experience_eyebrow.tr(),
-        title: LocaleKeys.experience_title.tr(),
-        subtitle: LocaleKeys.experience_body.tr(),
-        child: BlocBuilder<ExperienceCubit, ExperienceState>(
-          builder: (context, state) {
-            if (state.status == ExperienceStatus.loading ||
-                state.status == ExperienceStatus.initial) {
-              return const SizedBox(
-                height: 200,
-                child: Center(child: CircularProgressIndicator()),
-              );
-            }
-
-            if (state.status == ExperienceStatus.error ||
-                state.experiences.isEmpty) {
-              return const SizedBox.shrink();
-            }
-
-            final experiences = state.experiences;
-
-            return LayoutBuilder(
-              builder: (context, constraints) {
-                final bp = breakpointOf(constraints);
-
-                return ListView.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: experiences.length,
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(height: AppSizes.s24),
-                  itemBuilder: (context, index) {
-                    final isLast = index == experiences.length - 1;
-                    return _ExperienceTimelineItem(
-                      experience: experiences[index],
-                      bp: bp,
-                      isLast: isLast,
-                    );
-                  },
-                );
-              },
+    return AppSection(
+      id: 'experience',
+      eyebrow: LocaleKeys.experience_eyebrow.tr(),
+      title: LocaleKeys.experience_title.tr(),
+      subtitle: LocaleKeys.experience_body.tr(),
+      child: BlocBuilder<ExperienceCubit, ExperienceState>(
+        builder: (context, state) {
+          if (state.status == ExperienceStatus.loading ||
+              state.status == ExperienceStatus.initial) {
+            return const SizedBox(
+              height: 200,
+              child: Center(child: CircularProgressIndicator()),
             );
-          },
-        ),
+          }
+
+          if (state.status == ExperienceStatus.error ||
+              state.experiences.isEmpty) {
+            return const SizedBox.shrink();
+          }
+
+          final experiences = state.experiences;
+
+          return LayoutBuilder(
+            builder: (context, constraints) {
+              final bp = breakpointOf(constraints);
+
+              return ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: experiences.length,
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: AppSizes.s24),
+                itemBuilder: (context, index) {
+                  final isLast = index == experiences.length - 1;
+                  return _ExperienceTimelineItem(
+                    experience: experiences[index],
+                    bp: bp,
+                    isLast: isLast,
+                  );
+                },
+              );
+            },
+          );
+        },
       ),
     );
   }
