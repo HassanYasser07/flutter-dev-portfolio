@@ -1,45 +1,43 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_fonts.dart';
 import '../../../../core/constants/app_sizes.dart';
-import '../../../../core/constants/locale_keys.g.dart';
+import '../../../../core/constants/app_texts.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/utils/responsive.dart';
 import '../../../../core/widgets/app_icon_button.dart';
-import '../../../../core/widgets/locale_switcher.dart';
 import '../../../../core/widgets/theme_toggle.dart';
 import '../bloc/scroll_cubit.dart';
 import '../bloc/scroll_state.dart';
 
 class _NavDestination {
   const _NavDestination({
-    required this.labelKey,
+    required this.label,
     required this.section,
     this.routeName,
   });
 
-  final String labelKey;
+  final String label;
   final HomeSection section;
   final String? routeName;
 }
 
 const _destinations = <_NavDestination>[
-  _NavDestination(labelKey: LocaleKeys.nav_about, section: HomeSection.about),
-  _NavDestination(labelKey: LocaleKeys.nav_skills, section: HomeSection.skills),
+  _NavDestination(label: AppTexts.navAbout, section: HomeSection.about),
+  _NavDestination(label: AppTexts.navSkills, section: HomeSection.skills),
   _NavDestination(
-    labelKey: LocaleKeys.nav_projects,
+    label: AppTexts.navProjects,
     section: HomeSection.projects,
     routeName: AppRoutes.projects,
   ),
   _NavDestination(
-    labelKey: LocaleKeys.nav_experience,
+    label: AppTexts.navExperience,
     section: HomeSection.experience,
   ),
   _NavDestination(
-    labelKey: LocaleKeys.nav_contact,
+    label: AppTexts.navContact,
     section: HomeSection.contact,
     routeName: AppRoutes.contact,
   ),
@@ -86,11 +84,10 @@ class NavBar extends StatelessWidget {
                   const Spacer(),
                   if (!compact) const _DesktopLinks(),
                   const ThemeToggle(),
-                  const LocaleSwitcher(),
                   if (compact)
                     AppIconButton(
                       icon: Icons.menu,
-                      tooltip: LocaleKeys.nav_menu.tr(),
+                      tooltip: AppTexts.navMenu,
                       onPressed: () => Scaffold.of(context).openDrawer(),
                     ),
                 ],
@@ -247,7 +244,7 @@ class _NavLinkState extends State<_NavLink> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    widget.destination.labelKey.tr(),
+                    widget.destination.label,
                     style: AppFonts.nav(bp).copyWith(
                       color: color,
                       fontWeight:
@@ -303,7 +300,7 @@ class NavDrawer extends StatelessWidget {
                   ),
                   AppIconButton(
                     icon: Icons.close,
-                    tooltip: LocaleKeys.nav_closeMenu.tr(),
+                    tooltip: AppTexts.navCloseMenu,
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                 ],
@@ -317,7 +314,7 @@ class NavDrawer extends StatelessWidget {
                       for (final destination in _destinations)
                         ListTile(
                           contentPadding: EdgeInsets.zero,
-                          title: Text(destination.labelKey.tr()),
+                          title: Text(destination.label),
                           selected:
                               _isSelected(destination, state.active, location),
                           selectedColor: scheme.secondary,
@@ -334,7 +331,7 @@ class NavDrawer extends StatelessWidget {
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: const Icon(Icons.description_outlined),
-                title: Text(LocaleKeys.nav_cv.tr()),
+                title: Text(AppTexts.navCv),
                 onTap: () {
                   Navigator.of(context).pop();
                   context.goNamed(AppRoutes.cv);

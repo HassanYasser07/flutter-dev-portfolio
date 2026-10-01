@@ -5,10 +5,10 @@ import 'package:flutter/foundation.dart';
 @immutable
 class ExperienceModel extends Equatable {
   const ExperienceModel({
-    required this.companyKey,
-    required this.roleKey,
-    required this.durationKey,
-    required this.descriptionKey,
+    required this.company,
+    required this.role,
+    required this.duration,
+    required this.description,
     required this.technologies,
     this.id,
     this.sortOrder,
@@ -16,10 +16,10 @@ class ExperienceModel extends Equatable {
   });
 
   final String? id;
-  final String companyKey;
-  final String roleKey;
-  final String durationKey;
-  final String descriptionKey;
+  final String company;
+  final String role;
+  final String duration;
+  final String description;
   final List<String> technologies;
   final int? sortOrder;
   final bool? isActive;
@@ -35,20 +35,20 @@ class ExperienceModel extends Equatable {
       _ => const <String>[],
     };
 
-    final company =
+    final companyStr =
         json['company'] ?? json['company_name'] ?? json['company_title'] ?? '';
-    final role = json['role'] ??
+    final roleStr = json['role'] ??
         json['title'] ??
         json['job_title'] ??
         json['role_title'] ??
         '';
-    final duration = json['date'] ??
+    final durationStr = json['date'] ??
         json['duration'] ??
         json['period'] ??
         json['time'] ??
         json['dates'] ??
         '';
-    final description = json['description'] ??
+    final descriptionStr = json['description'] ??
         json['details'] ??
         json['desc'] ??
         json['summary'] ??
@@ -56,10 +56,10 @@ class ExperienceModel extends Equatable {
 
     return ExperienceModel(
       id: json['id']?.toString(),
-      companyKey: company.toString(),
-      roleKey: role.toString(),
-      durationKey: duration.toString(),
-      descriptionKey: description.toString(),
+      company: companyStr.toString(),
+      role: roleStr.toString(),
+      duration: durationStr.toString(),
+      description: descriptionStr.toString(),
       technologies: techList,
       sortOrder: json['sort_order'] != null
           ? (json['sort_order'] as num).toInt()
@@ -71,10 +71,10 @@ class ExperienceModel extends Equatable {
   @override
   List<Object?> get props => [
         id,
-        companyKey,
-        roleKey,
-        durationKey,
-        descriptionKey,
+        company,
+        role,
+        duration,
+        description,
         technologies,
         sortOrder,
         isActive,

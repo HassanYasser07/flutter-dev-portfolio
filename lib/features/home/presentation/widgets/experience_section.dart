@@ -1,10 +1,9 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/constants/app_fonts.dart';
 import '../../../../core/constants/app_sizes.dart';
-import '../../../../core/constants/locale_keys.g.dart';
+import '../../../../core/constants/app_texts.dart';
 import '../../../../core/utils/responsive.dart';
 import '../../../../core/widgets/app_card.dart';
 import '../../../../core/widgets/app_section.dart';
@@ -19,9 +18,9 @@ class ExperienceSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppSection(
       id: 'experience',
-      eyebrow: LocaleKeys.experience_eyebrow.tr(),
-      title: LocaleKeys.experience_title.tr(),
-      subtitle: LocaleKeys.experience_body.tr(),
+      eyebrow: AppTexts.experienceEyebrow,
+      title: AppTexts.experienceTitle,
+      subtitle: AppTexts.experienceBody,
       child: BlocBuilder<ExperienceCubit, ExperienceState>(
         builder: (context, state) {
           if (state.status == ExperienceStatus.loading ||
@@ -136,13 +135,13 @@ class _ExperienceTimelineItem extends StatelessWidget {
                     runSpacing: AppSizes.s8,
                     children: [
                       Text(
-                        experience.roleKey.tr(),
+                        experience.role,
                         style: AppFonts.heading(bp).copyWith(
                           fontWeight: FontWeight.bold,
                           color: scheme.onSurface,
                         ),
                       ),
-                      if (experience.durationKey.isNotEmpty)
+                      if (experience.duration.isNotEmpty)
                         Container(
                           padding: const EdgeInsets.symmetric(
                             horizontal: AppSizes.s12,
@@ -157,7 +156,7 @@ class _ExperienceTimelineItem extends StatelessWidget {
                             ),
                           ),
                           child: Text(
-                            experience.durationKey.tr(),
+                            experience.duration,
                             style: AppFonts.label(bp).copyWith(
                               color: scheme.primary,
                               fontWeight: FontWeight.w600,
@@ -166,7 +165,7 @@ class _ExperienceTimelineItem extends StatelessWidget {
                         ),
                     ],
                   ),
-                  if (experience.companyKey.isNotEmpty) ...[
+                  if (experience.company.isNotEmpty) ...[
                     const SizedBox(height: AppSizes.s8),
                     Row(
                       mainAxisSize: MainAxisSize.min,
@@ -178,7 +177,7 @@ class _ExperienceTimelineItem extends StatelessWidget {
                         ),
                         const SizedBox(width: AppSizes.s8),
                         Text(
-                          experience.companyKey.tr(),
+                          experience.company,
                           style: AppFonts.body(bp).copyWith(
                             color: scheme.secondary,
                             fontWeight: FontWeight.w600,
@@ -187,10 +186,10 @@ class _ExperienceTimelineItem extends StatelessWidget {
                       ],
                     ),
                   ],
-                  if (experience.descriptionKey.isNotEmpty) ...[
+                  if (experience.description.isNotEmpty) ...[
                     const SizedBox(height: AppSizes.s16),
                     Text(
-                      experience.descriptionKey.tr(),
+                      experience.description,
                       style: AppFonts.body(bp).copyWith(
                         color: scheme.onSurfaceVariant,
                         height: 1.6,

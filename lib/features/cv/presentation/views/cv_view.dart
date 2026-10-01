@@ -1,10 +1,9 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_sizes.dart';
-import '../../../../core/constants/locale_keys.g.dart';
+import '../../../../core/constants/app_texts.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/utils/responsive.dart';
 import '../../../../core/widgets/app_button.dart';
@@ -25,11 +24,11 @@ class CvView extends StatelessWidget {
         children: [
           AppSection(
             id: 'cv',
-            eyebrow: LocaleKeys.nav_cv.tr(),
-            title: LocaleKeys.cv_title.tr(),
-            subtitle: LocaleKeys.cv_body.tr(),
+            eyebrow: AppTexts.navCv,
+            title: AppTexts.cvTitle,
+            subtitle: AppTexts.cvBody,
             trailing: AppButton(
-              label: LocaleKeys.common_back.tr(),
+              label: AppTexts.commonBack,
               variant: AppButtonVariant.ghost,
               icon: Icons.arrow_back,
               onPressed: () => context.goNamed(AppRoutes.home),
@@ -67,7 +66,7 @@ class _CvActionsCard extends StatelessWidget {
                 SizedBox(
                   width: compact ? double.infinity : null,
                   child: AppButton(
-                    label: LocaleKeys.cv_view.tr(),
+                    label: AppTexts.cvView,
                     icon: Icons.open_in_new,
                     expanded: compact,
                     onPressed: () => cubit.openCvInNewTab(about?.cvUrl),
@@ -76,7 +75,7 @@ class _CvActionsCard extends StatelessWidget {
                 SizedBox(
                   width: compact ? double.infinity : null,
                   child: AppButton(
-                    label: LocaleKeys.cv_download.tr(),
+                    label: AppTexts.cvDownload,
                     icon: Icons.download,
                     variant: AppButtonVariant.secondary,
                     expanded: compact,

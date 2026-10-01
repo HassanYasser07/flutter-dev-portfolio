@@ -1,5 +1,4 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/constants/app_fonts.dart';
 import '../../../../core/constants/app_sizes.dart';
-import '../../../../core/constants/locale_keys.g.dart';
+import '../../../../core/constants/app_texts.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/utils/responsive.dart';
 import '../../../../core/widgets/app_button.dart';
@@ -84,14 +83,14 @@ class _HeroCopy extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          LocaleKeys.hero_kicker.tr().toUpperCase(),
+          AppTexts.heroKicker.toUpperCase(),
           style: AppFonts.label(bp).copyWith(color: scheme.secondary),
         ),
         const SizedBox(height: AppSizes.s12),
         Semantics(
           header: true,
           child: Text(
-            LocaleKeys.hero_name.tr(),
+            AppTexts.heroName,
             style: AppFonts.displayHero(bp).copyWith(color: scheme.onSurface),
           ),
         ),
@@ -103,7 +102,7 @@ class _HeroCopy extends StatelessWidget {
         ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 560),
           child: Text(
-            LocaleKeys.hero_subtitle.tr(),
+            AppTexts.heroSubtitle,
             style: AppFonts.body(bp).copyWith(color: scheme.onSurfaceVariant),
           ),
         ),
@@ -121,7 +120,7 @@ class _HeroCopy extends StatelessWidget {
             ),
             const SizedBox(width: AppSizes.s8),
             Text(
-              LocaleKeys.hero_availability.tr(),
+              AppTexts.heroAvailability,
               style: AppFonts.bodySmall(bp).copyWith(color: scheme.secondary),
             ),
           ],
@@ -149,9 +148,9 @@ class _HeroAnimatedRole extends StatelessWidget {
     );
 
     final roles = [
-      LocaleKeys.app_role.tr(),
-      LocaleKeys.experience_items_logofy_role.tr(),
-      LocaleKeys.experience_items_edutech_role.tr(),
+      AppTexts.appRole,
+      AppTexts.experienceLogofyRole,
+      AppTexts.experienceEdutechRole,
     ];
 
     if (!shouldAnimate(context)) {
@@ -164,7 +163,7 @@ class _HeroAnimatedRole extends StatelessWidget {
     return SizedBox(
       height: 32,
       child: AnimatedTextKit(
-        key: ValueKey('hero-animated-roles-${context.locale.languageCode}'),
+        key: const ValueKey('hero-animated-roles'),
         repeatForever: true,
         pause: const Duration(milliseconds: 1500),
         displayFullTextOnTap: true,
@@ -203,7 +202,7 @@ class _HeroActions extends StatelessWidget {
           SizedBox(
             width: compact ? double.infinity : null,
             child: AppButton(
-              label: LocaleKeys.hero_ctaProjects.tr(),
+              label: AppTexts.heroCtaProjects,
               expanded: compact,
               onPressed: () {
                 final anchors = HomeAnchorScope.maybeOf(context);
@@ -219,7 +218,7 @@ class _HeroActions extends StatelessWidget {
           SizedBox(
             width: compact ? double.infinity : null,
             child: AppButton(
-              label: LocaleKeys.hero_ctaContact.tr(),
+              label: AppTexts.heroCtaContact,
               variant: AppButtonVariant.secondary,
               expanded: compact,
               onPressed: () {
@@ -236,10 +235,10 @@ class _HeroActions extends StatelessWidget {
           SizedBox(
             width: compact ? double.infinity : null,
             child: AppButton(
-              label: LocaleKeys.cv_view.tr(),
+              label: AppTexts.cvView,
               variant: AppButtonVariant.ghost,
               icon: Icons.open_in_new,
-              tooltip: LocaleKeys.cv_view.tr(),
+              tooltip: AppTexts.cvView,
               expanded: compact,
               onPressed: () =>
                   context.read<CvCubit>().openCvInNewTab(about?.cvUrl),
@@ -248,10 +247,10 @@ class _HeroActions extends StatelessWidget {
           SizedBox(
             width: compact ? double.infinity : null,
             child: AppButton(
-              label: LocaleKeys.cv_download.tr(),
+              label: AppTexts.cvDownload,
               variant: AppButtonVariant.ghost,
               icon: Icons.download,
-              tooltip: LocaleKeys.cv_download.tr(),
+              tooltip: AppTexts.cvDownload,
               expanded: compact,
               onPressed: () => context.read<CvCubit>().downloadCv(about?.cvUrl),
             ),
@@ -279,7 +278,7 @@ class _HeroMonogram extends StatelessWidget {
 
     return Semantics(
       image: true,
-      label: LocaleKeys.hero_name.tr(),
+      label: AppTexts.heroName,
       child: Container(
         width: size,
         height: size,
@@ -315,12 +314,11 @@ class _HeroMonogram extends StatelessWidget {
                   'assets/images/profile.png',
                   fit: BoxFit.cover,
                   // alignment.y: -1.0 = top of image, 0.0 = center, +1.0 = bottom
-                  // تعديل القيمة الثانية لتحريك الاقتصاص لأعلى أو أسفل
                   alignment: const Alignment(0.0, -0.75),
                   errorBuilder: (context, error, stackTrace) {
                     return Center(
                       child: Text(
-                        LocaleKeys.hero_monogram.tr(),
+                        AppTexts.heroMonogram,
                         style: AppFonts.displayHero(bp).copyWith(
                           color: scheme.onSurface,
                           fontSize: size * 0.28,
@@ -362,7 +360,7 @@ class _HeroTitleWithAnimatedFlutter extends StatelessWidget {
       height: 1.25,
     );
 
-    final fullTitle = LocaleKeys.hero_title.tr();
+    final fullTitle = AppTexts.heroTitle;
     const flutterWord = 'Flutter';
 
     if (!fullTitle.contains(flutterWord)) {
@@ -464,19 +462,19 @@ class _HeroContactInfoRow extends StatelessWidget {
         ),
         _HeroContactItem(
           svgPath: 'assets/svgs/linkedin.svg',
-          label: LocaleKeys.contact_linkedin.tr(),
+          label: AppTexts.contactLinkedin,
           bp: bp,
           onTap: () => _launchUrlString(repository.linkedinUrl),
         ),
         _HeroContactItem(
           svgPath: 'assets/svgs/github (1).svg',
-          label: LocaleKeys.contact_github.tr(),
+          label: AppTexts.contactGithub,
           bp: bp,
           onTap: () => _launchUrlString(repository.githubUrl),
         ),
         _HeroContactItem(
           svgPath: 'assets/svgs/envelope.svg',
-          label: LocaleKeys.contact_email.tr(),
+          label: AppTexts.contactEmail,
           bp: bp,
           onTap: () => _launchUrlString(repository.email, isEmail: true),
         ),

@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,7 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/constants/app_fonts.dart';
 import '../../../../core/constants/app_sizes.dart';
-import '../../../../core/constants/locale_keys.g.dart';
+import '../../../../core/constants/app_texts.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/utils/responsive.dart';
 import '../../../../core/widgets/app_button.dart';
@@ -74,12 +73,12 @@ class _ContactSectionState extends State<ContactSection> {
       create: (context) => ContactCubit(repository: widget.repository),
       child: AppSection(
         id: 'contact',
-        eyebrow: LocaleKeys.contact_eyebrow.tr(),
-        title: LocaleKeys.contact_title.tr(),
-        subtitle: LocaleKeys.contact_body.tr(),
+        eyebrow: AppTexts.contactEyebrow,
+        title: AppTexts.contactTitle,
+        subtitle: AppTexts.contactBody,
         trailing: widget.showBackButton
             ? AppButton(
-                label: LocaleKeys.common_back.tr(),
+                label: AppTexts.commonBack,
                 variant: AppButtonVariant.ghost,
                 icon: Icons.arrow_back,
                 onPressed: () => context.goNamed(AppRoutes.home),
@@ -145,7 +144,7 @@ class _ContactSectionState extends State<ContactSection> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          LocaleKeys.contact_directContact.tr(),
+          AppTexts.contactDirectContact,
           style: AppFonts.title(bp).copyWith(color: scheme.onSurface),
         ),
         const SizedBox(height: AppSizes.s16),
@@ -154,7 +153,7 @@ class _ContactSectionState extends State<ContactSection> {
         AppCard(
           onPressed: () =>
               _launchUrlString(widget.repository.email, isEmail: true),
-          semanticLabel: LocaleKeys.contact_email.tr(),
+          semanticLabel: AppTexts.contactEmail,
           child: Row(
             children: [
               Container(
@@ -171,7 +170,7 @@ class _ContactSectionState extends State<ContactSection> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      LocaleKeys.contact_email.tr(),
+                      AppTexts.contactEmail,
                       style: AppFonts.label(bp)
                           .copyWith(color: scheme.onSurfaceVariant),
                     ),
@@ -196,7 +195,7 @@ class _ContactSectionState extends State<ContactSection> {
         // Phone / WhatsApp card
         AppCard(
           onPressed: () => _launchUrlString(widget.repository.whatsappUrl),
-          semanticLabel: LocaleKeys.contact_phone.tr(),
+          semanticLabel: AppTexts.contactPhone,
           child: Row(
             children: [
               Container(
@@ -213,7 +212,7 @@ class _ContactSectionState extends State<ContactSection> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      LocaleKeys.contact_phone.tr(),
+                      AppTexts.contactPhone,
                       style: AppFonts.label(bp)
                           .copyWith(color: scheme.onSurfaceVariant),
                     ),
@@ -236,7 +235,7 @@ class _ContactSectionState extends State<ContactSection> {
         const SizedBox(height: AppSizes.s24),
 
         Text(
-          LocaleKeys.contact_socials.tr(),
+          AppTexts.contactSocials,
           style: AppFonts.title(bp).copyWith(color: scheme.onSurface),
         ),
         const SizedBox(height: AppSizes.s16),
@@ -244,7 +243,7 @@ class _ContactSectionState extends State<ContactSection> {
         // GitHub Card
         AppCard(
           onPressed: () => _launchUrlString(widget.repository.githubUrl),
-          semanticLabel: LocaleKeys.contact_github.tr(),
+          semanticLabel: AppTexts.contactGithub,
           child: Row(
             children: [
               Container(
@@ -261,7 +260,7 @@ class _ContactSectionState extends State<ContactSection> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      LocaleKeys.contact_github.tr(),
+                      AppTexts.contactGithub,
                       style: AppFonts.label(bp)
                           .copyWith(color: scheme.onSurfaceVariant),
                     ),
@@ -286,7 +285,7 @@ class _ContactSectionState extends State<ContactSection> {
         // LinkedIn Card
         AppCard(
           onPressed: () => _launchUrlString(widget.repository.linkedinUrl),
-          semanticLabel: LocaleKeys.contact_linkedin.tr(),
+          semanticLabel: AppTexts.contactLinkedin,
           child: Row(
             children: [
               Container(
@@ -303,7 +302,7 @@ class _ContactSectionState extends State<ContactSection> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      LocaleKeys.contact_linkedin.tr(),
+                      AppTexts.contactLinkedin,
                       style: AppFonts.label(bp)
                           .copyWith(color: scheme.onSurfaceVariant),
                     ),
@@ -340,7 +339,7 @@ class _ContactSectionState extends State<ContactSection> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  state.successMessage ?? LocaleKeys.contact_success.tr(),
+                  state.successMessage ?? AppTexts.contactSuccess,
                 ),
                 backgroundColor: scheme.primary,
               ),
@@ -349,7 +348,7 @@ class _ContactSectionState extends State<ContactSection> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  state.errorMessage ?? LocaleKeys.contact_error.tr(),
+                  state.errorMessage ?? AppTexts.contactError,
                 ),
                 backgroundColor: scheme.error,
               ),
@@ -365,7 +364,7 @@ class _ContactSectionState extends State<ContactSection> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  LocaleKeys.contact_pageTitle.tr(),
+                  AppTexts.contactPageTitle,
                   style: AppFonts.title(bp).copyWith(color: scheme.onSurface),
                 ),
                 const SizedBox(height: AppSizes.s24),
@@ -374,14 +373,14 @@ class _ContactSectionState extends State<ContactSection> {
                 TextFormField(
                   controller: _nameController,
                   enabled: !isSending,
-                  decoration: InputDecoration(
-                    labelText: LocaleKeys.contact_name.tr(),
-                    hintText: LocaleKeys.contact_nameHint.tr(),
-                    prefixIcon: const Icon(Icons.person_outline),
+                  decoration: const InputDecoration(
+                    labelText: AppTexts.contactName,
+                    hintText: AppTexts.contactNameHint,
+                    prefixIcon: Icon(Icons.person_outline),
                   ),
                   validator: (val) {
                     if (val == null || val.trim().isEmpty) {
-                      return LocaleKeys.contact_validationRequired.tr();
+                      return AppTexts.contactValidationRequired;
                     }
                     return null;
                   },
@@ -393,14 +392,14 @@ class _ContactSectionState extends State<ContactSection> {
                   controller: _emailController,
                   enabled: !isSending,
                   keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    labelText: LocaleKeys.contact_email.tr(),
-                    hintText: LocaleKeys.contact_emailHint.tr(),
-                    prefixIcon: const Icon(Icons.email_outlined),
+                  decoration: const InputDecoration(
+                    labelText: AppTexts.contactEmail,
+                    hintText: AppTexts.contactEmailHint,
+                    prefixIcon: Icon(Icons.email_outlined),
                   ),
                   validator: (val) {
                     if (val == null || val.trim().isEmpty) {
-                      return LocaleKeys.contact_validationRequired.tr();
+                      return AppTexts.contactValidationRequired;
                     }
                     return null;
                   },
@@ -412,17 +411,17 @@ class _ContactSectionState extends State<ContactSection> {
                   controller: _messageController,
                   enabled: !isSending,
                   maxLines: 4,
-                  decoration: InputDecoration(
-                    labelText: LocaleKeys.contact_message.tr(),
-                    hintText: LocaleKeys.contact_messageHint.tr(),
-                    prefixIcon: const Padding(
+                  decoration: const InputDecoration(
+                    labelText: AppTexts.contactMessage,
+                    hintText: AppTexts.contactMessageHint,
+                    prefixIcon: Padding(
                       padding: EdgeInsets.only(bottom: 60),
                       child: Icon(Icons.chat_bubble_outline),
                     ),
                   ),
                   validator: (val) {
                     if (val == null || val.trim().isEmpty) {
-                      return LocaleKeys.contact_validationRequired.tr();
+                      return AppTexts.contactValidationRequired;
                     }
                     return null;
                   },
@@ -485,8 +484,8 @@ class _ContactSectionState extends State<ContactSection> {
                 // Submit Button
                 AppButton(
                   label: isSending
-                      ? LocaleKeys.contact_sending.tr()
-                      : LocaleKeys.contact_send.tr(),
+                      ? AppTexts.contactSending
+                      : AppTexts.contactSend,
                   variant: AppButtonVariant.primary,
                   icon: isSending ? null : Icons.send,
                   expanded: bp == AppBreakpoint.mobile,

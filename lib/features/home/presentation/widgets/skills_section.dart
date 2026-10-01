@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,7 +5,7 @@ import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../../core/constants/app_fonts.dart';
 import '../../../../core/constants/app_sizes.dart';
-import '../../../../core/constants/locale_keys.g.dart';
+import '../../../../core/constants/app_texts.dart';
 import '../../../../core/utils/responsive.dart';
 import '../../../../core/widgets/app_section.dart';
 import '../bloc/skills_cubit.dart';
@@ -35,9 +34,9 @@ class _SkillsSectionState extends State<SkillsSection> {
       },
       child: AppSection(
         id: 'skills',
-        eyebrow: LocaleKeys.skills_eyebrow.tr(),
-        title: LocaleKeys.skills_title.tr(),
-        subtitle: LocaleKeys.skills_body.tr(),
+        eyebrow: AppTexts.skillsEyebrow,
+        title: AppTexts.skillsTitle,
+        subtitle: AppTexts.skillsBody,
         child: BlocBuilder<SkillsCubit, SkillsState>(
           builder: (context, state) {
             if (state.status == SkillsStatus.loading ||

@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,7 +6,7 @@ import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../../core/constants/app_fonts.dart';
 import '../../../../core/constants/app_sizes.dart';
-import '../../../../core/constants/locale_keys.g.dart';
+import '../../../../core/constants/app_texts.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/utils/responsive.dart';
 import '../../../../core/widgets/app_button.dart';
@@ -38,11 +37,11 @@ class _ProjectsSectionState extends State<ProjectsSection> {
       },
       child: AppSection(
         id: 'projects',
-        eyebrow: LocaleKeys.projects_eyebrow.tr(),
-        title: LocaleKeys.projects_title.tr(),
-        subtitle: LocaleKeys.projects_body.tr(),
+        eyebrow: AppTexts.projectsEyebrow,
+        title: AppTexts.projectsTitle,
+        subtitle: AppTexts.projectsBody,
         trailing: AppButton(
-          label: LocaleKeys.projects_viewAll.tr(),
+          label: AppTexts.projectsViewAll,
           variant: AppButtonVariant.secondary,
           onPressed: () => context.goNamed(AppRoutes.projects),
         ),

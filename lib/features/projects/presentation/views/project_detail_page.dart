@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -6,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/constants/app_fonts.dart';
 import '../../../../core/constants/app_sizes.dart';
-import '../../../../core/constants/locale_keys.g.dart';
+import '../../../../core/constants/app_texts.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/utils/responsive.dart';
 import '../../../../core/widgets/app_button.dart';
@@ -60,11 +59,11 @@ class ProjectDetailPage extends StatelessWidget {
         children: [
           AppSection(
             id: 'project-detail-loading',
-            eyebrow: LocaleKeys.projects_eyebrow.tr(),
-            title: LocaleKeys.projects_detailTitle.tr(),
+            eyebrow: AppTexts.projectsEyebrow,
+            title: AppTexts.projectsDetailTitle,
             subtitle: '',
             trailing: AppButton(
-              label: LocaleKeys.common_back.tr(),
+              label: AppTexts.commonBack,
               variant: AppButtonVariant.ghost,
               icon: Icons.arrow_back,
               onPressed: () => context.goNamed(AppRoutes.projects),
@@ -86,11 +85,11 @@ class ProjectDetailPage extends StatelessWidget {
         children: [
           AppSection(
             id: 'project-detail-not-found',
-            eyebrow: LocaleKeys.projects_eyebrow.tr(),
-            title: LocaleKeys.projects_detailTitle.tr(),
-            subtitle: LocaleKeys.projects_notFound.tr(),
+            eyebrow: AppTexts.projectsEyebrow,
+            title: AppTexts.projectsDetailTitle,
+            subtitle: AppTexts.projectsNotFound,
             trailing: AppButton(
-              label: LocaleKeys.common_back.tr(),
+              label: AppTexts.commonBack,
               variant: AppButtonVariant.ghost,
               icon: Icons.arrow_back,
               onPressed: () => context.goNamed(AppRoutes.projects),
@@ -111,11 +110,11 @@ class ProjectDetailPage extends StatelessWidget {
         children: [
           AppSection(
             id: 'project-detail',
-            eyebrow: LocaleKeys.projects_eyebrow.tr(),
+            eyebrow: AppTexts.projectsEyebrow,
             title: project.title,
             subtitle: project.description,
             trailing: AppButton(
-              label: LocaleKeys.common_back.tr(),
+              label: AppTexts.commonBack,
               variant: AppButtonVariant.ghost,
               icon: Icons.arrow_back,
               onPressed: () => context.goNamed(AppRoutes.projects),
@@ -167,7 +166,7 @@ class ProjectDetailPage extends StatelessWidget {
                     if (project.videoUrl != null &&
                         project.videoUrl!.isNotEmpty) ...[
                       Text(
-                        LocaleKeys.projects_demoVideo.tr(),
+                        AppTexts.projectsDemoVideo,
                         style: AppFonts.heading(bp).copyWith(
                           color: scheme.onSurface,
                         ),
@@ -188,7 +187,7 @@ class ProjectDetailPage extends StatelessWidget {
                       children: [
                         if (project.githubUrl != null)
                           AppButton(
-                            label: LocaleKeys.projects_githubLabel.tr(),
+                            label: AppTexts.projectsGithubLabel,
                             variant: AppButtonVariant.secondary,
                             icon: Icons.code,
                             onPressed: () async {
@@ -203,7 +202,7 @@ class ProjectDetailPage extends StatelessWidget {
                           ),
                         if (project.liveUrl != null)
                           AppButton(
-                            label: LocaleKeys.projects_liveLabel.tr(),
+                            label: AppTexts.projectsLiveLabel,
                             variant: AppButtonVariant.ghost,
                             icon: Icons.open_in_new,
                             onPressed: () async {
@@ -218,7 +217,7 @@ class ProjectDetailPage extends StatelessWidget {
                           ),
                         if (project.imageUrls.isNotEmpty)
                           AppButton(
-                            label: LocaleKeys.projects_galleryTitle.tr(),
+                            label: AppTexts.projectsGalleryTitle,
                             variant: AppButtonVariant.ghost,
                             icon: Icons.fullscreen,
                             onPressed: () => context.goNamed(
@@ -262,13 +261,13 @@ class ProjectGalleryPage extends StatelessWidget {
               children: [
                 AppSection(
                   id: 'project-gallery-fullscreen',
-                  eyebrow: LocaleKeys.projects_eyebrow.tr(),
+                  eyebrow: AppTexts.projectsEyebrow,
                   title: project != null
                       ? project.title
-                      : LocaleKeys.projects_galleryTitle.tr(),
-                  subtitle: LocaleKeys.projects_galleryTitle.tr(),
+                      : AppTexts.projectsGalleryTitle,
+                  subtitle: AppTexts.projectsGalleryTitle,
                   trailing: AppButton(
-                    label: LocaleKeys.common_close.tr(),
+                    label: AppTexts.commonClose,
                     variant: AppButtonVariant.ghost,
                     icon: Icons.close,
                     onPressed: () => context.goNamed(

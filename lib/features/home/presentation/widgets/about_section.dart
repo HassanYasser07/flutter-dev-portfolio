@@ -1,10 +1,9 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/constants/app_fonts.dart';
 import '../../../../core/constants/app_sizes.dart';
-import '../../../../core/constants/locale_keys.g.dart';
+import '../../../../core/constants/app_texts.dart';
 import '../../../../core/utils/responsive.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/app_section.dart';
@@ -44,11 +43,6 @@ class _AboutContent extends StatelessWidget {
 
   final AboutModel? about;
 
-  String _trText(String rawKeyOrText) {
-    if (rawKeyOrText.trim().isEmpty) return '';
-    return rawKeyOrText.tr();
-  }
-
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
@@ -59,8 +53,8 @@ class _AboutContent extends StatelessWidget {
         final isDesktop = constraints.maxWidth > 1000;
 
         final bodyText = (about != null && about!.description.isNotEmpty)
-            ? _trText(about!.description)
-            : LocaleKeys.about_body.tr();
+            ? about!.description
+            : AppTexts.aboutBody;
 
         final hasImage =
             about?.imageUrl != null && about!.imageUrl!.trim().isNotEmpty;
@@ -68,8 +62,8 @@ class _AboutContent extends StatelessWidget {
         final leftItem = _buildAboutItem(
           context: context,
           maxWidth: isDesktop ? 490 : double.infinity,
-          title: LocaleKeys.about_me.tr(),
-          subTitle: LocaleKeys.about_whoIAm.tr(),
+          title: AppTexts.aboutMe,
+          subTitle: AppTexts.aboutWhoIAm,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -100,18 +94,18 @@ class _AboutContent extends StatelessWidget {
                 runSpacing: AppSizes.s12,
                 children: [
                   AppButton(
-                    label: LocaleKeys.cv_view.tr(),
+                    label: AppTexts.cvView,
                     variant: AppButtonVariant.secondary,
                     icon: Icons.open_in_new,
-                    tooltip: LocaleKeys.cv_view.tr(),
+                    tooltip: AppTexts.cvView,
                     onPressed: () =>
                         context.read<CvCubit>().openCvInNewTab(about?.cvUrl),
                   ),
                   AppButton(
-                    label: LocaleKeys.cv_download.tr(),
+                    label: AppTexts.cvDownload,
                     variant: AppButtonVariant.ghost,
                     icon: Icons.download,
-                    tooltip: LocaleKeys.cv_download.tr(),
+                    tooltip: AppTexts.cvDownload,
                     onPressed: () =>
                         context.read<CvCubit>().downloadCv(about?.cvUrl),
                   ),
@@ -124,8 +118,8 @@ class _AboutContent extends StatelessWidget {
         final rightItem = _buildAboutItem(
           context: context,
           maxWidth: isDesktop ? 500 : double.infinity,
-          title: LocaleKeys.about_techStack.tr(),
-          subTitle: LocaleKeys.about_whatImGoodAt.tr(),
+          title: AppTexts.aboutTechStack,
+          subTitle: AppTexts.aboutWhatImGoodAt,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -137,13 +131,13 @@ class _AboutContent extends StatelessWidget {
                   final isRow = subConstraints.maxWidth >= 480;
                   final specialtyWidget = _buildAboutItem(
                     context: context,
-                    title: LocaleKeys.about_specialty.tr(),
-                    subTitle: LocaleKeys.about_specialtyValue.tr(),
+                    title: AppTexts.aboutSpecialty,
+                    subTitle: AppTexts.aboutSpecialtyValue,
                   );
                   final educationWidget = _buildAboutItem(
                     context: context,
-                    title: LocaleKeys.about_education.tr(),
-                    subTitle: LocaleKeys.about_educationValue.tr(),
+                    title: AppTexts.aboutEducation,
+                    subTitle: AppTexts.aboutEducationValue,
                   );
 
                   if (isRow) {

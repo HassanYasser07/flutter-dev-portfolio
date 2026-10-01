@@ -1,10 +1,9 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/constants/app_fonts.dart';
 import '../../../../core/constants/app_sizes.dart';
-import '../../../../core/constants/locale_keys.g.dart';
+import '../../../../core/constants/app_texts.dart';
 import '../../../../core/utils/responsive.dart';
 import '../../../../core/widgets/app_icon_button.dart';
 import '../../../contact/data/contact_repository.dart';
@@ -50,7 +49,7 @@ class FooterWidget extends StatelessWidget {
               compact ? CrossAxisAlignment.center : CrossAxisAlignment.start,
           children: [
             Text(
-              LocaleKeys.app_name.tr(),
+              AppTexts.appName,
               style: AppFonts.button(bp).copyWith(
                 color: scheme.onSurface,
                 fontWeight: FontWeight.w600,
@@ -58,7 +57,7 @@ class FooterWidget extends StatelessWidget {
             ),
             const SizedBox(height: AppSizes.s4),
             Text(
-              LocaleKeys.footer_copyright.tr(),
+              AppTexts.footerCopyright,
               style: AppFonts.bodySmall(bp).copyWith(
                 color: scheme.onSurfaceVariant,
               ),
@@ -71,20 +70,20 @@ class FooterWidget extends StatelessWidget {
           children: [
             AppIconButton(
               icon: Icons.email_outlined,
-              tooltip: LocaleKeys.contact_email.tr(),
+              tooltip: AppTexts.contactEmail,
               onPressed: () =>
                   _launchUrlString(repository.email, isEmail: true),
             ),
             const SizedBox(width: AppSizes.s8),
             AppIconButton(
               icon: Icons.code,
-              tooltip: LocaleKeys.contact_github.tr(),
+              tooltip: AppTexts.contactGithub,
               onPressed: () => _launchUrlString(repository.githubUrl),
             ),
             const SizedBox(width: AppSizes.s8),
             AppIconButton(
               icon: Icons.work_outline,
-              tooltip: LocaleKeys.contact_linkedin.tr(),
+              tooltip: AppTexts.contactLinkedin,
               onPressed: () => _launchUrlString(repository.linkedinUrl),
             ),
           ],
@@ -94,7 +93,7 @@ class FooterWidget extends StatelessWidget {
             ? const SizedBox.shrink()
             : AppIconButton(
                 icon: Icons.arrow_upward,
-                tooltip: LocaleKeys.footer_backToTop.tr(),
+                tooltip: AppTexts.footerBackToTop,
                 onPressed: onBackToTop,
               );
 

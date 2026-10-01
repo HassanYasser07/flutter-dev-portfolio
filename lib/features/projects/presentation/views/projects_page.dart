@@ -1,11 +1,10 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_fonts.dart';
 import '../../../../core/constants/app_sizes.dart';
-import '../../../../core/constants/locale_keys.g.dart';
+import '../../../../core/constants/app_texts.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/utils/responsive.dart';
 import '../../../../core/widgets/app_button.dart';
@@ -26,11 +25,11 @@ class ProjectsPage extends StatelessWidget {
         children: [
           AppSection(
             id: 'projects-page',
-            eyebrow: LocaleKeys.projects_eyebrow.tr(),
-            title: LocaleKeys.projects_title.tr(),
-            subtitle: LocaleKeys.projects_body.tr(),
+            eyebrow: AppTexts.projectsEyebrow,
+            title: AppTexts.projectsTitle,
+            subtitle: AppTexts.projectsBody,
             trailing: AppButton(
-              label: LocaleKeys.common_back.tr(),
+              label: AppTexts.commonBack,
               variant: AppButtonVariant.ghost,
               icon: Icons.arrow_back,
               onPressed: () => context.goNamed(AppRoutes.home),
@@ -57,8 +56,7 @@ class ProjectsPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            state.errorMessage ??
-                                LocaleKeys.projects_notFound.tr(),
+                            state.errorMessage ?? AppTexts.projectsNotFound,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium
@@ -68,7 +66,7 @@ class ProjectsPage extends StatelessWidget {
                           ),
                           const SizedBox(height: AppSizes.s16),
                           AppButton(
-                            label: LocaleKeys.common_back.tr(),
+                            label: AppTexts.commonBack,
                             variant: AppButtonVariant.secondary,
                             onPressed: () => cubit.loadProjects(),
                           ),
@@ -99,7 +97,7 @@ class ProjectsPage extends StatelessWidget {
                         ),
                         child: Center(
                           child: Text(
-                            LocaleKeys.projects_empty.tr(),
+                            AppTexts.projectsEmpty,
                             style:
                                 AppFonts.body(AppBreakpoint.desktop).copyWith(
                               color: Theme.of(context)
@@ -269,7 +267,7 @@ class _TagFilterBar extends StatelessWidget {
 
         return ChoiceChip(
           label: Text(
-            tag == 'all' ? LocaleKeys.projects_viewAll.tr() : tag,
+            tag == 'all' ? AppTexts.projectsViewAll : tag,
             style: Theme.of(context).textTheme.labelMedium?.copyWith(
                   color: isSelected ? scheme.onPrimary : scheme.onSurface,
                 ),

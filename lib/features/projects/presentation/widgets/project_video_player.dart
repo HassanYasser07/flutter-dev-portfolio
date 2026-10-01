@@ -1,11 +1,10 @@
 import 'package:chewie/chewie.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/constants/app_fonts.dart';
 import '../../../../core/constants/app_sizes.dart';
-import '../../../../core/constants/locale_keys.g.dart';
+import '../../../../core/constants/app_texts.dart';
 import '../../../../core/utils/responsive.dart';
 import '../bloc/video_player_cubit.dart';
 import '../bloc/video_player_state.dart';
@@ -113,7 +112,7 @@ class _ProjectVideoPlayerContent extends StatelessWidget {
                     ),
                     icon: const Icon(Icons.play_arrow, size: 28),
                     label: Text(
-                      LocaleKeys.projects_playDemo.tr(),
+                      AppTexts.projectsPlayDemo,
                       style: AppFonts.button(bp),
                     ),
                     onPressed: () => cubit.initialize(videoAsset),
@@ -142,7 +141,7 @@ class _ProjectVideoPlayerContent extends StatelessWidget {
                       const CircularProgressIndicator(color: Colors.white),
                       const SizedBox(height: AppSizes.s16),
                       Text(
-                        LocaleKeys.projects_loadingVideo.tr(),
+                        AppTexts.projectsLoadingVideo,
                         style: const TextStyle(color: Colors.white),
                       ),
                     ],
@@ -169,7 +168,7 @@ class _ProjectVideoPlayerContent extends StatelessWidget {
                       ),
                       const SizedBox(height: AppSizes.s12),
                       Text(
-                        LocaleKeys.projects_videoError.tr(),
+                        AppTexts.projectsVideoError,
                         style: AppFonts.title(bp).copyWith(color: scheme.error),
                       ),
                       const SizedBox(height: AppSizes.s8),
@@ -183,7 +182,7 @@ class _ProjectVideoPlayerContent extends StatelessWidget {
                       const SizedBox(height: AppSizes.s16),
                       OutlinedButton.icon(
                         icon: const Icon(Icons.refresh),
-                        label: Text(LocaleKeys.projects_retry.tr()),
+                        label: Text(AppTexts.projectsRetry),
                         onPressed: () => cubit.initialize(videoAsset),
                       ),
                     ],
