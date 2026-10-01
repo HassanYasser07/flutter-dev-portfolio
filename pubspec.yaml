@@ -45,7 +45,7 @@ flutter:
   - assets/images/projects/
   - assets/images/projects/logo_maker/
   - assets/icons/
-  - assets/videos/projects/
+  - assets/svgs/
 #  assets:
 #    - assets/translations/
 #    - assets/images/

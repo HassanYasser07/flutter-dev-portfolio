@@ -1,9 +1,11 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/constants/app_fonts.dart';
 import '../../../../core/constants/app_sizes.dart';
@@ -11,6 +13,7 @@ import '../../../../core/constants/locale_keys.g.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/utils/responsive.dart';
 import '../../../../core/widgets/app_button.dart';
+import '../../../contact/data/contact_repository.dart';
 import '../../../cv/presentation/bloc/cv_cubit.dart';
 import '../../../cv/presentation/bloc/cv_state.dart';
 import '../bloc/about_cubit.dart';
@@ -125,6 +128,8 @@ class _HeroCopy extends StatelessWidget {
         ),
         const SizedBox(height: AppSizes.s32),
         _HeroActions(compact: compact),
+        const SizedBox(height: AppSizes.s32),
+        _HeroContactInfoRow(bp: bp),
       ],
     );
   }
@@ -266,44 +271,72 @@ class _HeroMonogram extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final size = switch (bp) {
-      AppBreakpoint.mobile => 220.0,
-      AppBreakpoint.tablet => 280.0,
-      AppBreakpoint.laptop => 320.0,
-      AppBreakpoint.desktop => 360.0,
+      AppBreakpoint.mobile => 170.0,
+      AppBreakpoint.tablet => 210.0,
+      AppBreakpoint.laptop => 240.0,
+      AppBreakpoint.desktop => 270.0,
     };
 
     return Semantics(
       image: true,
       label: LocaleKeys.hero_name.tr(),
-      child: SizedBox(
+      child: Container(
         width: size,
         height: size,
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            color: scheme.surface,
-            borderRadius: BorderRadius.circular(AppSizes.radiusXl),
-            border: Border.all(color: scheme.outline),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: scheme.surface,
+          border: Border.all(
+            color: scheme.outline,
+            width: 2,
           ),
+          boxShadow: [
+            BoxShadow(
+              color: scheme.shadow.withValues(alpha: 0.1),
+              blurRadius: 24,
+              offset: const Offset(0, 8),
+            ),
+            BoxShadow(
+              color: scheme.primary.withValues(alpha: 0.08),
+              blurRadius: 16,
+              spreadRadius: 2,
+            ),
+          ],
+        ),
+        padding: const EdgeInsets.all(AppSizes.s8),
+        child: ClipOval(
           child: Stack(
+            clipBehavior: Clip.none,
+            fit: StackFit.expand,
             children: [
-              Positioned.fill(
-                child: Padding(
-                  padding: const EdgeInsets.all(AppSizes.s24),
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(AppSizes.radiusLg),
-                      border: Border.all(color: scheme.outline),
-                    ),
-                  ),
+              Transform.translate(
+                offset: const Offset(6.0, 0.0),
+                child: Image.asset(
+                  'assets/images/profile.png',
+                  fit: BoxFit.cover,
+                  // alignment.y: -1.0 = top of image, 0.0 = center, +1.0 = bottom
+                  // تعديل القيمة الثانية لتحريك الاقتصاص لأعلى أو أسفل
+                  alignment: const Alignment(0.0, -0.75),
+                  errorBuilder: (context, error, stackTrace) {
+                    return Center(
+                      child: Text(
+                        LocaleKeys.hero_monogram.tr(),
+                        style: AppFonts.displayHero(bp).copyWith(
+                          color: scheme.onSurface,
+                          fontSize: size * 0.28,
+                          height: 1,
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
-              Center(
-                child: Text(
-                  LocaleKeys.hero_monogram.tr(),
-                  style: AppFonts.displayHero(bp).copyWith(
-                    color: scheme.onSurface,
-                    fontSize: size * 0.28,
-                    height: 1,
+              Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: scheme.outline.withValues(alpha: 0.3),
+                    width: 1,
                   ),
                 ),
               ),
@@ -390,6 +423,143 @@ class _HeroTitleWithAnimatedFlutter extends StatelessWidget {
           flutterWidget,
           if (suffix.isNotEmpty) Text(suffix, style: baseStyle),
         ],
+      ),
+    );
+  }
+}
+
+class _HeroContactInfoRow extends StatelessWidget {
+  const _HeroContactInfoRow({
+    required this.bp,
+  });
+
+  final AppBreakpoint bp;
+  static const repository = ContactRepository();
+
+  Future<void> _launchUrlString(String urlString,
+      {bool isEmail = false}) async {
+    final uri =
+        isEmail ? Uri.parse('mailto:$urlString') : Uri.tryParse(urlString);
+    if (uri != null && await canLaunchUrl(uri)) {
+      await launchUrl(
+        uri,
+        mode: isEmail
+            ? LaunchMode.platformDefault
+            : LaunchMode.externalApplication,
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: AppSizes.s24,
+      runSpacing: AppSizes.s12,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        _HeroContactItem(
+          svgPath: 'assets/svgs/location.svg',
+          label: 'Alexandria, Egypt',
+          bp: bp,
+        ),
+        _HeroContactItem(
+          svgPath: 'assets/svgs/linkedin.svg',
+          label: LocaleKeys.contact_linkedin.tr(),
+          bp: bp,
+          onTap: () => _launchUrlString(repository.linkedinUrl),
+        ),
+        _HeroContactItem(
+          svgPath: 'assets/svgs/github (1).svg',
+          label: LocaleKeys.contact_github.tr(),
+          bp: bp,
+          onTap: () => _launchUrlString(repository.githubUrl),
+        ),
+        _HeroContactItem(
+          svgPath: 'assets/svgs/envelope.svg',
+          label: LocaleKeys.contact_email.tr(),
+          bp: bp,
+          onTap: () => _launchUrlString(repository.email, isEmail: true),
+        ),
+      ],
+    );
+  }
+}
+
+class _HeroContactItem extends StatefulWidget {
+  const _HeroContactItem({
+    required this.svgPath,
+    required this.label,
+    required this.bp,
+    this.onTap,
+  });
+
+  final String svgPath;
+  final String label;
+  final AppBreakpoint bp;
+  final VoidCallback? onTap;
+
+  @override
+  State<_HeroContactItem> createState() => _HeroContactItemState();
+}
+
+class _HeroContactItemState extends State<_HeroContactItem> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final compact = widget.bp == AppBreakpoint.mobile;
+    final isClickable = widget.onTap != null;
+
+    final defaultColor = scheme.onSurfaceVariant;
+    final hoverColor = scheme.secondary;
+
+    final targetColor = (isClickable && _isHovered) ? hoverColor : defaultColor;
+
+    final child = TweenAnimationBuilder<Color?>(
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.easeOutCubic,
+      tween: ColorTween(end: targetColor),
+      builder: (context, color, _) {
+        final currentColor = color ?? defaultColor;
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SvgPicture.asset(
+              widget.svgPath,
+              width: compact ? 16 : 18,
+              height: compact ? 16 : 18,
+              colorFilter: ColorFilter.mode(
+                currentColor,
+                BlendMode.srcIn,
+              ),
+            ),
+            const SizedBox(width: AppSizes.s8),
+            Text(
+              widget.label,
+              style: AppFonts.bodySmall(widget.bp).copyWith(
+                color: currentColor,
+                fontWeight: (isClickable && _isHovered)
+                    ? FontWeight.w600
+                    : FontWeight.w500,
+              ),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (!isClickable) {
+      return child;
+    }
+
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: child,
       ),
     );
   }
